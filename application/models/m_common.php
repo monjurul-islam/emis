@@ -59,6 +59,11 @@ class M_common extends CI_Model
 		return $this->db->get_where('users', array('id'=>$user_id))->row()->username;
 	}
 	
+	function status_text($status)
+	{
+		if($status==1) return '<span style="color:green;">Active</span>'; else return '<span style="color:red;">Disabled</span>';
+	}
+	
 }
 
 /* End of file m_common.php */

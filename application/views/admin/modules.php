@@ -31,7 +31,7 @@
 		foreach($qry_result as $qry_res)
 		{
 			echo '<tr/>
-					  <td>'.$qry_res->id.'</td>
+					  <td><strong>'.$qry_res->id.'</strong></td>
 					  <td>'.$qry_res->name.'</td>
 					  <td>'.$qry_res->type.'</td>
 					  <td>'.$qry_res->url_alias.'</td>
@@ -39,8 +39,8 @@
 					  <td>'.$qry_res->created_dt.'</td>
 					  <td>'.$qry_res->modified_by.'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_res->modified_by).'</td>
-					  <td>'.$qry_res->status.'</td>
-					  <td> Edit</td>
+					  <td>'.$this->m_common->status_text($qry_res->status).'</td>
+					  <td> <a href="'.base_url().'admin/edit_module/'.$qry_res->id.'">Edit</a> <a style="color:red;"  href="'.base_url().'admin/delete_module/'.$qry_res->id.'">Delete</a></td>
 				  </tr>';
 		}
 	}

@@ -111,6 +111,46 @@ class Admin extends CI_Controller
 		}
 	}
 	
+	function edit_module()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('update_module'))
+			{
+				$update_module = $this->m_admin->update_module();
+				
+				if($update_module['id']!=NULL || $update_module['id']!="")
+				{
+					$data['content']	= $this->load->view('admin/new_module', $update_module, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_module', '', true);
+				}
+			}
+			elseif($this->uri->segment(3,0)!="")
+			{
+				$data['content']	= $this->load->view('admin/edit_module', $this->m_admin->module_by_id($this->uri->segment(3,0)), true);
+			}
+					
+			$data['page_title']		= 'Admin: Module';			
+			$data['content_title']	= 'Manage Modules';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
 	
 	
 }
