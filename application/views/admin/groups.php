@@ -1,12 +1,12 @@
 <!--/**
- * module view
+ * group view
  *
- * This view takes all data of module table and parse in this view as necessary
+ * This view takes all data of group table and parse in this view as necessary
  *
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h2>All Modules <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/add_module">Create New</a></h2> 
+<h2>All groups <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/add_group">Create New</a></h2> 
 <hr/>
 <table class="table table-bordered table-striped">
   <thead>
@@ -14,7 +14,6 @@
       <th>ID</th>
       <th>Name</th>
       <th>Type</th>
-      <th>URL ALIAS</th>
       <th>Created by</th>
       <th>Created dt</th>
       <th>Modif. by</th>
@@ -34,13 +33,12 @@
 					  <td><strong>'.$qry_res->id.'</strong></td>
 					  <td>'.$qry_res->name.'</td>
 					  <td>'.$qry_res->type.'</td>
-					  <td>'.$qry_res->url_alias.'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_res->created_by).'</td>
 					  <td>'.$qry_res->created_dt.'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_res->modified_by).'</td>
 					   <td>'.$qry_res->modified_dt.'</td>
 					  <td>'.$this->m_common->status_text($qry_res->status).'</td>
-					  <td> <a href="'.base_url().'admin/edit_module/'.$qry_res->id.'">Edit</a> <a style="color:red;"  href="'.base_url().'admin/delete_module/'.$qry_res->id.'">Delete</a></td>
+					  <td> <a href="'.base_url().'admin/edit_group/'.$qry_res->id.'">Edit</a> <a style="color:red;"  href="'.base_url().'admin/delete_group/'.$qry_res->id.'">Delete</a></td>
 				  </tr>';
 		}
 	}

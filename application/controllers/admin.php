@@ -47,6 +47,8 @@ class Admin extends CI_Controller
 		}
 	}
 	
+	//---------------- area started for module management --------------------------//
+	
 	function module()
 	{
 		if (!$this->tank_auth->is_logged_in()) {
@@ -89,7 +91,7 @@ class Admin extends CI_Controller
 			{
 				$new_module = $this->m_admin->add_module();
 				
-				if($new_module['id']!=NULL || $new_module['id']!="")
+				if($new_module['qry_success']==1)
 				{
 					$data['content']	= $this->load->view('admin/new_module', $new_module, true);
 				}
@@ -111,7 +113,156 @@ class Admin extends CI_Controller
 		}
 	}
 	
+	function edit_module()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('update_module'))
+			{
+				$update_module = $this->m_admin->update_module();
+				
+				if($update_module['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('admin/new_module', $update_module, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_module', '', true);
+				}
+			}
+			elseif($this->uri->segment(3,0)!="")
+			{
+				$data['content']	= $this->load->view('admin/edit_module', $this->m_admin->module_by_id($this->uri->segment(3,0)), true);
+			}
+					
+			$data['page_title']		= 'Admin: Module';			
+			$data['content_title']	= 'Manage Modules';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
 	
+	//---------------------------------- area end for module management --------------------------------------------//
+	
+	//-----------------------------------******************************---------------------------------------------//
+	
+	//---------------- area started for group management --------------------------//
+	
+	function group()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();
+			
+			$data['content']	= $this->load->view('admin/groups', $this->m_admin->groups(), true);
+			
+			$data['page_title']		= 'Admin: group';			
+			$data['content_title']	= 'Manage groups';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	function add_group()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('add_group'))
+			{
+				$new_group = $this->m_admin->add_group();
+				
+				if($new_group['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('admin/new_group', $new_group, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_group', '', true);
+				}
+			}
+			else
+			{
+				$data['content']	= $this->load->view('admin/add_group', '', true);
+			}
+					
+			$data['page_title']		= 'Admin: group';			
+			$data['content_title']	= 'Manage groups';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	function edit_group()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('update_group'))
+			{
+				$update_group = $this->m_admin->update_group();
+				
+				if($update_group['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('admin/new_group', $update_group, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_group', '', true);
+				}
+			}
+			elseif($this->uri->segment(3,0)!="")
+			{
+				$data['content']	= $this->load->view('admin/edit_group', $this->m_admin->group_by_id($this->uri->segment(3,0)), true);
+			}
+					
+			$data['page_title']		= 'Admin: group';			
+			$data['content_title']	= 'Manage groups';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	//---------------------------------- area end for group management --------------------------------------------//
 	
 }
 
