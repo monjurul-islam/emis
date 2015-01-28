@@ -55,7 +55,8 @@ class M_common extends CI_Model
 	
 	function get_username_by_id($user_id)
 	{
-		return $this->db->get_where('users', array('id'=>$id))->row()->username;
+		if($user_id!=0)
+		return $this->db->get_where('users', array('id'=>$user_id))->row()->username;
 	}
 	
 }

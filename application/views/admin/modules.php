@@ -38,7 +38,7 @@
 					  <td>'.$this->m_common->get_username_by_id($qry_res->created_by).'</td>
 					  <td>'.$qry_res->created_dt.'</td>
 					  <td>'.$qry_res->modified_by.'</td>
-					  <td>'.$qry_res->modified_dt.'</td>
+					  <td>'.$this->m_common->get_username_by_id($qry_res->modified_by).'</td>
 					  <td>'.$qry_res->status.'</td>
 					  <td> Edit</td>
 				  </tr>';
