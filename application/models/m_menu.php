@@ -51,7 +51,7 @@ class M_menu extends CI_Model
 						<li class="dropdown"> <a style="color:palegoldenrod;" aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">'.strtoupper($this->tank_auth->get_username()).'<span class="caret"></span></a>
 						  <ul role="menu" class="dropdown-menu">
 							<li ><a style=" color:sienna;" href="'.base_url().'user"><strong>Manage Users</strong></a></li>
-							<li ><a style=" color:sienna;" href="'.base_url().'group"><strong>Manage Groups</strong></a></li>
+							<li ><a style=" color:sienna;" href="'.base_url().'admin/group"><strong>Manage Groups</strong></a></li>
 							<li ><a style=" color:sienna;" href="'.base_url().'admin/module"><strong>Manage Modules</strong></a></li>
 							<li ><a style=" color:sienna;" href="'.base_url().'organisation"><strong>Organisation Info</strong></a></li>
 						  </ul>

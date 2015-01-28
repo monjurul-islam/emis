@@ -21,6 +21,8 @@ class M_admin extends CI_Model
 		} 
 	}
 	
+		//---------------- area started for module management --------------------------//
+
 	function modules()
 	{		
 		$qry = $this->db->get('modules');
@@ -63,12 +65,12 @@ class M_admin extends CI_Model
 						'url_alias'		=> $this->input->post('url_alias'),
 						'status'		=> $this->input->post('status'),
 						'created_by'	=> $this->tank_auth->get_user_id(),
-						'created_dt'	=> $this->input->post('url_alias')
+						'created_dt'	=> date("Y-m-d H:i:s")
 					);					
 			
 		if($this->db->insert('modules', $data))
 		{
-			$data['id'] = $this->db->insert_id();
+			$data = $this->module_by_id($this->db->insert_id());
 			
 			return $data;
 		}
@@ -85,15 +87,14 @@ class M_admin extends CI_Model
 						'type'			=> $this->input->post('type'),
 						'url_alias'		=> $this->input->post('url_alias'),
 						'status'		=> $this->input->post('status'),
-						'created_by'	=> $this->tank_auth->get_user_id(),
-						'created_dt'	=> $this->input->post('url_alias')
+						'modified_by'	=> $this->tank_auth->get_user_id(),
 					);						
 		if($this->input->post('id')!="")
 		{
 			$this->db->where('id', $this->input->post('id'));
 			$this->db->update('modules', $data);
 			
-			$data['id'] = $this->input->post('id');
+			$data = $this->module_by_id($this->input->post('id'));
 			
 			return $data;
 		}
@@ -102,6 +103,93 @@ class M_admin extends CI_Model
 			return FALSE;
 		}
 	}
+	
+	//---------------------------------- area end for module management --------------------------------------------//
+	
+	//-----------------------------------******************************---------------------------------------------//
+	
+	//---------------- area started for group management --------------------------//
+
+	function groups()
+	{		
+		$qry = $this->db->get('groups');
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_result']  = $qry->result();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
+	function group_by_id($id)
+	{
+		$qry = $this->db->get_where('groups', array('id'=>$id));
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_row']  = $qry->row();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
+	function add_group()
+	{
+		$data = array(
+						'name'			=> $this->input->post('name'),
+						'type'			=> $this->input->post('type'),
+						'status'		=> $this->input->post('status'),
+						'created_by'	=> $this->tank_auth->get_user_id(),
+						'created_dt'	=> date("Y-m-d H:i:s")
+					);					
+			
+		if($this->db->insert('groups', $data))
+		{
+			$data = $this->group_by_id($this->db->insert_id());
+			
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	function update_group()
+	{
+		$data = array(
+						'name'			=> $this->input->post('name'),
+						'type'			=> $this->input->post('type'),
+						'status'		=> $this->input->post('status'),
+						'modified_by'	=> $this->tank_auth->get_user_id(),
+					);						
+		if($this->input->post('id')!="")
+		{
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('groups', $data);
+			
+			$data = $this->group_by_id($this->input->post('id'));
+			
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	//---------------------------------- area end for group management --------------------------------------------//
 	
 	
 	
