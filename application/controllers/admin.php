@@ -264,6 +264,116 @@ class Admin extends CI_Controller
 	}
 	//---------------------------------- area end for group management --------------------------------------------//
 	
+	//-----------------------------------******************************---------------------------------------------//
+	
+	//---------------- area started for user management --------------------------//
+	
+	function user()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();
+			
+			$data['content']	= $this->load->view('admin/users', $this->m_admin->users(), true);
+			
+			$data['page_title']		= 'Admin: user';			
+			$data['content_title']	= 'Manage users';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	function add_user()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('add_user'))
+			{
+				$new_user = $this->m_admin->add_user();
+				
+				if($new_user['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('admin/new_user', $new_user, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_user', '', true);
+				}
+			}
+			else
+			{
+				$data['content']	= $this->load->view('admin/add_user', '', true);
+			}
+					
+			$data['page_title']		= 'Admin: user';			
+			$data['content_title']	= 'Manage users';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	function edit_user()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('update_user'))
+			{
+				$update_user = $this->m_admin->update_user();
+				
+				if($update_user['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('admin/new_user', $update_user, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_user', '', true);
+				}
+			}
+			elseif($this->uri->segment(3,0)!="")
+			{
+				$data['content']	= $this->load->view('admin/edit_user', $this->m_admin->user_by_id($this->uri->segment(3,0)), true);
+			}
+					
+			$data['page_title']		= 'Admin: user';			
+			$data['content_title']	= 'Manage users';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	//---------------------------------- area end for user management --------------------------------------------//
+
+		
 }
 
 /* End of file admin.php */

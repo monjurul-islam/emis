@@ -191,6 +191,92 @@ class M_admin extends CI_Model
 	
 	//---------------------------------- area end for group management --------------------------------------------//
 	
+	//-----------------------------------******************************---------------------------------------------//
+	
+	//---------------- area started for user management --------------------------//
+
+	function users()
+	{		
+		$qry = $this->db->get('users');
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_result']  = $qry->result();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
+	function user_by_id($id)
+	{
+		$qry = $this->db->get_where('users', array('id'=>$id));
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_row']  = $qry->row();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
+	function add_user()
+	{
+		$data = array(
+						'name'			=> $this->input->post('name'),
+						'type'			=> $this->input->post('type'),
+						'status'		=> $this->input->post('status'),
+						'created_by'	=> $this->tank_auth->get_user_id(),
+						'created_dt'	=> date("Y-m-d H:i:s")
+					);					
+			
+		if($this->db->insert('users', $data))
+		{
+			$data = $this->user_by_id($this->db->insert_id());
+			
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	function update_user()
+	{
+		$data = array(
+						'name'			=> $this->input->post('name'),
+						'type'			=> $this->input->post('type'),
+						'status'		=> $this->input->post('status'),
+						'modified_by'	=> $this->tank_auth->get_user_id(),
+					);						
+		if($this->input->post('id')!="")
+		{
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('users', $data);
+			
+			$data = $this->user_by_id($this->input->post('id'));
+			
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	//---------------------------------- area end for user management --------------------------------------------//
+	
+	
 	
 	
 }

@@ -66,6 +66,11 @@ class M_common extends CI_Model
 		if($status==1) return '<span style="color:green;">Activated</span>'; else return '<span style="color:red;">Disabled</span>';
 	}
 	
+	function banned_text($status)
+	{
+		if($status==1) return '<span style="color:green;">Banned</span>'; else return '<span style="color:red;">Not Banned</span>';
+	}
+	
 }
 
 /* End of file m_common.php */
