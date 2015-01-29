@@ -12,13 +12,12 @@
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">User Name</label>
     <div class="col-sm-5">
-      <input type="text" size="50" class="form-control" id="name" name="name" placeholder="Enter User Name" required>
+      <input type="text" size="50" class="form-control" id="name" name="username" placeholder="Enter User Name" required>
     </div>
     <div class="col-sm-5"><span style="color:red;">
       <?php if(isset($name_err)) echo $name_err; ?>
       </span></div>
   </div>
-  
   <div class="form-group">
     <label for="password" class="col-sm-2 control-label">User Password</label>
     <div class="col-sm-5">
@@ -28,23 +27,17 @@
       <?php if(isset($name_err)) echo $name_err; ?>
       </span></div>
   </div>
-  
   <div class="form-group">
     <label for="password" class="col-sm-2 control-label">Confirm Password</label>
     <div class="col-sm-5">
       <input id="password_confirm" name="password_confirm" type="password" maxlength="50" value="" class="form-control" required>
     </div>
-    
   </div>
-  
-  
-  
   <div class="form-group">
     <label for="type" class="col-sm-2 control-label">User Email</label>
     <div class="col-sm-5">
       <input type="email" size="50" class="form-control" id="email" name="email" placeholder="Enter Email"  required>
     </div>
-    
   </div>
   <div class="form-group">
     <label for="activated" class="col-sm-2 control-label">User Status</label>
@@ -65,21 +58,16 @@
     </div>
   </div>
 </form>
-
 <script>
 // just for the demos, avoids form submit
 jQuery.validator.setDefaults({
-debug: true,
-success: "valid"
 });
 $( "#add_user" ).validate({
 rules: {
 password: "required",
-minlength: 5,
 password_confirm: {
 equalTo: "#password"
 }
 }
 });
-</script>
-
+</script> 

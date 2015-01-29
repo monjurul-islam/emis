@@ -231,15 +231,28 @@ class M_admin extends CI_Model
 	
 	function add_user()
 	{
-		$data = array(
-						'name'			=> $this->input->post('name'),
-						'type'			=> $this->input->post('type'),
+		
+		if (!is_null($user_data['qry_data'] = $this->tank_auth->create_user_($this->input->post('username'), $this->input->post('email'), $this->input->post('password'), FALSE)))
+		{
+			$user_data['qry_success'] = 1;
+		}
+		else
+		{
+			$user_data['qry_success'] = 0;
+		}
+		
+		return $user_data;
+		
+		/*$data = array(
+						'username'			=> $this->input->post('username'),
+						'email'			=> $this->input->post('email'),
+						'password'			=> $this->input->post('password'),
 						'status'		=> $this->input->post('status'),
 						'created_by'	=> $this->tank_auth->get_user_id(),
-						'created_dt'	=> date("Y-m-d H:i:s")
-					);					
+						'created'	=> date("Y-m-d H:i:s")
+					);		*/			
 			
-		if($this->db->insert('users', $data))
+		/*if($this->db->insert('users', $data))
 		{
 			$data = $this->user_by_id($this->db->insert_id());
 			
@@ -248,7 +261,7 @@ class M_admin extends CI_Model
 		else
 		{
 			return FALSE;
-		}
+		}*/
 	}
 	
 	function update_user()

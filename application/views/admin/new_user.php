@@ -6,7 +6,7 @@
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h2>Success! <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/user">View All</a></h2>
+<h2>Success! User <?php echo $qry_data['user_id'];?> created<a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/user">View All</a></h2>
 <hr/>
 <h3>New user Details</h3>
 <table class="table table-bordered table-striped">
@@ -26,7 +26,7 @@
   <tbody>
     <tr>
     <?php 
-	if($qry_success == 1)
+	/*if($qry_success == 1)
 	{
      			echo '<td><strong>'.$qry_row->id.'</strong></td>
 					  <td>'.$qry_row->name.'</td>
@@ -37,7 +37,7 @@
 					   <td>'.$qry_row->modified_dt.'</td>
 					  <td>'.$this->m_common->status_text($qry_row->status).'</td>
 					  <td> <a href="'.base_url().'admin/edit_user/'.$qry_row->id.'">Edit</a> <a style="color:red;"  href="'.base_url().'admin/delete_user/'.$qry_row->id.'">Delete</a></td>';
-	}
+	}*/
 	?>
     </tr>
   </tbody>
