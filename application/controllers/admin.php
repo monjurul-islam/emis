@@ -7,6 +7,7 @@ class Admin extends CI_Controller
 		parent::__construct();
 
 		$this->load->library('tank_auth');
+		$this->load->library('tank_auth_rasel');
 		$this->load->model('m_admin');
 		$this->load->model('m_common');
 		$this->load->model('m_menu');

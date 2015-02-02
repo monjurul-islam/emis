@@ -1,44 +1,63 @@
 <!--/**
- * new user view
+ * single user view
  *
- * This view shows newlly added users data
+ * This view takes only one user data and parse in this view as necessary
  *
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h2>Success! User <?php echo $qry_data['user_id'];?> created<a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/user">View All</a></h2>
+<h2> <?php if($qry_success == 1) echo 'Success';?> <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/add_user">Create New</a></h2> 
 <hr/>
-<h3>New user Details</h3>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Type</th>
-      <th>Created by</th>
-      <th>Created dt</th>
-      <th>Modif. by</th>
-      <th>Modif. dt</th>
-      <th>Status</th>
-      <th></th>
+      <th>Email</th>
+      <th>Group</th>
+      <th>Activated</th>
+      <th>Banned</th>
+      <th>Ban Reason</th>
+      <th>Last IP</th>
+      <th>Last Login</th>
+      <th>Created</th>
+      <th>Modified</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
-    <tr>
     <?php 
-	/*if($qry_success == 1)
+	
+	if($qry_success == 1)
 	{
-     			echo '<td><strong>'.$qry_row->id.'</strong></td>
-					  <td>'.$qry_row->name.'</td>
-					  <td>'.$qry_row->type.'</td>
-					  <td>'.$this->m_common->get_username_by_id($qry_row->created_by).'</td>
-					  <td>'.$qry_row->created_dt.'</td>
-					  <td>'.$this->m_common->get_username_by_id($qry_row->modified_by).'</td>
-					   <td>'.$qry_row->modified_dt.'</td>
-					  <td>'.$this->m_common->status_text($qry_row->status).'</td>
-					  <td> <a href="'.base_url().'admin/edit_user/'.$qry_row->id.'">Edit</a> <a style="color:red;"  href="'.base_url().'admin/delete_user/'.$qry_row->id.'">Delete</a></td>';
-	}*/
+		echo '<tr/>
+				  <td>'.$qry_row->id.'</td>
+				  <td>'.$qry_row->username.'</td>
+				  <td>'.$qry_row->email.'</td>
+				  <td>'.$qry_row->id.' group</td>
+				  <td>'.$this->m_common->status_text($qry_row->activated).'</td>
+				  <td>'.$this->m_common->banned_text($qry_row->banned).'</td>
+				  <td>'.$qry_row->ban_reason.'</td>
+				  <td>'.$qry_row->last_ip.'</td>
+				  <td>'.$qry_row->last_login.'</td>
+				  <td>'.$qry_row->created.'</td>
+				  <td>'.$qry_row->modified.'</td>
+				  <td> <a href="'.base_url().'admin/edit_user/'.$qry_row->id.'">Edit</a> <a style="color:red;"  href="'.base_url().'admin/delete_user/'.$qry_row->id.'">Delete</a></td>
+			  </tr>';
+				  
+	}
+	
 	?>
-    </tr>
   </tbody>
 </table>
+
+	<h2 style="color:red;">
+    <?php	
+	if($qry_success == 0)
+	{
+		echo 'No Data Found';
+	}	
+	?>
+    </h2>
+    
+   

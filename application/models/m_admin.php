@@ -232,44 +232,25 @@ class M_admin extends CI_Model
 	function add_user()
 	{
 		
-		if (!is_null($user_data['qry_data'] = $this->tank_auth->create_user_($this->input->post('username'), $this->input->post('email'), $this->input->post('password'), FALSE)))
-		{
-			$user_data['qry_success'] = 1;
-		}
-		else
-		{
-			$user_data['qry_success'] = 0;
-		}
-		
-		return $user_data;
-		
-		/*$data = array(
-						'username'			=> $this->input->post('username'),
-						'email'			=> $this->input->post('email'),
-						'password'			=> $this->input->post('password'),
-						'status'		=> $this->input->post('status'),
-						'created_by'	=> $this->tank_auth->get_user_id(),
-						'created'	=> date("Y-m-d H:i:s")
-					);		*/			
-			
-		/*if($this->db->insert('users', $data))
+		if (!is_null($this->tank_auth->create_user_($this->input->post('username'), $this->input->post('email'), $this->input->post('password'), FALSE)))
 		{
 			$data = $this->user_by_id($this->db->insert_id());
-			
-			return $data;
 		}
 		else
 		{
-			return FALSE;
-		}*/
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
 	}
 	
 	function update_user()
 	{
 		$data = array(
-						'name'			=> $this->input->post('name'),
-						'type'			=> $this->input->post('type'),
-						'status'		=> $this->input->post('status'),
+						'username'		=> $this->input->post('username'),
+						'email'			=> $this->input->post('email'),
+						'password'		=> $this->tank_auth_rasel->hash_password($this->input->post('password')),
+						'banned'		=> $this->input->post('status'),
 						'modified_by'	=> $this->tank_auth->get_user_id(),
 					);						
 		if($this->input->post('id')!="")
@@ -283,7 +264,8 @@ class M_admin extends CI_Model
 		}
 		else
 		{
-			return FALSE;
+			$data['qry_success'] = 0;
+			return $data;
 		}
 	}
 	
