@@ -68,7 +68,19 @@ class M_common extends CI_Model
 	
 	function banned_text($status)
 	{
-		if($status==1) return '<span style="color:green;">Banned</span>'; else return '<span style="color:red;">Not Banned</span>';
+		if($status==1) return '<span style="color:red;">Banned</span>'; else return '<span style="color:green;">Not Banned</span>';
+	}
+	
+	function ban_user($user, $cause)
+	{
+		$data = array(
+						'banned' 		=> 1,
+						'ban_reason'	=> $cause
+						
+					);
+		$this->db->where('id', $user);
+		$this->db->update('users', $data);
+		redirect('/auth/logout/');
 	}
 	
 }

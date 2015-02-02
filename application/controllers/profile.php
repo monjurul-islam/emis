@@ -1,7 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller
+class Profile extends CI_Controller
 {
+	private $module_id			= 1115;		
+	private $module_title		= 'PROFILE';
+	
 	function __construct()
 	{
 		parent::__construct();
@@ -10,6 +13,12 @@ class Welcome extends CI_Controller
 		$this->load->library('tank_auth');
 		$this->load->model('m_common');
 		$this->load->model('m_menu');
+		$this->load->model('m_priv');
+		
+		if($this->m_priv->chk_priv($this->module_id)==FALSE)
+		{
+			$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
+		}
 	}
 
 	function index()

@@ -6,7 +6,7 @@
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h2> <?php if($qry_success == 1) echo 'Success';?> <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/add_user">Create New</a></h2> 
+<h2> <?php if($qry_success == 1) echo 'Success';?> <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/users">View All</a></h2> 
 <hr/>
 <table class="table table-bordered table-striped">
   <thead>
@@ -32,7 +32,7 @@
 	{
 		echo '<tr/>
 				  <td>'.$qry_row->id.'</td>
-				  <td>'.$qry_row->username.'</td>
+				  <td>'.$qry_row->username.'<br /><a href="'.base_url().'admin/privileges/'.$qry_row->id.'">Privileges</a></td>
 				  <td>'.$qry_row->email.'</td>
 				  <td>'.$qry_row->id.' group</td>
 				  <td>'.$this->m_common->status_text($qry_row->activated).'</td>
