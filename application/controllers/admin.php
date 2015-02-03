@@ -316,13 +316,13 @@ class Admin extends CI_Controller
 					$data['content']	= $this->load->view('admin/new_user', $new_user, true);
 				}
 				else
-				{
-					$this->load->view('admin/add_user', '', true);
+				{				
+					$this->load->view('admin/add_user', $this->m_admin->groups() , true);
 				}
 			}
 			else
 			{
-				$data['content']	= $this->load->view('admin/add_user', '', true);
+				$data['content']	= $this->load->view('admin/add_user',  $this->m_admin->groups(), true);
 			}
 					
 			$data['page_title']		= 'Admin: user';			
@@ -373,7 +373,35 @@ class Admin extends CI_Controller
 		}
 	}
 	//---------------------------------- area end for user management --------------------------------------------//
-
+	// ------------------------------------------------------------------------------------------------------------//
+	
+	//---------------------------------------------------------------------Started Privilege to user --------------------------//
+	
+	function privileges()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();
+			
+			$data['content']	= $this->load->view('admin/user_privilege', $this->m_admin->user_privileges($this->uri->segment(3,0)), true);;
+			
+			$data['page_title']		= 'Admin';			
+			$data['content_title']	= 'Manage User Privileges';						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	
 		
 }
 

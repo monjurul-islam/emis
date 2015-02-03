@@ -50,6 +50,7 @@
         <li class="dropdown"> <a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">Hello, <?php echo strtoupper($username); ?> <span class="caret"></span></a>
           <ul role="menu" class="dropdown-menu">
             <li><a href="#">View Profile</a></li>
+            <li><a href="<?php echo base_url(); ?>auth/change_password">Change Password</a></li>
             <li ><a style=" color:red;" href="<?php echo base_url(); ?>auth/logout"><strong>logout</strong></a></li>
           </ul>
         </li>

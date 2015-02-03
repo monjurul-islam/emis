@@ -61,6 +61,26 @@ class M_common extends CI_Model
 		return '';
 	}
 	
+	function get_groups_by_user($user_id)
+	{
+		$qry = $this->db->get_where('user_group_map', array('user_id'=>$user_id));
+		
+		$groups = '';
+		
+		if($qry->num_rows()>0)
+		{			
+			foreach($qry->result() as $qry_group)
+			{
+				$data = $this->m_admin->group_by_id($qry_group->group_id);
+				$groups.= '<a style=" text-decoration:underline;" href="'.base_url().'admin/group">'.$data['qry_row']->name.'</a><br />';
+			}
+			
+			return $groups;
+		}
+		else
+		return $groups;;
+	}
+	
 	function status_text($status)
 	{
 		if($status==1) return '<span style="color:green;">Activated</span>'; else return '<span style="color:red;">Disabled</span>';

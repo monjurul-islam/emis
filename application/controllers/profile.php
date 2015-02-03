@@ -41,7 +41,7 @@ class Profile extends CI_Controller
 			$data['content_title']	= 'Welcome. Please Select Menu';						
 			
 			$result = array_merge($data, $org_info);			
-			$this->load->view('admin_view', $result);
+			$this->load->view('public_view', $result);
 		}
 	}
 }

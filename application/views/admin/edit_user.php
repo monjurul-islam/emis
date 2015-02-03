@@ -22,7 +22,7 @@
   <div class="form-group">
     <label for="password" class="col-sm-2 control-label">New Password</label>
     <div class="col-sm-5">
-      <input id="password" name="password" type="password" maxlength="50" value="" class="form-control" required>
+      <input id="password" name="password" type="password" maxlength="50" class="form-control">
     </div>
     <div class="col-sm-5"><span style="color:red;" class="status">
       <?php if(isset($name_err)) echo $name_err; ?>
@@ -31,7 +31,7 @@
   <div class="form-group">
     <label for="password" class="col-sm-2 control-label">Confirm Password</label>
     <div class="col-sm-5">
-      <input id="password_confirm" name="password_confirm" type="password" maxlength="50" value="" class="form-control" required>
+      <input id="password_confirm" name="password_confirm" type="password" maxlength="50" class="form-control">
     </div>
   </div>
   <div class="form-group">
@@ -40,6 +40,46 @@
       <input type="email" size="50" class="form-control" id="email" name="email" value="<?php echo $qry_row->email;?>" placeholder="Enter Email"  required>
     </div>
   </div>
+  
+  <div class="form-group">
+    <label for="groups" class="col-sm-2 control-label">User Groups</label>
+    <div class="col-sm-10">
+      <?php 	 		
+			if($groups['qry_success']==1)
+			{				
+				foreach($groups['qry_result'] as $group_res)
+				{
+					$already_member = 0;
+					
+					echo '<div class="checkbox" id="'.$group_res->id.'"><label> ';
+					
+					if($user_groups['qry_success']==1)
+					{						
+						foreach($user_groups['qry_result'] as $user_groups_res)
+						{
+							if($user_groups_res->group_id == $group_res->id)
+							{
+								$already_member = 1;
+							}
+						}
+					}
+					
+					if($already_member == 1)
+					{
+						echo '<input checked="checked" type="checkbox" value="'.$group_res->id.'" name="group_'.$group_res->id.'">'.$group_res->name;
+					}
+					else
+					{
+						echo '<input type="checkbox" value="'.$group_res->id.'" name="group_'.$group_res->id.'">'.$group_res->name;
+					}
+					
+					echo '</label></div>';
+				}
+			}
+	 ?>
+    </div>
+  </div>
+  
   <div class="form-group">
     <label for="activated" class="col-sm-2 control-label">User Status</label>
     <div class="col-sm-5">

@@ -111,7 +111,8 @@ class M_admin extends CI_Model
 	//---------------- area started for group management --------------------------//
 
 	function groups()
-	{		
+	{	
+	
 		$qry = $this->db->get('groups');
 		
 		if($qry->num_rows()>0)
@@ -178,15 +179,31 @@ class M_admin extends CI_Model
 		{
 			$this->db->where('id', $this->input->post('id'));
 			$this->db->update('groups', $data);
-			
-			$data = $this->group_by_id($this->input->post('id'));
-			
+						
 			return $data;
 		}
 		else
 		{
 			return FALSE;
 		}
+	}
+	
+	function groups_by_user_id($id)
+	{
+		$this->db->select('group_id');
+		$qry = $this->db->get_where('user_group_map', array('user_id'=>$id));
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_result']  = $qry->result();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+
 	}
 	
 	//---------------------------------- area end for group management --------------------------------------------//
@@ -218,8 +235,11 @@ class M_admin extends CI_Model
 		
 		if($qry->num_rows()>0)
 		{
-			$data['qry_success'] = 1;
-			$data['qry_row']  = $qry->row();
+			$data['qry_success'] 	= 1;
+			$data['qry_row']  		= $qry->row();
+			
+			$data['groups']			= $this->groups();
+			$data['user_groups']	= $this->groups_by_user_id($id);			
 		}
 		else
 		{
@@ -229,12 +249,33 @@ class M_admin extends CI_Model
 		return $data;
 	}
 	
+	
+	
+	
 	function add_user()
 	{
-		
 		if (!is_null($this->tank_auth->create_user_($this->input->post('username'), $this->input->post('email'), $this->input->post('password'), FALSE)))
 		{
-			$data = $this->user_by_id($this->db->insert_id());
+			$inserted_user_id = $this->db->insert_id();
+			
+			$data_group = $this->groups();
+			
+			foreach($data_group['qry_result'] as $groups)
+			{
+				
+				if($this->input->post('group_'.$groups->id))
+				{
+					$data_group = array(
+											'user_id'			=> $inserted_user_id,
+											'group_id'			=> $groups->id,
+											'created_by'		=> $this->tank_auth->get_user_id(),
+											'created_dt'		=> date("Y-m-d H:i:s")
+										);
+					
+					$this->db->insert('user_group_map', $data_group);
+				}
+			}
+			$data = $this->user_by_id($inserted_user_id);
 		}
 		else
 		{
@@ -271,7 +312,31 @@ class M_admin extends CI_Model
 	
 	//---------------------------------- area end for user management --------------------------------------------//
 	
+		//---------------------------------- area Started for user privileges management --------------------------------------------//
 	
+	function user_privileges($user_id)
+	{
+		$data['qry_modules'] = $this->db->get_where('modules', array('status'=>1));
+		$data['user_id']	 = $user_id;
+		
+		if($qry_priv = $this->db->get_where('module_user_map', array('user_id'=>$user_id))->num_rows()>0)
+		{
+			$privileged_modules = array();
+
+			foreach($qry_priv->result() as $qry_priv_res)
+			{
+				$privileged_modules[] = $qry_priv_res->module_id;
+			}
+			$data['privileged_modules'] = $privileged_modules;
+			
+			return $data;			
+		}
+		else
+		{
+			$data['privileged_modules'] = 0;
+			return $data;
+		}
+	}
 	
 	
 }

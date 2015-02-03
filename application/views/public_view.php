@@ -17,8 +17,7 @@
 
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url();?>assets/css/sticky-footer-navbar.css" rel="stylesheet">
-
-<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script> 
+<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -51,6 +50,7 @@
         <li class="dropdown"> <a aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">Hello, <?php echo strtoupper($username); ?> <span class="caret"></span></a>
           <ul role="menu" class="dropdown-menu">
             <li><a href="#">View Profile</a></li>
+            <li><a href="<?php echo base_url(); ?>auth/change_password">Change Password</a></li>
             <li ><a style=" color:red;" href="<?php echo base_url(); ?>auth/logout"><strong>logout</strong></a></li>
           </ul>
         </li>
@@ -64,16 +64,15 @@
 <!-- Begin page content -->
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
-      <div class="panel panel-primary" style="min-height:450px;"> 
-        <!-- Default panel contents -->
+    <!--<div class="col-md-2">
+      <div class="panel panel-primary" style="min-height:450px;">
         <div class="panel-heading" id="side_bar_head">Sider Bar</div>
         <div class="panel-body">
-          <?php if(isset($side_menu)) echo $side_menu;?>
+          <?php //if(isset($side_menu)) echo $side_menu;?>
         </div>
       </div>
-    </div>
-    <div class="col-md-10">
+    </div>-->
+    <div class="col-md-12">
       <div class="panel panel-primary" style="min-height:450px;"> 
         <!-- Default panel contents -->
         <div class="panel-heading" id="content_head"><u>

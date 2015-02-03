@@ -40,6 +40,25 @@
     </div>
   </div>
   <div class="form-group">
+    <label for="groups" class="col-sm-2 control-label">User Groups</label>
+    <div class="col-sm-10">
+      <?php 	 		
+			if($qry_success==1)
+			{
+				
+				foreach($qry_result as $qry_group_res)
+				{
+					echo '<div class="checkbox" id="'.$qry_group_res->id.'"><label> ';
+					
+					echo '<input type="checkbox" value="'.$qry_group_res->id.'" name="group_'.$qry_group_res->id.'">'.$qry_group_res->name;
+					
+					echo '</label></div>';
+				}
+			}
+	 ?>
+    </div>
+  </div>
+  <div class="form-group">
     <label for="activated" class="col-sm-2 control-label">User Status</label>
     <div class="col-sm-5">
       <select class="form-control"  id="activated" name="activated"  required>

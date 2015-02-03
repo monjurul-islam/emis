@@ -6,9 +6,9 @@
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h2> <?php if($qry_success == 1) echo 'Success';?> <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/users">View All</a></h2> 
+<h2> <?php if($qry_success == 1) echo 'Success';?> <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/user">View All</a></h2> 
 <hr/>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" style="width:100%;">
   <thead>
     <tr>
       <th>ID</th>
@@ -34,7 +34,7 @@
 				  <td>'.$qry_row->id.'</td>
 				  <td>'.$qry_row->username.'<br /><a href="'.base_url().'admin/privileges/'.$qry_row->id.'">Privileges</a></td>
 				  <td>'.$qry_row->email.'</td>
-				  <td>'.$qry_row->id.' group</td>
+				  <td>'.$this->m_common->get_groups_by_user($qry_row->id).'</td>
 				  <td>'.$this->m_common->status_text($qry_row->activated).'</td>
 				  <td>'.$this->m_common->banned_text($qry_row->banned).'</td>
 				  <td>'.$qry_row->ban_reason.'</td>

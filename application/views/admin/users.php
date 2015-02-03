@@ -8,8 +8,7 @@
 
 <h2>All users <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/add_user">Create New</a></h2>
 <hr/>
-<div class="table-responsive">
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped" style="width:95%;">
     <thead>
       <tr>
         <th>SL</th>
@@ -36,9 +35,9 @@
 		{
 			echo '<tr/>
 					  <td>'.$sl.'</td>
-					  <td>'.$qry_res->username.'<br /><a class="btn btn-info btn-xs" href="'.base_url().'admin/privileges/'.$qry_res->id.'">Priv</a></td>
+					  <td>'.$qry_res->username.'<br /><a href="'.base_url().'admin/privileges/'.$qry_res->id.'">Priv</a></td>
 					  <td>'.$qry_res->email.'</td>
-					  <td>'.$qry_res->id.' group</td>
+					  <td>'.$this->m_common->get_groups_by_user($qry_res->id).'</td>
 					  <td>'.$this->m_common->status_text($qry_res->activated).'</td>
 					  <td>'.$this->m_common->banned_text($qry_res->banned).'</td>
 					  <td>'.$qry_res->ban_reason.'</td>
@@ -56,7 +55,6 @@
 	?>
     </tbody>
   </table>
-</div>
 <h2 style="color:red;">
   <?php	
 	if($qry_success == 0)
