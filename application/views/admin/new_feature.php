@@ -8,7 +8,7 @@
 
 <h2>Success! <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>admin/feature">View All</a></h2>
 <hr/>
-<h3>New feature Details</h3>
+<h3>feature Details</h3>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
@@ -31,7 +31,7 @@
 	{
      			echo '<td><strong>'.$qry_row->id.'</strong></td>
 					  <td>'.$qry_row->name.'</td>
-					    <td>'.$this->m_common->get_module_name_by_id($qry_res->module_id).'</td>
+					  <td>'.$this->m_common->get_module_name_by_id($qry_row->module_id).'</td>
 					  <td>'.$qry_row->url_alias.'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_row->created_by).'</td>
 					  <td>'.$qry_row->created_dt.'</td>

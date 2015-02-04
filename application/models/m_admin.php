@@ -171,9 +171,9 @@ class M_admin extends CI_Model
 	
 	function update_feature()
 	{
-		$data = array(
+		$data = array(	
+						'module_id'		=> $this->input->post('module_id'),
 						'name'			=> $this->input->post('name'),
-						'type'			=> $this->input->post('type'),
 						'url_alias'		=> $this->input->post('url_alias'),
 						'status'		=> $this->input->post('status'),
 						'modified_by'	=> $this->tank_auth->get_user_id(),

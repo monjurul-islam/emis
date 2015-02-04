@@ -248,7 +248,7 @@ class Admin extends CI_Controller
 				}
 				else
 				{
-					$this->load->view('admin/add_feature', '', true);
+					$this->load->view('admin/add_feature', $this->m_admin->feature_by_id($this->uri->segment(3,0)), true);
 				}
 			}
 			elseif($this->uri->segment(3,0)!="")
