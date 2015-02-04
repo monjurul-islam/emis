@@ -53,6 +53,7 @@ class M_menu extends CI_Model
 							<li ><a style=" color:sienna;" href="'.base_url().'admin/user"><strong>Manage Users</strong></a></li>
 							<li ><a style=" color:sienna;" href="'.base_url().'admin/group"><strong>Manage Groups</strong></a></li>
 							<li ><a style=" color:sienna;" href="'.base_url().'admin/module"><strong>Manage Modules</strong></a></li>
+							<li ><a style=" color:sienna;" href="'.base_url().'admin/feature"><strong>Manage Features</strong></a></li>
 							<li ><a style=" color:sienna;" href="'.base_url().'organisation"><strong>Organisation Info</strong></a></li>
 						  </ul>
 						</li>

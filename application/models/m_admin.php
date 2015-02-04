@@ -108,6 +108,96 @@ class M_admin extends CI_Model
 	
 	//-----------------------------------******************************---------------------------------------------//
 	
+	//---------------- area started for feature management --------------------------//
+
+	function features()
+	{		
+		$qry = $this->db->get('features');
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_result']  = $qry->result();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
+	function feature_by_id($id)
+	{
+		$qry = $this->db->get_where('features', array('id'=>$id));
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_row']  = $qry->row();
+			$data['qry_modules']  = $this->modules();
+			
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
+	function add_feature()
+	{
+		$data = array(
+						'module_id'		=> $this->input->post('module_id'),
+						'name'			=> $this->input->post('name'),
+						'url_alias'		=> $this->input->post('url_alias'),
+						'status'		=> $this->input->post('status'),
+						'created_by'	=> $this->tank_auth->get_user_id(),
+						'created_dt'	=> date("Y-m-d H:i:s")
+					);					
+			
+		if($this->db->insert('features', $data))
+		{
+			$data = $this->feature_by_id($this->db->insert_id());
+			
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	function update_feature()
+	{
+		$data = array(
+						'name'			=> $this->input->post('name'),
+						'type'			=> $this->input->post('type'),
+						'url_alias'		=> $this->input->post('url_alias'),
+						'status'		=> $this->input->post('status'),
+						'modified_by'	=> $this->tank_auth->get_user_id(),
+					);						
+		if($this->input->post('id')!="")
+		{
+			$this->db->where('id', $this->input->post('id'));
+			$this->db->update('features', $data);
+			
+			$data = $this->feature_by_id($this->input->post('id'));
+			
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	//---------------------------------- area end for feature management --------------------------------------------//
+	
+	//-----------------------------------******************************---------------------------------------------//
+	
+	
 	//---------------- area started for group management --------------------------//
 
 	function groups()
@@ -298,6 +388,27 @@ class M_admin extends CI_Model
 		{
 			$this->db->where('id', $this->input->post('id'));
 			$this->db->update('users', $data);
+			
+			$data_group = $this->groups();
+			
+			$this->db->where('user_id', $this->input->post('id'));
+			$this->db->delete('user_group_map');
+			
+			foreach($data_group['qry_result'] as $groups)
+			{				
+				if($this->input->post('group_'.$groups->id))
+				{
+					$data_group = array(
+											'user_id'			=> $this->input->post('id'),
+											'group_id'			=> $groups->id,
+											'created_by'		=> $this->tank_auth->get_user_id(),
+											'created_dt'		=> date("Y-m-d H:i:s")
+										);
+					
+					$this->db->insert('user_group_map', $data_group);
+				}
+			}
+			
 			
 			$data = $this->user_by_id($this->input->post('id'));
 			

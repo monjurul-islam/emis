@@ -158,6 +158,116 @@ class Admin extends CI_Controller
 	
 	//-----------------------------------******************************---------------------------------------------//
 	
+	//---------------- area started for feature management --------------------------//
+	
+	function feature()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();
+			
+			$data['content']	= $this->load->view('admin/features', $this->m_admin->features(), true);
+			
+			$data['page_title']		= 'Admin: feature';			
+			$data['content_title']	= 'Manage features';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	function add_feature()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('add_feature'))
+			{
+				$new_feature = $this->m_admin->add_feature();
+				
+				if($new_feature['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('admin/new_feature', $new_feature, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_feature', $this->m_admin->modules(), true);
+				}
+			}
+			else
+			{
+				$data['content']	= $this->load->view('admin/add_feature', $this->m_admin->modules(), true);
+			}
+					
+			$data['page_title']		= 'Admin: feature';			
+			$data['content_title']	= 'Manage features';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	function edit_feature()
+	{
+		if (!$this->tank_auth->is_logged_in()) {
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();			
+						
+			if($this->input->post('update_feature'))
+			{
+				$update_feature = $this->m_admin->update_feature();
+				
+				if($update_feature['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('admin/new_feature', $update_feature, true);
+				}
+				else
+				{
+					$this->load->view('admin/add_feature', '', true);
+				}
+			}
+			elseif($this->uri->segment(3,0)!="")
+			{
+				$data['content']	= $this->load->view('admin/edit_feature', $this->m_admin->feature_by_id($this->uri->segment(3,0)), true);
+			}
+					
+			$data['page_title']		= 'Admin: feature';			
+			$data['content_title']	= 'Manage features';
+						
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	//---------------------------------- area end for feature management --------------------------------------------//
+	
+	//-----------------------------------******************************---------------------------------------------//
+	
 	//---------------- area started for group management --------------------------//
 	
 	function group()

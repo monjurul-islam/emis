@@ -81,12 +81,12 @@
   </div>
   
   <div class="form-group">
-    <label for="activated" class="col-sm-2 control-label">User Status</label>
+    <label for="status" class="col-sm-2 control-label">User Status</label>
     <div class="col-sm-5">
-      <select class="form-control"  id="activated" name="activated"  required>
+      <select class="form-control"  id="status" name="status"  required>
         <option value="" selected="selected">Select User Status</option>
-        <option value="1" style="color:green;">Active</option>
-        <option value="0" style="color:red;">Disable</option>
+        <option value="0" style="color:green;">Active</option>
+        <option value="1" style="color:red;">Disable</option>
       </select>
     </div>
     <div class="col-sm-5"><span style="color:red;">

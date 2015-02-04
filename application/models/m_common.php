@@ -61,6 +61,14 @@ class M_common extends CI_Model
 		return '';
 	}
 	
+	function get_module_name_by_id($module_id)
+	{
+		if($module_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('modules', array('id'=>$module_id))->row()->name).'('.$module_id.')</strong>';
+		else
+		return '';
+	}
+	
 	function get_groups_by_user($user_id)
 	{
 		$qry = $this->db->get_where('user_group_map', array('user_id'=>$user_id));
