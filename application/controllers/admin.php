@@ -11,6 +11,7 @@ class Admin extends CI_Controller
 		$this->load->model('m_admin');
 		$this->load->model('m_common');
 		$this->load->model('m_menu');
+		$this->load->model('m_priv');
 		if (!$this->tank_auth->is_logged_in()) 
 		{
 			redirect('/auth/login/');
@@ -501,9 +502,11 @@ class Admin extends CI_Controller
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
+			if($this->input->post('update_priv')) $this->m_admin->update_priv($this->input->post('user_id'));
+
 			$data['content']	= $this->load->view('admin/user_privilege', $this->m_admin->user_privileges($this->uri->segment(3,0)), true);;
 			
-			$data['page_title']		= 'Admin';			
+			$data['page_title']		= 'Admin: User Privileges';			
 			$data['content_title']	= 'Manage User Privileges';						
 			
 			$result = array_merge($data, $org_info);			

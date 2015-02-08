@@ -427,28 +427,58 @@ class M_admin extends CI_Model
 	
 	function user_privileges($user_id)
 	{
-		$data['qry_modules'] = $this->db->get_where('modules', array('status'=>1));
-		$data['user_id']	 = $user_id;
-		
-		if($qry_priv = $this->db->get_where('module_user_map', array('user_id'=>$user_id))->num_rows()>0)
-		{
-			$privileged_modules = array();
-
-			foreach($qry_priv->result() as $qry_priv_res)
-			{
-				$privileged_modules[] = $qry_priv_res->module_id;
-			}
-			$data['privileged_modules'] = $privileged_modules;
-			
-			return $data;			
-		}
-		else
-		{
-			$data['privileged_modules'] = 0;
-			return $data;
-		}
+		$data['qry_modules']  = $this->db->get_where('modules', array('status'=>1))->result(); // get active modules
+		$data['qry_features'] = $this->db->get_where('features', array('status'=>1))->result(); // get active modules
+		$data['user_id']	  = $user_id;
+		return $data;
 	}
 	
+	function update_priv($user_id)
+	{	
+		$this->db->where('user_id', $user_id);
+		$this->db->delete('module_user_map');
+		$this->db->where('user_id', $user_id);
+		$this->db->delete('feature_user_map');
+		
+		$qry_module = $this->db->get('modules');
+		
+		if($qry_module->num_rows()>0)
+		{
+			foreach($qry_module->result() as $qry_module_res)
+			{
+				if($this->input->post('m_'.$qry_module_res->id))
+				{
+					$data_m = array(
+										'user_id'    	=> $user_id,
+										'module_id'		=> $qry_module_res->id,
+										'created_by'	=> $this->tank_auth->get_user_id()
+									);
+					$this->db->insert('module_user_map', $data_m);
+					
+					$qry_feature = $this->db->get_where('features', array('module_id'=>$qry_module_res->id));
+					
+					if($qry_feature->num_rows()>0)
+					{
+						foreach($qry_feature->result() as $qry_feature_res)
+						{
+							if($this->input->post('f_'.$qry_feature_res->id))
+							{
+								$data_m = array(
+													'user_id'    	=> $user_id,
+													'feature_id'		=> $qry_feature_res->id,
+													'created_by'	=> $this->tank_auth->get_user_id()
+												);
+								$this->db->insert('feature_user_map', $data_m);					
+							}
+						}
+					}										
+				}
+			}
+		}
+		
+		
+		
+	} 	
 	
 }
 

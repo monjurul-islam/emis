@@ -3,7 +3,7 @@
 /**
  * privilege model
  *
- * This model serves to check users privileges in modules
+ * This model serves to check users/groups privileges in modules
  *
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */
@@ -23,9 +23,31 @@ class M_priv extends CI_Model
 		}
 	}
 	
-	function chk_priv($module_id)
+	function chk_priv($module_id) // checkes privilege of logged in user by module
 	{
 		if($this->tank_auth->get_user_id()==1)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	function priv_module_by_user($module_id, $user_id)
+	{
+		if($this->db->get_where('module_user_map', array('module_id'=>$module_id, 'user_id'=>$user_id))->num_rows()>0)
+		{
+			return TRUE;
+		}
+		else
+		return FALSE;
+	}
+	
+	function priv_feature_by_user($feature_id, $user_id)
+	{
+		if($this->db->get_where('feature_user_map', array('feature_id'=>$feature_id, 'user_id'=>$user_id))->num_rows()>0)
 		{
 			return TRUE;
 		}
