@@ -488,7 +488,7 @@ class Admin extends CI_Controller
 	
 	//---------------------------------------------------------------------Started Privilege to user --------------------------//
 	
-	function privileges()
+	function user_privileges()
 	{
 		if (!$this->tank_auth->is_logged_in()) {			
 			redirect('/auth/login/');
@@ -502,12 +502,38 @@ class Admin extends CI_Controller
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
-			if($this->input->post('update_priv')) $this->m_admin->update_priv($this->input->post('user_id'));
+			if($this->input->post('update_priv')) $this->m_admin->update_user_priv($this->input->post('user_id'));
 
 			$data['content']	= $this->load->view('admin/user_privilege', $this->m_admin->user_privileges($this->uri->segment(3,0)), true);;
 			
 			$data['page_title']		= 'Admin: User Privileges';			
 			$data['content_title']	= 'Manage User Privileges';						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
+	function group_privileges()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu();
+			
+			$data['side_menu']	= $this->m_menu->side_menu();
+			
+			if($this->input->post('update_priv')) $this->m_admin->update_group_priv($this->input->post('group_id'));
+
+			$data['content']	= $this->load->view('admin/group_privilege', $this->m_admin->group_privileges($this->uri->segment(3,0)), true);;
+			
+			$data['page_title']		= 'Admin: group Privileges';			
+			$data['content_title']	= 'Manage group Privileges';						
 			
 			$result = array_merge($data, $org_info);			
 			$this->load->view('admin_view', $result);

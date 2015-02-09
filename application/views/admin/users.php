@@ -37,7 +37,7 @@
 		{
 			echo '<tr/>
 					  <td>'.$sl.'</td>
-					  <td>'.$qry_res->username.'<br /><a href="'.base_url().'admin/privileges/'.$qry_res->id.'">Priv</a></td>
+					  <td>'.$qry_res->username.'<br /><a href="'.base_url().'admin/user_privileges/'.$qry_res->id.'">Priv</a></td>
 					  <td>'.$qry_res->email.'</td>
 					  <td>'.$this->m_common->get_groups_by_user($qry_res->id).'</td>
 					  <td>'.$this->m_common->status_text($qry_res->activated).'</td>

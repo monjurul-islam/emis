@@ -428,12 +428,12 @@ class M_admin extends CI_Model
 	function user_privileges($user_id)
 	{
 		$data['qry_modules']  = $this->db->get_where('modules', array('status'=>1))->result(); // get active modules
-		$data['qry_features'] = $this->db->get_where('features', array('status'=>1))->result(); // get active modules
+		$data['qry_features'] = $this->db->get_where('features', array('status'=>1))->result(); // get active features
 		$data['user_id']	  = $user_id;
 		return $data;
 	}
 	
-	function update_priv($user_id)
+	function update_user_priv($user_id)
 	{	
 		$this->db->where('user_id', $user_id);
 		$this->db->delete('module_user_map');
@@ -474,11 +474,63 @@ class M_admin extends CI_Model
 					}										
 				}
 			}
+		}		
+	} 
+	
+	function group_privileges($group_id)
+	{
+		$data['qry_modules']  = $this->db->get_where('modules', array('status'=>1))->result(); // get active modules
+		$data['qry_features'] = $this->db->get_where('features', array('status'=>1))->result(); // get active features
+		$data['group_id']	  = $group_id;
+		return $data;
+	}
+	
+	function update_group_priv($group_id)
+	{	
+		$this->db->where('group_id', $group_id);
+		$this->db->delete('module_group_map');
+		$this->db->where('group_id', $group_id);
+		$this->db->delete('feature_group_map');
+		
+		$qry_module = $this->db->get('modules');
+		
+		if($qry_module->num_rows()>0)
+		{
+			foreach($qry_module->result() as $qry_module_res)
+			{
+				if($this->input->post('m_'.$qry_module_res->id))
+				{
+					$data_m = array(
+										'group_id'    	=> $group_id,
+										'module_id'		=> $qry_module_res->id,
+										'created_by'	=> $this->tank_auth->get_user_id()
+									);
+					$this->db->insert('module_group_map', $data_m);
+					
+					$qry_feature = $this->db->get_where('features', array('module_id'=>$qry_module_res->id));
+					
+					if($qry_feature->num_rows()>0)
+					{
+						foreach($qry_feature->result() as $qry_feature_res)
+						{
+							if($this->input->post('f_'.$qry_feature_res->id))
+							{
+								$data_m = array(
+													'group_id'    	=> $group_id,
+													'feature_id'		=> $qry_feature_res->id,
+													'created_by'	=> $this->tank_auth->get_user_id()
+												);
+								$this->db->insert('feature_group_map', $data_m);					
+							}
+						}
+					}										
+				}
+			}
 		}
 		
 		
 		
-	} 	
+	} 		
 	
 }
 

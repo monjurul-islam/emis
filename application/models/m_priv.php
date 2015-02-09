@@ -54,6 +54,26 @@ class M_priv extends CI_Model
 		else
 		return FALSE;
 	}
+	
+	function priv_module_by_group($module_id, $group_id)
+	{
+		if($this->db->get_where('module_group_map', array('module_id'=>$module_id, 'group_id'=>$group_id))->num_rows()>0)
+		{
+			return TRUE;
+		}
+		else
+		return FALSE;
+	}
+	
+	function priv_feature_by_group($feature_id, $group_id)
+	{
+		if($this->db->get_where('feature_group_map', array('feature_id'=>$feature_id, 'group_id'=>$group_id))->num_rows()>0)
+		{
+			return TRUE;
+		}
+		else
+		return FALSE;
+	}
 }
 
 /* End of file m_common.php */
