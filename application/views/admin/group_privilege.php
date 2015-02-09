@@ -44,7 +44,7 @@
 										 echo ' <input type="checkbox" value="'.$qry_features_res->id.'" name="f_'.$qry_features_res->id.'" checked> ';
 										 else echo ' <input type="checkbox" id="inlineCheckbox'.$qry_features_res->id.'" value="'.$qry_features_res->id.'" name="f_'.$qry_features_res->id.'">';
 										
-							echo '	   	 <span style="font-size:medium; padding-left:10px;">'.$qry_features_res->name.'('.$qry_features_res->id.')</span>
+							echo '	   	 <span style="font-size:medium; padding-left:10px;">'.$qry_features_res->name.'('.$qry_features_res->id.')</span>; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									  </label>
 									</div>';
 						}						

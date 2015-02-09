@@ -35,7 +35,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -61,7 +61,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -85,7 +85,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -125,7 +125,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -171,7 +171,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -195,7 +195,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -235,7 +235,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -281,7 +281,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -305,7 +305,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -345,7 +345,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -390,7 +390,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -414,7 +414,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -454,7 +454,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();			
 						
@@ -498,7 +498,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -524,7 +524,7 @@ class Admin extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -538,9 +538,7 @@ class Admin extends CI_Controller
 			$result = array_merge($data, $org_info);			
 			$this->load->view('admin_view', $result);
 		}
-	}
-	
-	
+	}	
 		
 }
 

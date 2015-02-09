@@ -10,6 +10,7 @@ class Welcome extends CI_Controller
 		$this->load->library('tank_auth');
 		$this->load->model('m_common');
 		$this->load->model('m_menu');
+		$this->load->model('m_priv');
 	}
 
 	function index()
@@ -22,13 +23,13 @@ class Welcome extends CI_Controller
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
-			$data['side_menu']	= $this->m_menu->side_menu();
+			$data['side_menu']	= $this->m_menu->side_menu($data['user_id']);
 			
-			$data['content']	= 'test content';
+			$data['content']	= '<h3>Main content</h3>';
 			
-			$data['page_title']		= 'Welcome';			
+			$data['page_title']		= 'Welcome '.$this->tank_auth->get_username();;			
 			$data['content_title']	= 'Welcome. Please Select Menu';						
 			
 			$result = array_merge($data, $org_info);			

@@ -3,7 +3,7 @@
 class Profile extends CI_Controller
 {
 	private $module_id			= 1115;		
-	private $module_title		= 'PROFILE';
+	private $module_title		= 'MODULE: PROFILE';
 	
 	function __construct()
 	{
@@ -15,7 +15,7 @@ class Profile extends CI_Controller
 		$this->load->model('m_menu');
 		$this->load->model('m_priv');
 		
-		if($this->m_priv->chk_priv($this->module_id)==FALSE)
+		if($this->m_priv->chk_mo_priv($this->module_id, $this->tank_auth->get_user_id())==FALSE)
 		{
 			$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
 		}
@@ -26,12 +26,45 @@ class Profile extends CI_Controller
 		if (!$this->tank_auth->is_logged_in()) {			
 			redirect('/auth/login/');
 		} else {
+		
 			$data['user_id']	= $this->tank_auth->get_user_id();
 			$data['username']	= $this->tank_auth->get_username();
 			
 			$org_info			= $this->m_common->organisation_info();
 			
-			$data['menu']		= $this->m_menu->menu();
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
+			
+			$data['side_menu']	= $this->m_menu->side_menu();
+			
+			$data['content']	= 'Profile Content';
+			
+			$data['page_title']		= 'Moule: Profile';			
+			$data['content_title']	= 'Profile Management';						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('public_view', $result);
+		}
+	}
+	
+	function student()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			
+			$feature_id			= 1115;		
+			
+			if($this->m_priv->chk_fe_priv($feature_id)==FALSE)
+			{
+				$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
+			}
+			
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
 			$data['side_menu']	= $this->m_menu->side_menu();
 			
@@ -43,7 +76,7 @@ class Profile extends CI_Controller
 			$result = array_merge($data, $org_info);			
 			$this->load->view('public_view', $result);
 		}
-	}
+	}	
 }
 
 /* End of file welcome.php */

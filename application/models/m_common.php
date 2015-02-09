@@ -53,7 +53,7 @@ class M_common extends CI_Model
 		}
 	}
 	
-	function get_username_by_id($user_id)
+	function get_username_by_id($user_id) // returns username by given id
 	{
 		if($user_id!=0)
 		return strtoupper($this->db->get_where('users', array('id'=>$user_id))->row()->username);
@@ -61,7 +61,15 @@ class M_common extends CI_Model
 		return '';
 	}
 	
-	function get_module_name_by_id($module_id)
+	function get_groupname_by_id($group_id) // returns group name by given id
+	{
+		if($group_id!=0)
+		return strtoupper($this->db->get_where('groups', array('id'=>$group_id))->row()->name);
+		else
+		return '';
+	}
+	
+	function get_module_name_by_id($module_id)  // returns module name by given id
 	{
 		if($module_id!=0)
 		return '<strong>'.strtoupper($this->db->get_where('modules', array('id'=>$module_id))->row()->name).'('.$module_id.')</strong>';
@@ -69,7 +77,15 @@ class M_common extends CI_Model
 		return '';
 	}
 	
-	function get_groups_by_user($user_id)
+	function get_feature_name_by_id($feature_id)  // returns feature name by given id
+	{
+		if($feature_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('features', array('id'=>$feature_id))->row()->name).'('.$feature_id.')</strong>';
+		else
+		return '';
+	}
+	
+	function get_groups_by_user($user_id) // returns groups_by_user by given id as group txt with link
 	{
 		$qry = $this->db->get_where('user_group_map', array('user_id'=>$user_id));
 		
@@ -89,17 +105,17 @@ class M_common extends CI_Model
 		return $groups;;
 	}
 	
-	function status_text($status)
+	function status_text($status) // return status text
 	{
 		if($status==1) return '<span style="color:green;">Activated</span>'; else return '<span style="color:red;">Disabled</span>';
 	}
 	
-	function banned_text($status)
+	function banned_text($status) // return banned text
 	{
 		if($status==1) return '<span style="color:red;">Banned</span>'; else return '<span style="color:green;">Not Banned</span>';
 	}
 	
-	function ban_user($user, $cause)
+	function ban_user($user, $cause) // when unauthorised module/feature access occur then this function will ban user
 	{
 		$data = array(
 						'banned' 		=> 1,
