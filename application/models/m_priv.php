@@ -30,8 +30,10 @@ class M_priv extends CI_Model
 			return TRUE;
 		}
 		else
-		{
-			if($this->db->get_where('module_user_map', array('module_id'=>$module_id, 'user_id'=>$user_id))->num_rows()>0)
+		{			
+			$qry_user_mo = $this->db->get_where('module_user_map', array('module_id'=>$module_id, 'user_id'=>$user_id));
+			
+			if($qry_user_mo->num_rows()>0)
 			{
 				return TRUE;
 			}
@@ -42,7 +44,7 @@ class M_priv extends CI_Model
 				{
 					foreach($qry_group->result() as $qry_group_res)
 					{
-						if($this->db->get_where('module_group_map', array('module_id'=>$module_id, 'group_id'=>$user_id))->num_rows()>0)
+						if($this->db->get_where('module_group_map', array('module_id'=>$module_id, 'group_id'=>$qry_group_res->user_id))->num_rows()>0)
 						{
 							return TRUE;
 						}
@@ -54,7 +56,7 @@ class M_priv extends CI_Model
 	}
 	
 	
-	function chk_fe_priv($feature_id) // checkes privilege of logged in user by feature
+	function chk_fe_priv($feature_id , $user_id) // checkes privilege of logged in user by feature
 	{
 		if($user_id==1)
 		{
@@ -62,7 +64,9 @@ class M_priv extends CI_Model
 		}
 		else
 		{
-			if($this->db->get_where('feature_user_map', array('feature_id'=>$feature_id, 'user_id'=>$user_id))->num_rows()>0)
+			$qry_user_fe = $this->db->get_where('feature_user_map', array('feature_id'=>$feature_id, 'user_id'=>$user_id));
+			
+			if($qry_user_fe->num_rows()>0)
 			{
 				return TRUE;
 			}
@@ -73,7 +77,7 @@ class M_priv extends CI_Model
 				{
 					foreach($qry_group->result() as $qry_group_res)
 					{
-						if($this->db->get_where('feature_group_map', array('feature_id'=>$feature_id, 'group_id'=>$user_id))->num_rows()>0)
+						if($this->db->get_where('feature_group_map', array('feature_id'=>$feature_id, 'group_id'=>$qry_group_res->user_id))->num_rows()>0)
 						{
 							return TRUE;
 						}

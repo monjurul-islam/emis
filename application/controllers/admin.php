@@ -42,7 +42,7 @@ class Admin extends CI_Controller
 			$data['content']	= 'test content';
 			
 			$data['page_title']		= 'Admin';			
-			$data['content_title']	= 'Welcome Admin. Please Select Menu';						
+			$data['content_title']	= 'Welcome Admin. Please Select Menu';		
 			
 			$result = array_merge($data, $org_info);			
 			$this->load->view('admin_view', $result);

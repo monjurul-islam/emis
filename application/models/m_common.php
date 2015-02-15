@@ -19,7 +19,7 @@ class M_common extends CI_Model
 	{
 		$qry_org = $this->db->get_where('organisation', array('id'=>1));
 		
-		if($qry_org->num_rows()>0)
+		if($qry_org->num_rows()>1)
 		{
 			// yes we got org. info 
 			$qry_org_res = $qry_org->row();
@@ -107,7 +107,7 @@ class M_common extends CI_Model
 	
 	function status_text($status) // return status text
 	{
-		if($status==1) return '<span style="color:green;">Activated</span>'; else return '<span style="color:red;">Disabled</span>';
+		if($status==1) return '<span style="color:green;">Enable</span>'; else return '<span style="color:red;">Disable</span>';
 	}
 	
 	function banned_text($status) // return banned text
@@ -125,6 +125,11 @@ class M_common extends CI_Model
 		$this->db->where('id', $user);
 		$this->db->update('users', $data);
 		redirect('/auth/logout/');
+	}
+	
+	function all_active_tbl_data_($tbl_name) // returns all table fields which has status 1, by given table name
+	{
+		
 	}
 	
 }
