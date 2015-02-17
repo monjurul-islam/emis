@@ -208,6 +208,39 @@ class Profile extends CI_Controller
 		}
 	}	
 	
+	function add_student()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			
+			$feature_id			= 3333;		
+			
+			if($this->m_priv->chk_fe_priv($feature_id, $this->tank_auth->get_user_id())==FALSE)
+			{
+				$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
+			}
+			
+			$data['user_id']		= $this->tank_auth->get_user_id();
+			$data['username']		= $this->tank_auth->get_username();
+			$data['feature_id']		= $feature_id;
+			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
+			
+			$data['side_menu']	= $this->m_profile->std_side_menu(); // sub feature menus for feature
+			
+			$data['content']	= $this->load->view('profile/student/student_form', '', true);;
+			
+			$data['page_title']		= 'Profile: Student';			
+			$data['content_title']	= 'Welcome '.$data['username'];						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('module_view', $result);
+		}
+	}	
 	
 	
 	
