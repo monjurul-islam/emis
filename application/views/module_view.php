@@ -67,24 +67,30 @@
     <div class="col-md-2">
       <div class="panel panel-primary" style="min-height:450px;">
         <div class="panel-heading" id="side_bar_head"><h4><?php if(isset($feature_name)) echo $feature_name;?></h4></div>
-        <div class="panel-body">
+        <div class="panel-body" style="padding-left:0px !important;">
           <?php if(isset($side_menu)) echo $side_menu;?>
         </div>
       </div>
     </div>
     <div class="col-md-10">
-      <div class="panel panel-primary" style="min-height:450px;"> 
+      <div class="panel panel-primary" style="min-height:450px;" > 
         <!-- Default panel contents -->
         <div class="panel-heading" id="content_head"><u>
           <?php if(isset($content_title))echo $content_title; else echo 'Main Content'; ?>
           </u></div>
-        <div class="panel-body">
+        <div class="panel-body" id="printable">
           <?php if(isset($content)) echo $content; else echo '<h3>Welcome '.strtoupper($username).'.</h3>'; ?>
         </div>
       </div>
     </div>
   </div>
+  
+  <a class="btn btn-info" href="#" onclick="printIt(document.getElementById('printable').innerHTML); return true">Print</a>
+  
 </div>
+
+
+
 <footer class="footer">
   <div class="container">
     <p class="text-muted">
@@ -100,5 +106,24 @@
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script> 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
 <script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script>
+<script type="text/javascript">
+
+  var win=null;
+  function printIt(printThis)
+  {
+    win = window.open();
+    self.focus();
+    win.document.open();
+    win.document.write('<'+'html'+'><'+'head'+'><'+'style'+'>');
+    win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+    win.document.write('<'+'/'+'style'+'><'+'/'+'head'+'><'+'body'+'>');
+    win.document.write(printThis);
+    win.document.write('<'+'/'+'body'+'><'+'/'+'html'+'>');
+    win.document.close();
+    win.print();
+    win.close();
+  }
+
+</script>
 </body>
 </html>

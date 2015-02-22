@@ -13,13 +13,13 @@
     <tr>
       <th>ID</th>
       <th>Year/Session</th>
-      <th>Medium</th>
+      <th>Medium/Curriculam</th>
       <th>Shift</th>
       <th>Version</th>
       <th>Created by</th>
       <th>Created dt</th>
-      <th>Modif. by</th>
-      <th>Modif. dt</th>
+      <th>Modif.<br/>by</th>
+      <th>Modif.<br />dt</th>
       <th>Status</th>
       <th> </th>
     </tr>
@@ -31,18 +31,19 @@
 	{
 		foreach($qry_result as $qry_res)
 		{
-			echo '<tr/>
-					  <td><strong>'.$qry_res->id.'</strong></td>
-					  <td>'.$qry_res->name.'</td>
-					  <td>'.$qry_res->type.'</td>
-					  <td>'.$qry_res->url_alias.'</td>
+			echo '	<tr>
+					  <td>'.$qry_res->id.'</td>
+					  <td>'.$this->m_common->get_year_season_name_by_id($qry_res->year_season_id).'</td>
+					  <td>'.$this->m_common->get_medium_name_by_id($qry_res->medium_id).'</td>
+					  <td>'.$this->m_common->get_shift_name_by_id($qry_res->shift_id).'</td>
+					  <td>'.$this->m_common->get_version_name_by_id($qry_res->version_id).'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_res->created_by).'</td>
 					  <td>'.$qry_res->created_dt.'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_res->modified_by).'</td>
 					   <td>'.$qry_res->modified_dt.'</td>
 					  <td>'.$this->m_common->status_text($qry_res->status).'</td>
-					  <td> <a href="'.base_url().'admin/edit_edu_struct/'.$qry_res->id.'">Edit</a> <a style="color:red;"  href="'.base_url().'admin/delete_edu_struct/'.$qry_res->id.'">Delete</a></td>
-				  </tr>';
+					  <td> <a style=" display:none;"  href="'.base_url().'admin/edit_edu_struct/'.$qry_res->id.'">Edit</a> </td>
+				</tr>';
 		}
 	}
 	

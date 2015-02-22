@@ -1,22 +1,23 @@
 <!--/**
- * new Eduction Structure view
+ * new Class Structure view
  *
- * This view shows newlly added Eduction Structure  data
+ * This view shows newlly added Class Structure  data
  *
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h2>Success! <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/edu_struct">View All</a></h2>
+<h2>Success! <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/class_struct">View All</a></h2>
 <hr/>
-<h3>New Eduction Structure Details</h3>
+<h3>New Class Structure Details</h3>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
      <th>ID</th>
       <th>Year/Session</th>
-      <th>Medium/Curriculam</th>
-      <th>Shift</th>
-      <th>Version</th>
+      <th>Education Structure</th>
+      <th>Class</th>
+      <th>Dept.</th>
+      <th>Section</th>
       <th>Created by</th>
       <th>Created dt</th>
       <th>Modif. by</th>
@@ -31,10 +32,11 @@
 	if($qry_success == 1)
 	{
      			echo '<td>'.$qry_row->id.'</td>
-					  <td>'.$this->m_common->get_year_season_name_by_id($qry_row->year_season_id).'</td>
-					  <td>'.$this->m_common->get_medium_name_by_id($qry_row->medium_id).'</td>
-					  <td>'.$this->m_common->get_shift_name_by_id($qry_row->shift_id).'</td>
-					  <td>'.$this->m_common->get_version_name_by_id($qry_row->version_id).'</td>
+					  <td>'.$this->m_common->get_year_season_name_by_edu_struct_id($qry_row->edu_struct_id).'</td>
+					  <td>'.$this->m_common->get_edu_struct_by_id($qry_row->edu_struct_id).'</td>
+					  <td>'.$this->m_common->get_class_name_by_id($qry_row->class_id).'</td>
+					  <td>'.$this->m_common->get_dept_name_by_id($qry_row->dept_id).'</td>
+					  <td>'.$this->m_common->get_section_name_by_id($qry_row->section_id).'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_row->created_by).'</td>
 					  <td>'.$qry_row->created_dt.'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_row->modified_by).'</td>
@@ -46,3 +48,5 @@
     </tr>
   </tbody>
 </table>
+
+<a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/add_class_struct">Add New</a>

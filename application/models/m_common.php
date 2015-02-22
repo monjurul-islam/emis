@@ -19,7 +19,7 @@ class M_common extends CI_Model
 	{
 		$qry_org = $this->db->get_where('organisation', array('id'=>1));
 		
-		if($qry_org->num_rows()>1)
+		if($qry_org->num_rows()>0)
 		{
 			// yes we got org. info 
 			$qry_org_res = $qry_org->row();
@@ -129,6 +129,86 @@ class M_common extends CI_Model
 	
 	function all_active_tbl_data_($tbl_name) // returns all table fields which has status 1, by given table name
 	{
+		$qry = $this->db->get_where($tbl_name, array('status'=>1));
+		if($qry->num_rows()>0)
+		{
+			return $qry->result();
+		}
+		else
+		return NULL;
+	}
+	
+	function get_medium_name_by_id($medium_id)  // returns medium name by given id
+	{
+		if($medium_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('medium', array('id'=>$medium_id))->row()->name).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_shift_name_by_id($shift_id)  // returns shift name by given id
+	{
+		if($shift_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('shift', array('id'=>$shift_id))->row()->name).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_version_name_by_id($version_id)  // returns version name by given id
+	{
+		if($version_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('version', array('id'=>$version_id))->row()->name).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_class_name_by_id($class_id)  // returns class name by given id
+	{
+		if($class_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('class', array('id'=>$class_id))->row()->name).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_dept_name_by_id($dept_id)  // returns dept name by given id
+	{
+		if($dept_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('dept', array('id'=>$dept_id))->row()->name).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_section_name_by_id($section_id)  // returns section name by given id
+	{
+		if($section_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('section', array('id'=>$section_id))->row()->name).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_year_season_name_by_id($year_season_id)  // returns year_season name by given id
+	{
+		if($year_season_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('year_season', array('id'=>$year_season_id))->row()->year).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_year_season_name_by_edu_struct_id($edu_struct_id)
+	{
+		if($edu_struct_id!=0)
+		return '<strong>'.strtoupper($this->db->get_where('year_season', array('id'=>$this->db->get_where('edu_struct', array('id'=>$edu_struct_id))->row()->year_season_id))->row()->year).'</strong>';
+		else
+		return '';
+	}
+	
+	function get_edu_struct_by_id($edu_struct_id)
+	{
+		$qry_row = $this->db->get_where('edu_struct', array('id'=>$edu_struct_id))->row();
+		$edu_struct = $this->get_medium_name_by_id($qry_row->medium_id).', '.$this->get_version_name_by_id($qry_row->version_id).'  Version, '.$this->get_shift_name_by_id($qry_row->shift_id).' Shift';
+		
+		return $edu_struct;
+		
 		
 	}
 	
