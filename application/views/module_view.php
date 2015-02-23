@@ -85,8 +85,8 @@
     </div>
   </div>
   
-  <a class="btn btn-info" href="#" onclick="printIt(document.getElementById('printable').innerHTML); return true">Print</a>
-  
+<!--  <a class="btn btn-info" href="#" onclick="printIt(document.getElementById('printable').innerHTML); return true">Print</a>
+-->  
 </div>
 
 
