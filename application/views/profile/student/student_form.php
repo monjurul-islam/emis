@@ -1,5 +1,5 @@
 <h2>New Admission</h2>
-<form class="form-horizontal">
+<form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="">
   <div class="row" style="background:mediumturquoise;">
     <div class="col-md-12">
       <h1 align="center"><u>Students Information</u>
@@ -35,17 +35,18 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="edu_struct" class="col-sm-2 control-label"><strong>Class Structure</strong></label>
+        <label for="class_struct" class="col-sm-2 control-label"><strong>Class Structure</strong></label>
         <div class="col-sm-7">
-          <select class="form-control"  id="edu_struct" name="edu_struct"  required >
+          <select class="form-control"  id="class_struct" name="class_struct"  required >
             <option value="" selected="selected">Select Class Structure</option>
+             <option>cls</option>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">Students Name</label>
         <div class="col-sm-6">
-          <input type="name" class="form-control" id="name" name="name" placeholder="Enter Students Name">
+          <input type="name" class="form-control" id="name" name="name" placeholder="Enter Students Name" required>
         </div>
       </div>
       <div class="form-group">
@@ -56,12 +57,12 @@
       </div>
       <div class="form-group">
         <label for="dob" class="col-sm-2 control-label">Date Of Birth</label>
-        <div class="col-sm-2">
-          <input type="name" class="form-control" id="dob" placeholder="DOB" name="dob">
+        <div class="col-sm-3">
+          <input type="date" class="form-control" id="dob" placeholder="DOB" name="dob" required>
         </div>
         <label for="age" class="col-sm-1 control-label">Age</label>
-        <div class="col-sm-3">
-          <input type="name" class="form-control" id="age" placeholder="Age" name="age">
+        <div class="col-sm-2">
+          <input type="name" class="form-control" id="age" placeholder="Age" name="age" required>
         </div>
         <label for="gender" class="col-sm-1 control-label">Gender</label>
         <div class="col-sm-3">
@@ -74,12 +75,12 @@
       </div>
       <div class="form-group">
         <label for="blood" class="col-sm-2 control-label">Blood</label>
-        <div class="col-sm-2">
-          <input type="name" class="form-control" id="blood" placeholder="blood" name="blood">
+        <div class="col-sm-3">
+          <input type="name" class="form-control" id="blood" placeholder="blood" name="blood" required>
         </div>
         <label for="nationality" class="col-sm-1 control-label">Nationality</label>
-        <div class="col-sm-3">
-          <input type="name" class="form-control" id="nationality" placeholder="Nationality" name="nationality">
+        <div class="col-sm-2">
+          <input type="name" class="form-control" id="nationality" placeholder="Nationality" name="nationality" >
         </div>
         <label for="religion" class="col-sm-1 control-label">Religion</label>
         <div class="col-sm-3">
@@ -94,11 +95,11 @@
       <div class="form-group">
         <label for="present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="present_address" id="present_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="present_address" id="present_address" rows="3" required ></textarea>
         </div>
         <label for="permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="permanent_address" id="permanent_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="permanent_address" id="permanent_address" required rows="3" ></textarea>
         </div>
       </div>
     </div>
@@ -128,7 +129,7 @@
         </div>
         <label for="previous_school_email" class="col-sm-2 control-label">E-mail</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="previous_school_email" name="previous_school_email" placeholder="Enter Email Address">
+          <input type="email" class="form-control" id="previous_school_email" name="previous_school_email" placeholder="Enter Email Address">
         </div>
       </div>
       <div class="form-group">
@@ -153,7 +154,7 @@
       <div class="form-group">
         <label for="f_name" class="col-sm-2 control-label">Father's Name</label>
         <div class="col-sm-6">
-          <input type="name" class="form-control" id="f_name" name="f_name" placeholder="Enter Father's Name">
+          <input type="name" class="form-control" id="f_name" name="f_name" placeholder="Enter Father's Name" required>
         </div>
       </div>
       <div class="form-group">
@@ -169,7 +170,7 @@
         </div>
         <label for="f_national_id" class="col-sm-2 control-label">National ID</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="f_national_id" placeholder="Father's National Id Number" name="f_national_id">
+          <input type="name" class="form-control" id="f_national_id" placeholder="Father's National Id Number" name="f_national_id" required>
         </div>
       </div>
       <div class="form-group">
@@ -190,7 +191,7 @@
       <div class="form-group">
         <label for="f_profession" class="col-sm-2 control-label">Father's Profession</label>
         <div class="col-sm-6">
-          <input type="name" class="form-control" id="f_profession" name="f_profession" placeholder="Enter Father's Profession">
+          <input type="name" class="form-control" id="f_profession" name="f_profession" placeholder="Enter Father's Profession" required>
         </div>
       </div>
       <div class="form-group">
@@ -206,17 +207,17 @@
         </div>
         <label for="f_income" class="col-sm-2 control-label">Father's Yearly Income(BDT)</label>
         <div class="col-sm-3">
-          <input type="name" class="form-control" id="f_income" name="f_income" placeholder="Father's Yearly Income">
+          <input type="name" class="form-control" id="f_income" name="f_income" placeholder="Father's Yearly Income" required>
         </div>
       </div>
       <div class="form-group">
         <label for="f_present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="f_present_address" id="f_present_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="f_present_address" id="f_present_address" rows="3" required></textarea>
         </div>
         <label for="f_permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="f_permanent_address" id="f_permanent_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="f_permanent_address" id="f_permanent_address" rows="3" required></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -226,24 +227,24 @@
         </div>
         <label for="f_mobile" class="col-sm-2 control-label">Mobile</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" id="f_mobile" name="f_mobile" placeholder="Enter Mobile Number">
+          <input type="text" class="form-control" id="f_mobile" name="f_mobile" placeholder="Enter Mobile Number" required>
         </div>
       </div>
       <div class="form-group">
         <label for="f_email" class="col-sm-2 control-label">E-mail</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="f_email" name="f_email" placeholder="Enter Email Address">
+          <input type="email" class="form-control" id="f_email" name="f_email" placeholder="Enter Email Address">
         </div>
         <label for="f_blood" class="col-sm-2 control-label">Blood</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="f_blood" placeholder="blood" name="f_blood">
+          <input type="name" class="form-control" id="f_blood" placeholder="blood" name="f_blood" required>
         </div>
       </div>
       <h3 align="center"><u>Mother</u></h3>
       <div class="form-group">
         <label for="m_name" class="col-sm-2 control-label">Mother's Name</label>
         <div class="col-sm-6">
-          <input type="name" class="form-control" id="m_name" name="m_name" placeholder="Enter Mother's Name">
+          <input type="name" class="form-control" id="m_name" name="m_name" placeholder="Enter Mother's Name" required>
         </div>
       </div>
       <div class="form-group">
@@ -280,7 +281,7 @@
       <div class="form-group">
         <label for="m_profession" class="col-sm-2 control-label">Mother's Profession</label>
         <div class="col-sm-6">
-          <input type="name" class="form-control" id="m_profession" name="m_profession" placeholder="Enter Mother's Profession">
+          <input type="name" class="form-control" id="m_profession" name="m_profession" placeholder="Enter Mother's Profession" required>
         </div>
       </div>
       <div class="form-group">
@@ -296,17 +297,17 @@
         </div>
         <label for="m_income" class="col-sm-2 control-label">Mother's Yearly Income(BDT)</label>
         <div class="col-sm-3">
-          <input type="name" class="form-control" id="m_income" name="m_income" placeholder="Mother's Yearly Income">
+          <input type="name" class="form-control" id="m_income" name="m_income" placeholder="Mother's Yearly Income" required>
         </div>
       </div>
       <div class="form-group">
         <label for="m_present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="m_present_address" id="m_present_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="m_present_address" id="m_present_address" rows="3" required ></textarea>
         </div>
         <label for="m_permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="m_permanent_address" id="m_permanent_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="m_permanent_address" id="m_permanent_address" rows="3" required ></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -316,17 +317,17 @@
         </div>
         <label for="m_mobile" class="col-sm-2 control-label">Mobile</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" id="m_mobile" name="m_mobile" placeholder="Enter Mobile Number">
+          <input type="text" class="form-control" id="m_mobile" name="m_mobile" placeholder="Enter Mobile Number" required>
         </div>
       </div>
       <div class="form-group">
         <label for="m_email" class="col-sm-2 control-label">E-mail</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="m_email" name="m_email" placeholder="Enter Email Address">
+          <input type="email" class="form-control" id="m_email" name="m_email" placeholder="Enter Email Address">
         </div>
         <label for="m_blood" class="col-sm-2 control-label">Blood</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="m_blood" placeholder="blood" name="m_blood">
+          <input type="name" class="form-control" id="m_blood" placeholder="blood" name="m_blood" required>
         </div>
       </div>
     </div>
@@ -387,7 +388,7 @@
       <div class="form-group">
         <label for="g_1_email" class="col-sm-2 control-label">E-mail</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="g_1_email" name="g_1_email" placeholder="Enter Email Address">
+          <input type="email" class="form-control" id="g_1_email" name="g_1_email" placeholder="Enter Email Address">
         </div>
         <label for="g_1_blood" class="col-sm-2 control-label">Blood</label>
         <div class="col-sm-4">
@@ -444,7 +445,7 @@
       <div class="form-group">
         <label for="g_2_email" class="col-sm-2 control-label">E-mail</label>
         <div class="col-sm-4">
-          <input type="name" class="form-control" id="g_2_email" name="g_2_email" placeholder="Enter Email Address">
+          <input type="email" class="form-control" id="g_2_email" name="g_2_email" placeholder="Enter Email Address">
         </div>
         <label for="g_2_blood" class="col-sm-2 control-label">Blood</label>
         <div class="col-sm-4">
@@ -463,57 +464,60 @@
       <div class="form-group">
         <label for="adm_weitten_markl" class="col-sm-1 control-label">Writen</label>
         <div class="col-sm-2">
-          <input type="name" class="form-control" id="adm_weitten_markl" name="adm_weitten_markl" placeholder="Written Marks">
+          <input type="number" class="form-control" id="adm_weitten_markl" name="adm_weitten_markl" placeholder="Written Marks" required>
         </div>
         <label for="adm_student_viva_mark" class="col-sm-1 control-label">Student's Viva</label>
         <div class="col-sm-2">
-          <input type="name" class="form-control" id="adm_student_viva_mark" placeholder="Viva Marks" name="adm_student_viva_mark">
+          <input type="number" class="form-control" id="adm_student_viva_mark" placeholder="Viva Marks" name="adm_student_viva_mark" required>
         </div>
         <label for="adm_parents_viva_mark" class="col-sm-1 control-label">Parents's Viva</label>
         <div class="col-sm-2">
-          <input type="name" class="form-control" id="adm_parents_viva_mark" placeholder="Viva Marks" name="adm_parents_viva_mark">
+          <input type="number" class="form-control" id="adm_parents_viva_mark" placeholder="Viva Marks" name="adm_parents_viva_mark" required>
         </div>
         <label for="adm_medical_test_mark" class="col-sm-1 control-label">Medical Test</label>
         <div class="col-sm-2">
-          <input type="name" class="form-control" id="adm_medical_test_mark" placeholder="Medical Test" name="adm_medical_test_mark">
+          <input type="number" class="form-control" id="adm_medical_test_mark" placeholder="Medical Test" name="adm_medical_test_mark" required>
         </div>
       </div>
       <div class="form-group">
         <label for="adm_physical_test_mark" class="col-sm-1 control-label">Physical Test</label>
         <div class="col-sm-2">
-          <input type="name" class="form-control" id="adm_physical_test_mark" name="adm_physical_test_mark" placeholder="Physical Test">
+          <input type="number" class="form-control" id="adm_physical_test_mark" name="adm_physical_test_mark" placeholder="Physical Test" required>
         </div>
         <label for="adm_total_mark" class="col-sm-2 control-label">Total Marks</label>
         <div class="col-sm-3">
-          <input type="name" class="form-control" id="adm_total_mark" placeholder="Total Marks" name="adm_total_mark">
+          <input type="number" class="form-control" id="adm_total_mark" placeholder="Total Marks" name="adm_total_mark" required>
         </div>
         <label for="adm_outof_mark" class="col-sm-2 control-label">Out Of Mark</label>
         <div class="col-sm-2">
-          <input type="name" class="form-control" id="adm_outof_mark" placeholder="Out Of Mark" name="adm_outof_mark">
+          <input type="number" class="form-control" id="adm_outof_mark" placeholder="Out Of Mark" name="adm_outof_mark" required>
         </div>
       </div>
       <div class="form-group">
-        <label for="adm_fee" class="col-sm-1 control-label">Admission Fee</label>
-        <div class="col-sm-3">
-          <input type="name" class="form-control" id="adm_fee" name="adm_fee" placeholder="Admission Fee">
+        <label for="adm_fee" class="col-sm-1 control-label">Admission Fee(BDT)</label>
+        <div class="col-sm-2">
+          <input type="number" class="form-control" id="adm_fee" name="adm_fee" placeholder="Admission Fee" required>
         </div>
         <label for="adm_prime_bank_branch" class="col-sm-2 control-label">Prime Bank(Branch)</label>
         <div class="col-sm-3">
-          <input type="name" class="form-control" id="adm_prime_bank_branch" placeholder="Prime Bank(Branch)" name="adm_prime_bank_branch">
+          <input type="name" class="form-control" id="adm_prime_bank_branch" placeholder="Prime Bank(Branch)" name="adm_prime_bank_branch" required>
         </div>
         <label for="adm_date" class="col-sm-1 control-label">Admission Date</label>
-        <div class="col-sm-2">
-          <input type="name" class="form-control" id="adm_date" placeholder="Admission Date" name="adm_date">
+        <div class="col-sm-3">
+          <input type="date" class="form-control" id="adm_date" placeholder="Admission Date" name="adm_date" required>
         </div>
       </div>
-      <div class="form-group">
+     
+    </div>
+  </div>
+  <br />
+   <div class="form-group">
         <div class="col-sm-9"> </div>
         <div class="col-sm-3">
           <input type="submit" class=" btn btn-lg btn-success" id="adm_fee" name="adm_fee" value="Add New Student" placeholder="Admission Fee">
         </div>
       </div>
-    </div>
-  </div>
+  
 </form>
 
 <script type="text/javascript">
@@ -542,5 +546,15 @@ function class_struct_by_edu_struct()
 		}
 	});
 }
+
+jQuery.validator.setDefaults({});
+	$( "#student_form" ).validate({
+		rules: {
+			password: "required",
+			password_confirm: {
+			equalTo: "#password"
+			}
+		}
+	});
 
 </script> 
