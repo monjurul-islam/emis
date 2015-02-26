@@ -1,5 +1,5 @@
 <h2>New Admission</h2>
-<form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="">
+<form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="" >
   <div class="row" style="background:mediumturquoise;">
     <div class="col-md-12">
       <h1 align="center"><u>Students Information</u>
@@ -29,7 +29,7 @@
       <div class="form-group">
         <label for="edu_struct" class="col-sm-2 control-label"><strong>Education Structure</strong></label>
         <div class="col-sm-7">
-          <select class="form-control"  id="edu_struct" name="edu_struct"  required onchange="class_struct_by_edu_struct()">
+          <select class="form-control"  id="edu_struct" name="edu_struct"  required onchange="class_struct_by_edu_struct_as_option()">
             <option value="" selected="selected">First Select Year/Season</option>
           </select>
         </div>
@@ -39,7 +39,6 @@
         <div class="col-sm-7">
           <select class="form-control"  id="class_struct" name="class_struct"  required >
             <option value="" selected="selected">Select Class Structure</option>
-             <option>cls</option>
           </select>
         </div>
       </div>
@@ -462,9 +461,9 @@
       </h1>
       <h3 align="center"><u>Obtained Marks</u></h3>
       <div class="form-group">
-        <label for="adm_weitten_markl" class="col-sm-1 control-label">Writen</label>
+        <label for="adm_written_mark" class="col-sm-1 control-label">Writen</label>
         <div class="col-sm-2">
-          <input type="number" class="form-control" id="adm_weitten_markl" name="adm_weitten_markl" placeholder="Written Marks" required>
+          <input type="number" class="form-control" id="adm_written_mark" name="adm_written_mark" placeholder="Written Marks" required>
         </div>
         <label for="adm_student_viva_mark" class="col-sm-1 control-label">Student's Viva</label>
         <div class="col-sm-2">
@@ -488,8 +487,8 @@
         <div class="col-sm-3">
           <input type="number" class="form-control" id="adm_total_mark" placeholder="Total Marks" name="adm_total_mark" required>
         </div>
-        <label for="adm_outof_mark" class="col-sm-2 control-label">Out Of Mark</label>
-        <div class="col-sm-2">
+        <label for="adm_outof_mark" class="col-sm-1 control-label">Out Of Mark</label>
+        <div class="col-sm-3">
           <input type="number" class="form-control" id="adm_outof_mark" placeholder="Out Of Mark" name="adm_outof_mark" required>
         </div>
       </div>
@@ -507,19 +506,46 @@
           <input type="date" class="form-control" id="adm_date" placeholder="Admission Date" name="adm_date" required>
         </div>
       </div>
-     
     </div>
   </div>
   <br />
-   <div class="form-group">
-        <div class="col-sm-9"> </div>
+  <div class="row" style="background:skyblue;">
+    <div class="col-md-12">
+      <h1 align="center"><u>Upload Images</u>
+        <hr />
+      </h1>
+      <div class="form-group" style="overflow:hidden;">
         <div class="col-sm-3">
-          <input type="submit" class=" btn btn-lg btn-success" id="adm_fee" name="adm_fee" value="Add New Student" placeholder="Admission Fee">
+          <label for="std_pic">Student's Picture</label>
+          <input type="file" id="std_pic" name="std_pic"  required>
+          <p class="help-block">Please Select Student's Picture.</p>
+        </div>
+        <div class="col-sm-3">
+          <label for="std_pic">Father's Picture</label>
+          <input type="file" id="f_pic" name="f_pic"  required>
+          <p class="help-block">Please Select Father's Picture.</p>
+        </div>
+        <div class="col-sm-3">
+          <label for="std_pic">Mother's Picture</label>
+          <input type="file" id="m_pic" name="m_pic"  required>
+          <p class="help-block">Please Select Mother's Picture.</p>
+        </div>
+        <div class="col-sm-2">
+          <label for="std_pic">Guardian's Picture</label>
+          <input type="file" id="g_1_pic" name="g_1_pic"  >
+          <p class="help-block">Please Select Guardian's Picture.</p>
         </div>
       </div>
-  
+    </div>
+  </div>
+  <br />
+  <div class="form-group">
+    <div class="col-sm-9"> </div>
+    <div class="col-sm-3">
+      <input type="submit" class=" btn btn-lg btn-success" id="add_student_submit" name="add_student_submit" value="Add New Student" placeholder="Add New Student">
+    </div>
+  </div>
 </form>
-
 <script type="text/javascript">
 
 function edu_struct_by_year()
@@ -534,13 +560,12 @@ function edu_struct_by_year()
 	});
 }
 
-function class_struct_by_edu_struct()
+function class_struct_by_edu_struct_as_option()
 {
 	$("#class_struct").html("<h2>loading...</h2>");	
 	var edu_struct_id = $('#edu_struct').val();	
-	//alert(edu_struct_id);
 	$.ajax({		
-		 url:  "<?php echo site_url("profile/ajax_class_struct_by_edu_struct")?>/"+edu_struct_id,		
+		 url:  "<?php echo site_url("profile/ajax_class_struct_by_edu_struct_as_option")?>/"+edu_struct_id,		
 		 success: function(html){
 		 $("#class_struct").html(html);
 		}

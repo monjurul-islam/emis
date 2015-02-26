@@ -256,56 +256,13 @@ class Profile extends CI_Controller
 		}
 	}
 	
-	//========================ajax fuctions======================================//
-	
-	function ajax_edu_struct_by_year()
-	{		
-		$qry_edu_struct = $this->db->get_where('edu_struct', array('year_season_id'=>$this->uri->segment(3, 0)));
-		
-		if($qry_edu_struct->num_rows()>0)
-		{
-			$html = ' <option value="" selected="selected">Select Education Structure</option>';
-			foreach($qry_edu_struct->result() as $qry_edu_struct_res)
-			{
-				$html.= '<option value="'.$qry_edu_struct_res->id.'"><u>'.$this->m_common->get_medium_name_by_id($qry_edu_struct_res->medium_id).', '.$this->m_common->get_version_name_by_id($qry_edu_struct_res->version_id).'  Version, '.$this->m_common->get_shift_name_by_id($qry_edu_struct_res->shift_id).' Shift</u></option>';
-			}
-			
-			echo $html;
-		}
-		else
-		{
-			echo 0;
-		}
-		
-	}
-	
-	
-	function ajax_class_struct_by_edu_struct()
-	{		
-		$qry_class_struct = $this->db->get_where('class_struct', array('edu_struct_id'=>$this->uri->segment(3, 0)));
-		
-		if($qry_class_struct->num_rows()>0)
-		{
-			$html = '<h3>Class Structures of selected Education Structure</h3><hr/>';
-			
-			$data['qry_success'] = 1;
-			$data['qry_result']  = $qry_class_struct->result();
-			$html.= $this->load->view('profile/config/class_struct_classes', $data , true);;
-			
-			echo $html;
-		}
-		else
-		{
-			echo '<h3>Nothing Found. <a style=" font-size:medium;" href="'.base_url().'profile/add_class_struct">Create New</a></h3>';
-		}
-		
-	}
-	
-	
+
 	
 	///-------------------------------------------------End Configuration -------------------------------------------------///
 	///-------------------------------------------------End Configuration -------------------------------------------------///
 	///-------------------------------------------------End Configuration -------------------------------------------------///
+	
+	
 	
 	function student()
 	{
@@ -365,7 +322,16 @@ class Profile extends CI_Controller
 			
 			$data['side_menu']	= $this->m_profile->std_side_menu(); // sub feature menus for feature
 			
-			$data['content']	= $this->load->view('profile/student/student_form', '', true);;
+			if($this->input->post('add_student_submit'))
+			{
+				echo print_r($this->m_profile->add_new_student());
+				
+				$data['content']	= 'Success';				
+			}
+			else
+			{
+				$data['content']	= $this->load->view('profile/student/student_form', '', true);
+			}		
 			
 			$data['page_title']		= 'Profile: Student';			
 			$data['content_title']	= 'Add New Student';						
@@ -375,9 +341,133 @@ class Profile extends CI_Controller
 		}
 	}	
 	
+	function student_by_class()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			
+			$feature_id			= 3333;		
+			
+			if($this->m_priv->chk_fe_priv($feature_id, $this->tank_auth->get_user_id())==FALSE)
+			{
+				$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
+			}
+			
+			$data['user_id']		= $this->tank_auth->get_user_id();
+			$data['username']		= $this->tank_auth->get_username();
+			$data['feature_id']		= $feature_id;
+			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
+			
+			$data['side_menu']	= $this->m_profile->std_side_menu(); // sub feature menus for feature
+			
+			$data['content']	= $this->load->view('profile/student/student_by_class', $this->m_profile->class_struct(), true);;
+			
+			$data['page_title']		= 'Profile: Student';			
+			$data['content_title']	= 'Welcome '.$data['username'];						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('module_view', $result);
+		}
+	}	
 	
+	
+		//========================ajax fuctions======================================//
+	
+	function ajax_edu_struct_by_year()
+	{		
+		$qry_edu_struct = $this->db->get_where('edu_struct', array('year_season_id'=>$this->uri->segment(3, 0)));
+		
+		if($qry_edu_struct->num_rows()>0)
+		{
+			$html = ' <option value="" selected="selected">Select Education Structure</option>';
+			foreach($qry_edu_struct->result() as $qry_edu_struct_res)
+			{
+				$html.= '<option value="'.$qry_edu_struct_res->id.'"><u>'.$this->m_common->get_medium_name_by_id($qry_edu_struct_res->medium_id).', '.$this->m_common->get_version_name_by_id($qry_edu_struct_res->version_id).'  Version, '.$this->m_common->get_shift_name_by_id($qry_edu_struct_res->shift_id).' Shift</u></option>';
+			}
+			
+			echo $html;
+		}
+		else
+		{
+			echo 0;
+		}
+		
+	}
+	
+	
+	function ajax_class_struct_by_edu_struct()
+	{		
+		$qry_class_struct = $this->db->get_where('class_struct', array('edu_struct_id'=>$this->uri->segment(3, 0)));
+		
+		if($qry_class_struct->num_rows()>0)
+		{
+			$html = '<h3>Class Structures of selected Education Structure</h3><hr/>';
+			
+			$data['qry_success'] = 1;
+			$data['qry_result']  = $qry_class_struct->result();
+			$html.= $this->load->view('profile/config/class_struct_classes', $data , true);;
+			
+			echo $html;
+		}
+		else
+		{
+			echo '<h3>Nothing Found. <a style=" font-size:medium;" href="'.base_url().'profile/add_class_struct">Create New</a></h3>';
+		}
+		
+	}
+	
+	function ajax_class_struct_by_edu_struct_as_option()
+	{	
+	
+		$qry_class_struct = $this->db->get_where('class_struct', array('edu_struct_id'=>$this->uri->segment(3, 0) , 'status'=>1));
+		
+		if($qry_class_struct->num_rows()>0)
+		{
+			$html = ' <option value="" selected="selected">Select Class Structure</option>';
+			
+			foreach( $qry_class_struct->result() as $qry_class_struct_res)
+			{
+				$html.= '<option value="'.$qry_class_struct_res->id.'"><u>'.$this->m_common->get_class_name_by_id($qry_class_struct_res->class_id).', '.$this->m_common->get_dept_name_by_id($qry_class_struct_res->dept_id).'  Dept, '.$this->m_common->get_section_name_by_id($qry_class_struct_res->section_id).' Section</u></option>';
+			}
+			
+			
+			echo $html;
+		}
+		else
+		{
+			echo '<h3>Nothing Found. <a style=" font-size:medium;" href="'.base_url().'profile/add_class_struct">Create New</a></h3>';
+		}
+	}
+	
+	function ajax_students_by_class_structure()
+	{
+		$qry_class_struct_std = $this->db->get_where('class_struct_std_map', array('class_struct_id'=>$this->uri->segment(3, 0)));
+		
+		if($qry_class_struct_std->num_rows()>0)
+		{
+			$html = '<h3>Students In This Class</h3><hr/>';
+			
+			$data['qry_success'] = 1;
+			$data['qry_result_num'] =  $qry_class_struct_std->num_rows();
+			$data['qry_result']  	=  $qry_class_struct_std->result();
+			$html.= $this->load->view('profile/student/class_struct_students', $data , true);;
+			
+			echo $html;
+		}
+		else
+		{
+			echo '<h3>Nothing Found. <a style=" font-size:medium;" href="'.base_url().'profile/add_student">Add New Student</a></h3>';
+		}
+	}
+	
+	///-------------------------------------------------End Ajax functions -------------------------------------------------///
 	
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file profile.php */
+/* Location: ./application/controllers/profile.php */
