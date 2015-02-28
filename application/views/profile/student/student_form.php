@@ -1,5 +1,8 @@
+
+<?php if(isset($msg)) echo '<h3>'.$msg.'</h3>'; ?>
+
 <h2>New Admission</h2>
-<form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="" >
+<form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>profile/add_student" >
   <div class="row" style="background:mediumturquoise;">
     <div class="col-md-12">
       <h1 align="center"><u>Students Information</u>

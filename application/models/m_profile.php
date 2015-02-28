@@ -24,38 +24,42 @@ class M_profile extends CI_Model
 	}
 	
 	///------------------------------------------------ Student ----------------------------------------------------//
-	
+		
 	//--------------------------------------- image uploader helper function -------------------------------------//
 	
 	function pic_upload( $file_name, $pic_new_name )
 	{	
 		
-		$config['upload_path'] = './assets/pic/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
-		$config['file_name'] = $pic_new_name ;
-		$config['overwrite'] = 'TRUE';
+		$config_std['upload_path'] = './assets/pic/';
+		$config_std['allowed_types'] = 'gif|jpg|png';
+		$config_std['file_name'] = $pic_new_name.'.png' ;
+		//$config_std['overwrite'] = 'TRUE';
+		
 
-		$this->load->library('upload', $config);
-
+		$this->load->library('upload', $config_std);
 		if ( ! $this->upload->do_upload($file_name))
 		{
-			echo print_r(array('error' => $this->upload->display_errors()));
-
+			//echo print_r(array('error' => $this->upload->display_errors()));
 		}
+		else
+		{
+			$upolad_data = $this->upload->data();
+			return $upolad_data['file_name'];
+		}
+		  
+	
+
+		
 	}
 	
 	function add_new_student()
-	{
-		
+	{		
 		$std_pref_id = $this->generate_std_id($this->input->post('gender'));	
 		
-		$this->pic_upload('std_pic', 'std_'.$std_pref_id);
-		$this->pic_upload('f_pic', 'f_'.$std_pref_id);
-	    $this->pic_upload('m_pic', 'm_'.$std_pref_id);
-		$this->pic_upload('g_1__pic', 'g_1_'.$std_pref_id);
+		$std_pic   = $this->pic_upload('std_pic',  $std_pref_id);
+		$m_pic     = $this->pic_upload('f_pic',	   $std_pref_id);
+	    $f_pic     = $this->pic_upload('m_pic',    $std_pref_id);
+		$gur_1_pic = $this->pic_upload('g_1_pic',  $std_pref_id);
 		
 		$data = array(
 						'std_id'  					 => $std_pref_id,
@@ -86,9 +90,9 @@ class M_profile extends CI_Model
 						'previous_school_email'  	 => $this->input->post('previous_school_email') ,
 						'previous_school_last_class' => $this->input->post('previous_school_last_class') ,
 						'previous_school_result'  	 => $this->input->post('previous_school_result') ,
-						'std_pic'  					 => 'std_'.$std_pref_id.'.png' ,
+						'std_pic'  					 => $std_pic,
 						'f_name'  					 => $this->input->post('f_name') ,
-						'f_pic'  					 => 'f_'.$std_pref_id.'.png' ,
+						'f_pic'  					 => $f_pic,
 						'f_name_in_bangla' 			 => $this->input->post('f_name_in_bangla') ,
 						'f_nationality'   			 => $this->input->post('f_nationality') ,
 						'f_national_id'  			 => $this->input->post('f_national_id') ,
@@ -105,7 +109,7 @@ class M_profile extends CI_Model
 						'f_email'  					 => $this->input->post('f_email') ,
 						'f_blood'  					 => $this->input->post('f_blood') ,
 						'm_name'   					 => $this->input->post('m_name') ,
-						'm_pic'  					 => 'm_'.$std_pref_id.'.png' ,
+						'm_pic'  					 => $m_pic ,
 						'm_name_in_bangla'  		 => $this->input->post('m_name_in_bangla') ,
 						'm_nationality'  			 => $this->input->post('m_nationality') ,
 						'm_national_id' 			 => $this->input->post('m_national_id') ,
@@ -122,7 +126,7 @@ class M_profile extends CI_Model
 						'm_email'  					 => $this->input->post('m_email') ,
 						'm_blood' 					 => $this->input->post('m_blood') ,
 						'g_1_name'  				 => $this->input->post('g_1_name') ,
-						'f_pic'  					 => 'f_'.$std_pref_id.'.png' ,
+						'g_1_pic'  					 => $gur_1_pic ,
 						'g_1_name_in_bangla'   => $this->input->post('g_1_name_in_bangla') ,
 						'g_1_relation'   => $this->input->post('g_1_relation') ,
 						'g_1_national_id'   => $this->input->post('g_1_national_id') ,
@@ -151,11 +155,11 @@ class M_profile extends CI_Model
 			{
 				if($this->db->insert('student', $data))
 				{
-					$insert_id = $this->db->insert_id();
+					$std_insert_id = $this->db->insert_id();
 					
 					$data_class_map = array(
 											
-											'std_id' 				=> $insert_id,
+											'std_id' 				=> $std_insert_id,
 											'class_struct_id' 		=>  $this->input->post('class_struct'),
 											'status'				=> 1,
 											'created_by'			=> $this->tank_auth->get_user_id(),
@@ -165,7 +169,7 @@ class M_profile extends CI_Model
 											
 					if($this->db->insert('class_struct_std_map', $data_class_map))
 					{
-						$data['class_struct'] = $this->input->post('class_struct');
+						$data['id'] = $std_insert_id;
 						
 						$data['qry_success'] = 1;
 						
@@ -174,13 +178,21 @@ class M_profile extends CI_Model
 				}
 				else
 				{
-					$data['class_struct'] = $this->input->post('class_struct');
+					$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);
 						
 					$data['qry_success'] = 0;
 						
 					return $data;
 					
 				}
+			}
+			else 
+			{
+				$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);
+						
+				$data['qry_success'] = 0;
+						
+				return $data;
 			}		
 	}
 	
@@ -225,8 +237,8 @@ class M_profile extends CI_Model
 		
 		if($qry->num_rows()>0)
 		{
-			$data['qry_success'] = 1;
-			$data['qry_row']  = $qry->row();
+			$data['qry_success']	 = 1;
+			$data['qry_row'] 		 = $qry->row();
 		}
 		else
 		{

@@ -324,9 +324,14 @@ class Profile extends CI_Controller
 			
 			if($this->input->post('add_student_submit'))
 			{
-				echo print_r($this->m_profile->add_new_student());
+				$new_std_data = $this->m_profile->add_new_student();
 				
-				$data['content']	= 'Success';				
+				if($new_std_data['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('profile/student/student_by_id', $new_std_data, true);		
+				}
+				
+					
 			}
 			else
 			{
@@ -377,6 +382,24 @@ class Profile extends CI_Controller
 	
 	
 		//========================ajax fuctions======================================//
+	
+	
+	function ajax_student_by_id()
+	{
+		$data = $this->m_profile->student_by_id($this->uri->segment(3, 0));
+		
+		if($data['qry_success']==1)
+		{
+			$html	= $this->load->view('profile/student/student_by_id', $data['qry_row'], true);	
+			
+			echo $html;
+		}
+		else
+		{
+			echo 'NOthing Found';
+		}
+	}
+	
 	
 	function ajax_edu_struct_by_year()
 	{		
