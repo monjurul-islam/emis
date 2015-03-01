@@ -1,12 +1,20 @@
 <?php if(isset($msg)) echo '<h3>'.$msg.'</h3>'; ?>
 
-<h2> <?php if(isset($form_title)) echo $form_title; ?></h2>
-<form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>profile/add_student" >
+<h2> Edit Student</h2>
+<form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>profile/edit_student" >
   <div class="row" style="background:mediumturquoise;">
     <div class="col-md-12">
       <h1 align="center"><u>Students Information</u>
         <hr />
       </h1>
+      
+       <div class="form-group" style="background:powderblue;">
+      <label for="class_struct" class="col-sm-2 control-label"><strong><h4>Current Class Structure</h4></strong></label>
+      <div class="col-sm-10">        
+            <?php if(isset($name)) echo  $this->m_common->get_active_class_structure_by_std_id($id);?>
+      </div>
+    </div>
+      
       <div class="form-group">
         <label for="year_season" class="col-sm-2 control-label">Year/Season</label>
         <div class="col-sm-3">
@@ -48,6 +56,8 @@
         <label for="name" class="col-sm-2 control-label">Students Name</label>
         <div class="col-sm-6">
           <input   value="<?php if(isset($name)) echo  $name; ?>"  type="name" class="form-control" id="name" name="name" placeholder="Enter Students Name" required>
+          <input   value="<?php echo  $id; ?>"  type="hidden" class="form-control" id="id" name="id"  required>
+           <input   value="<?php echo  $std_id; ?>"  type="hidden" class="form-control" id="std_id" name="std_id"  required>
         </div>
       </div>
       <div class="form-group">
@@ -68,7 +78,7 @@
         <label for="gender" class="col-sm-1 control-label">Gender</label>
         <div class="col-sm-3">
           <select class="form-control"  id="gender" name="gender"  required>
-            <option value="" selected="selected">Select Gender</option>
+            <option value="<?php if(isset($gender)) echo  $gender; ?>" selected="selected"><?php if(isset($gender)) echo  $gender; ?></option>
             <option value="Male" >Male</option>
             <option value="Female" >Female</option>
           </select>
@@ -86,7 +96,7 @@
         <label for="religion" class="col-sm-1 control-label">Religion</label>
         <div class="col-sm-3">
           <select class="form-control"  id="religion" name="religion"  required>
-            <option value="" selected="selected">Select Religion</option>
+            <option value="<?php if(isset($religion)) echo  $religion; ?>" selected="selected"><?php if(isset($religion)) echo  $religion; ?></option>
             <option>Islam</option>
             <option>Hindu</option>
             <option>Other</option>
@@ -96,11 +106,11 @@
       <div class="form-group">
         <label for="present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="present_address" id="present_address" rows="3" required ></textarea>
+          <textarea  class="form-control" name="present_address" id="present_address" rows="3" required ><?php if(isset($present_address)) echo  $present_address; ?></textarea>
         </div>
         <label for="permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="permanent_address" id="permanent_address" required rows="3" ></textarea>
+          <textarea  class="form-control" name="permanent_address" id="permanent_address" required rows="3" ><?php if(isset($permanent_address)) echo  $permanent_address; ?></textarea>
         </div>
       </div>
     </div>
@@ -117,10 +127,10 @@
           <input   value="<?php if(isset($previous_school)) echo  $previous_school; ?>"  type="name" class="form-control" id="previous_school" name="previous_school" placeholder="Enter Previous School's Name">
         </div>
       </div>
-      <div class="form-group">
-        <label for="previous_school" class="col-sm-2 control-label">Address</label>
+       <div class="form-group">
+        <label for="previous_school_address" class="col-sm-2 control-label">Address</label>
         <div class="col-sm-10">
-          <textarea class="form-control" id="previous_school_address" name="previous_school_address" placeholder="Enter School's Address" ></textarea>
+          <textarea class="form-control" id="previous_school_address" name="previous_school_address" "Enter School's Address" ><?php if(isset($previous_school_address)) echo  $previous_school_address; ?></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -178,7 +188,7 @@
         <label for="f_religion" class="col-sm-2 control-label">Religion</label>
         <div class="col-sm-3">
           <select class="form-control"  id="f_religion" name="f_religion"  required>
-            <option value="" selected="selected">Select Religion</option>
+            <option value="<?php if(isset($f_religion)) echo  $f_religion; ?>" selected="selected"><?php if(isset($f_religion)) echo  $f_religion; ?></option>
             <option>Islam</option>
             <option>Hindu</option>
             <option>Other</option>
@@ -211,14 +221,14 @@
           <input   value="<?php if(isset($f_income)) echo  $f_income; ?>"  type="name" class="form-control" id="f_income" name="f_income" placeholder="Father's Yearly Income" required>
         </div>
       </div>
-      <div class="form-group">
+    <div class="form-group">
         <label for="f_present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="f_present_address" id="f_present_address" rows="3" required></textarea>
+          <textarea  class="form-control" name="f_present_address" id="f_present_address" rows="3" required><?php if(isset($f_present_address)) echo  $f_present_address; ?></textarea>
         </div>
         <label for="f_permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="f_permanent_address" id="f_permanent_address" rows="3" required></textarea>
+          <textarea  class="form-control" name="f_permanent_address" id="f_permanent_address" rows="3" required><?php if(isset($f_permanent_address)) echo  $f_permanent_address; ?></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -268,7 +278,7 @@
         <label for="m_religion" class="col-sm-2 control-label">Religion</label>
         <div class="col-sm-3">
           <select class="form-control"  id="m_religion" name="m_religion"  required>
-            <option value="" selected="selected">Select Religion</option>
+            <option value="<?php if(isset($m_religion)) echo  $m_religion; ?>" selected="selected"><?php if(isset($m_religion)) echo  $m_religion; ?></option>
             <option>Islam</option>
             <option>Hindu</option>
             <option>Other</option>
@@ -301,14 +311,14 @@
           <input   value="<?php if(isset($m_income)) echo  $m_income; ?>"  type="name" class="form-control" id="m_income" name="m_income" placeholder="Mother's Yearly Income" required>
         </div>
       </div>
-      <div class="form-group">
+     <div class="form-group">
         <label for="m_present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="m_present_address" id="m_present_address" rows="3" required ></textarea>
+          <textarea  class="form-control" name="m_present_address" id="m_present_address" rows="3" required ><?php if(isset($m_present_address)) echo  $m_present_address; ?></textarea>
         </div>
         <label for="m_permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="m_permanent_address" id="m_permanent_address" rows="3" required ></textarea>
+          <textarea  class="form-control" name="m_permanent_address" id="m_permanent_address" rows="3" required ><?php if(isset($m_permanent_address)) echo  $m_permanent_address; ?></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -373,7 +383,7 @@
       <div class="form-group">
         <label for="g_1_address" class="col-sm-2 control-label">Address</label>
         <div class="col-sm-6">
-          <textarea  class="form-control" name="g_1_address" id="g_1_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="g_1_address" id="g_1_address" rows="3" ><?php if(isset($g_1_address)) echo  $g_1_address; ?></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -430,7 +440,7 @@
       <div class="form-group">
         <label for="g_2_address" class="col-sm-2 control-label">Address</label>
         <div class="col-sm-6">
-          <textarea  class="form-control" name="g_2_address" id="g_2_address" rows="3" ></textarea>
+          <textarea  class="form-control" name="g_2_address" id="g_2_address" rows="3" ><?php if(isset($g_2_address)) echo  $g_2_address; ?></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -513,28 +523,36 @@
   <br />
   <div class="row" style="background:skyblue;">
     <div class="col-md-12">
-      <h1 align="center"><u>Upload Images</u>
+      <h1 align="center"><u>Images</u>
         <hr />
       </h1>
       <div class="form-group" style="overflow:hidden;">
         <div class="col-sm-3">
           <label for="std_pic">Student's Picture</label>
-          <input type="file" id="std_pic" name="std_pic"  required>
+          <img src="<?php if(isset($std_pic)) echo base_url().'assets/pic/'.$std_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px;">
+          <input type="file" id="std_pic" name="std_pic"  >
+           <input   value="<?php echo  $std_pic; ?>"  type="hidden" class="form-control" name="std_pic_old"   required>
           <p class="help-block">Please Select Student's Picture.</p>
         </div>
         <div class="col-sm-3">
           <label for="std_pic">Father's Picture</label>
-          <input type="file" id="f_pic" name="f_pic"  required>
+           <img src="<?php if(isset($f_pic)) echo base_url().'assets/pic/'.$f_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px !important;">
+          <input type="file" id="f_pic" name="f_pic"  >
+          <input   value="<?php echo  $f_pic; ?>"  type="hidden" class="form-control" name="f_pic_old"   required>
           <p class="help-block">Please Select Father's Picture.</p>
         </div>
         <div class="col-sm-3">
           <label for="std_pic">Mother's Picture</label>
-          <input type="file" id="m_pic" name="m_pic"  required>
+            <img src="<?php if(isset($m_pic)) echo base_url().'assets/pic/'.$m_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px;">
+          <input type="file" id="m_pic" name="m_pic"  >
+          <input   value="<?php echo  $m_pic; ?>"  type="hidden" class="form-control" name="m_pic_old"   required>
           <p class="help-block">Please Select Mother's Picture.</p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <label for="std_pic">Guardian's Picture</label>
+            <img src="<?php if(isset($g_1_pic)) echo base_url().'assets/pic/'.$g_1_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px !important;">
           <input type="file" id="g_1_pic" name="g_1_pic"  >
+          <input   value="<?php echo  $g_1_pic; ?>"  type="hidden" class="form-control" name="g_1_pic_old"   required>
           <p class="help-block">Please Select Guardian's Picture.</p>
         </div>
       </div>
@@ -544,7 +562,7 @@
   <div class="form-group">
     <div class="col-sm-9"> </div>
     <div class="col-sm-3">
-      <input type="submit" class=" btn btn-lg btn-success" id="add_student_submit" name="add_student_submit" value="<?php if(isset($submit_text)) echo  $submit_text; ?>" placeholder="Add New Student">
+      <input type="submit" class=" btn btn-lg btn-success" id="update_student_submit" name="update_student_submit" value="Update Student" placeholder="Update Student">
     </div>
   </div>
 </form>
