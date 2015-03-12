@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="year_season" class="col-sm-2 control-label">Year/Season</label>
         <div class="col-sm-3">
-          <select class="form-control"  id="year_season" name="year_season"  onchange="edu_struct_by_year()">
+          <select class="form-control"  id="year_season" name="year_season"  required onchange="edu_struct_by_year()">
             <option value="" selected="selected">Select Year/Session</option>
             <?php			
 			$year_season = $this->m_common->all_active_tbl_data_('year_season');			
@@ -39,7 +39,7 @@
       <div class="form-group">
         <label for="edu_struct" class="col-sm-2 control-label"><strong>Education Structure</strong></label>
         <div class="col-sm-7">
-          <select class="form-control"  id="edu_struct" name="edu_struct"  onchange="class_struct_by_edu_struct_as_option()">
+          <select class="form-control"  id="edu_struct" name="edu_struct"  required onchange="class_struct_by_edu_struct_as_option()">
             <option value="" selected="selected">First Select Year/Season</option>
           </select>
         </div>
@@ -47,7 +47,7 @@
       <div class="form-group">
         <label for="class_struct" class="col-sm-2 control-label"><strong>Class Structure</strong></label>
         <div class="col-sm-7">
-          <select class="form-control"  id="class_struct" name="class_struct"  >
+          <select class="form-control"  id="class_struct" name="class_struct"  required >
             <option value="" selected="selected">Select Class Structure</option>
           </select>
         </div>

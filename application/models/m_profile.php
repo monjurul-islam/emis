@@ -231,7 +231,7 @@ class M_profile extends CI_Model
 	
 	function update_student()
 	{		
-		/*$data = array(
+		$data = array(
 						'name'  					 => $this->input->post('name') ,
 						'name_in_bangla'		     => $this->input->post('name_in_bangla') ,
 						'dob'  						 => $this->input->post('dob') ,
@@ -261,7 +261,6 @@ class M_profile extends CI_Model
 						'previous_school_result'  	 => $this->input->post('previous_school_result') ,
 						
 						'f_name'  					 => $this->input->post('f_name') ,
-						'f_pic'  					 => $f_pic,
 						'f_name_in_bangla' 			 => $this->input->post('f_name_in_bangla') ,
 						'f_nationality'   			 => $this->input->post('f_nationality') ,
 						'f_national_id'  			 => $this->input->post('f_national_id') ,
@@ -278,7 +277,6 @@ class M_profile extends CI_Model
 						'f_email'  					 => $this->input->post('f_email') ,
 						'f_blood'  					 => $this->input->post('f_blood') ,
 						'm_name'   					 => $this->input->post('m_name') ,
-						'm_pic'  					 => $m_pic ,
 						'm_name_in_bangla'  		 => $this->input->post('m_name_in_bangla') ,
 						'm_nationality'  			 => $this->input->post('m_nationality') ,
 						'm_national_id' 			 => $this->input->post('m_national_id') ,
@@ -295,7 +293,6 @@ class M_profile extends CI_Model
 						'm_email'  					 => $this->input->post('m_email') ,
 						'm_blood' 					 => $this->input->post('m_blood') ,
 						'g_1_name'  				 => $this->input->post('g_1_name') ,
-						'g_1_pic'  					 => $gur_1_pic ,
 						'g_1_name_in_bangla'   => $this->input->post('g_1_name_in_bangla') ,
 						'g_1_relation'   => $this->input->post('g_1_relation') ,
 						'g_1_national_id'   => $this->input->post('g_1_national_id') ,
@@ -319,26 +316,60 @@ class M_profile extends CI_Model
 						'created_by'			=> $this->tank_auth->get_user_id(),
 						'created_dt'			=> date("Y-m-d H:i:s")
 					);
-					*/
 					
-			//$std_pic   = $this->pic_upload('std_pic',  $std_pref_id);
-		//$m_pic     = $this->pic_upload('f_pic',	   $std_pref_id);
-	   // $f_pic     = $this->pic_upload('m_pic',    $std_pref_id);
-		//$gur_1_pic = $this->pic_upload('g_1_pic',  $std_pref_id);
+					
+			$std_pic   = '0';
+			$m_pic     = '0';
+	  		$f_pic     = '0';
+			$gur_1_pic = '0';
 		
-		if (empty($_FILES['std_pic']['name'])) {
-			echo 'no file selected';// No file was selected for upload, your (re)action goes here
-		}
-		else
-		{
-			if(unlink('./assets/pic/'.$this->input->post('std_pic_old')))
-			echo 'old '.$this->input->post('std_pic_old').' file deleted';
+		if (!empty($_FILES['std_pic']['name'])) 
+		{			
+			if($this->input->post('std_pic_old')!=0)
+			{
+				unlink('./assets/pic/'.$this->input->post('std_pic_old'));
+			}
 			
 			$std_pic   = $this->pic_upload('std_pic',  $this->input->post('std_id'));
-			$data['std_pic'] = $std_pic;
+			
+		}
+		if (!empty($_FILES['m_pic']['name'])) 
+		{			
+			if($this->input->post('m_pic_old')!=0)
+			{
+				unlink('./assets/pic/'.$this->input->post('m_pic_old'));
+			}
+			
+			$m_pic   = $this->pic_upload('m_pic',  $this->input->post('std_id'));
+			
+		}
+		if (!empty($_FILES['f_pic']['name'])) 
+		{			
+			if($this->input->post('f_pic_old')!=0)
+			{
+				unlink('./assets/pic/'.$this->input->post('f_pic_old'));
+			}
+			
+			$f_pic   = $this->pic_upload('f_pic',  $this->input->post('std_id'));
+			
+		}
+		if (!empty($_FILES['g_1_pic']['name'])) 
+		{			
+			if($this->input->post('g_1_pic_old')!=0)
+			{
+				unlink('./assets/pic/'.$this->input->post('g_1_pic_old'));
+			}
+			
+			$g_1_pic   = $this->pic_upload('g_1_pic',  $this->input->post('std_id'));
+			
 		}
 		
-		if (empty($_FILES['m_pic']['name'])) {
+		$data['std_pic']	 = $std_pic;
+		$data['m_pic']		 = $m_pic;
+		$data['f_pic']		 = $f_pic;
+		$data['g_1_pic']	 = $g_1_pic;
+		
+		/*if (empty($_FILES['m_pic']['name'])) {
 			echo 'no file selected';// No file was selected for upload, your (re)action goes here
 		}
 		else
@@ -371,7 +402,7 @@ class M_profile extends CI_Model
 			
 			$g_1_pic   = $this->pic_upload('g_1_pic',  $this->input->post('std_id'));
 			$data['g_1_pic'] = $g_1_pic;
-		}
+		}*/
 			
 			/*if( $this->input->post('class_struct') && $this->input->post('class_struct')!=NULL && $this->input->post('name') && $this->input->post('name')!=NULL && $this->input->post('f_phone') && $this->input->post('f_phone')!=NULL )
 			{
@@ -625,6 +656,26 @@ class M_profile extends CI_Model
 					 <a  class="btn btn-link" href="'.base_url().'profile/add_student"><strong>Add Student</strong></a>
 					 <a  class="btn btn-link" href="'.base_url().'profile/student_by_class"><strong>Student by Class</strong></a>
 					 <a  class="btn btn-link" href="'.base_url().'profile/add_student"><strong>Reports</strong></a>
+					';
+		}
+		else
+		{
+			redirect('/auth/logout/');
+		}
+		
+		return $menu;
+	}
+	
+	function staff_side_menu() // returns menu for student module
+	{
+		$menu = '';
+				
+		if($this->tank_auth->is_logged_in())
+		{
+			$menu.= '
+					 <a  class="btn btn-link" href="'.base_url().'profile/add_staff"><strong>Add Employee</strong></a>
+					 <a  class="btn btn-link" href="'.base_url().'profile/Staff"><strong>View Employee</strong></a>
+					 <a  class="btn btn-link" href="#'.base_url().'profile/add_student"><strong>Reports</strong></a>
 					';
 		}
 		else
