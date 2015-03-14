@@ -321,10 +321,13 @@ class M_profile extends CI_Model
 			$std_pic   = '0';
 			$m_pic     = '0';
 	  		$f_pic     = '0';
-			$gur_1_pic = '0';
+			$g_1_pic   = '0';
+		
+		
 		
 		if (!empty($_FILES['std_pic']['name'])) 
-		{			
+		{	
+			//echo $_FILES['std_pic']['name'];		
 			if($this->input->post('std_pic_old')!=0)
 			{
 				unlink('./assets/pic/'.$this->input->post('std_pic_old'));
@@ -332,6 +335,7 @@ class M_profile extends CI_Model
 			
 			$std_pic   = $this->pic_upload('std_pic',  $this->input->post('std_id'));
 			
+			//echo $std_pic;			
 		}
 		if (!empty($_FILES['m_pic']['name'])) 
 		{			
@@ -360,8 +364,7 @@ class M_profile extends CI_Model
 				unlink('./assets/pic/'.$this->input->post('g_1_pic_old'));
 			}
 			
-			$g_1_pic   = $this->pic_upload('g_1_pic',  $this->input->post('std_id'));
-			
+			$g_1_pic   = $this->pic_upload('g_1_pic',  $this->input->post('std_id'));			
 		}
 		
 		$data['std_pic']	 = $std_pic;
@@ -403,7 +406,30 @@ class M_profile extends CI_Model
 			$g_1_pic   = $this->pic_upload('g_1_pic',  $this->input->post('std_id'));
 			$data['g_1_pic'] = $g_1_pic;
 		}*/
-			
+		
+		
+		$this->db->where('id', $this->input->post('id') );
+		
+		if($this->db->update('student', $data))
+		{
+			if($this->input->post('class_struct')!=NULL || $this->input->post('class_struct')!="")
+			{
+				$data_stat_dis = array('status'=>0);
+				$this->db->where('std_id', $this->input->post('id'));
+				$this->db->update('class_struct_std_map', $data_stat_dis);
+				
+				/*$qry = $this->db->get_where('class_struct_std_map', array('std_id'=>$this->input->post('id')));
+				if($qry->num_rows()>0)
+				{
+					$data_stat_dis = array('status'=>0);
+					
+					foreach($qry->result() as $qry_res)
+					{
+						$this->db->where('std_id', $this->input->post('id'));
+					}
+				}*/
+			}
+		}
 			/*if( $this->input->post('class_struct') && $this->input->post('class_struct')!=NULL && $this->input->post('name') && $this->input->post('name')!=NULL && $this->input->post('f_phone') && $this->input->post('f_phone')!=NULL )
 			{
 				if($this->db->insert('student', $data))
@@ -416,8 +442,7 @@ class M_profile extends CI_Model
 											'class_struct_id' 		=>  $this->input->post('class_struct'),
 											'status'				=> 1,
 											'created_by'			=> $this->tank_auth->get_user_id(),
-											'created_dt'			=> date("Y-m-d H:i:s")
-											
+											'created_dt'			=> date("Y-m-d H:i:s")											
 											);
 											
 					if($this->db->insert('class_struct_std_map', $data_class_map))

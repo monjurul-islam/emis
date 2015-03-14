@@ -539,7 +539,7 @@ class Profile extends CI_Controller
 	
 	function ajax_edu_struct_by_year()
 	{		
-		$qry_edu_struct = $this->db->get_where('edu_struct', array('year_season_id'=>$this->uri->segment(3, 0)));
+		$qry_edu_struct = $this->db->get_where('edu_struct', array('year_season_id'=>$this->uri->segment(3, 0), 'status'=>1));
 		
 		if($qry_edu_struct->num_rows()>0)
 		{
@@ -561,7 +561,7 @@ class Profile extends CI_Controller
 	
 	function ajax_class_struct_by_edu_struct()
 	{		
-		$qry_class_struct = $this->db->get_where('class_struct', array('edu_struct_id'=>$this->uri->segment(3, 0)));
+		$qry_class_struct = $this->db->get_where('class_struct', array('edu_struct_id'=>$this->uri->segment(3, 0), 'status'=>1));
 		
 		if($qry_class_struct->num_rows()>0)
 		{

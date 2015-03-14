@@ -41,7 +41,7 @@
 						  <td>'.$qry_std['qry_row']->created_dt.'</td>
 						  <td>'.$this->m_common->get_username_by_id($qry_std['qry_row']->modified_by).'</td>
 						  <td>'.$qry_std['qry_row']->modified_dt.'</td>
-						  <td>'.$this->m_common->status_text($qry_std['qry_row']->status).'</td>
+						  <td>'.$this->m_common->status_text($qry_res->status).'</td>
 						  <td> <button class="btn btn-info" onclick="students_by_id_modal_view('.$qry_std['qry_row']->id.')" >Details</button></td>
 					</tr>';
 			}
