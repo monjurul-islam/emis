@@ -33,8 +33,7 @@ class M_profile extends CI_Model
 		$config_std['upload_path'] = './assets/pic/';
 		$config_std['allowed_types'] = 'gif|jpg|png';
 		$config_std['file_name'] = $pic_new_name.'.png' ;
-		//$config_std['overwrite'] = 'TRUE';
-		
+		//$config_std['overwrite'] = 'TRUE';		
 
 		$this->load->library('upload', $config_std);
 		if ( ! $this->upload->do_upload($file_name))
@@ -46,16 +45,11 @@ class M_profile extends CI_Model
 			$upolad_data = $this->upload->data();
 			return $upolad_data['file_name'];
 		}
-		  
-	
-
-		
 	}
 	
 	function add_new_student()
 	{		
-		$std_pref_id = $this->generate_std_id($this->input->post('gender'));	
-		
+		$std_pref_id = $this->generate_std_id($this->input->post('gender'));			
 		$std_pic   = $this->pic_upload('std_pic',  $std_pref_id);
 		$m_pic     = $this->pic_upload('f_pic',	   $std_pref_id);
 	    $f_pic     = $this->pic_upload('m_pic',    $std_pref_id);
@@ -155,43 +149,39 @@ class M_profile extends CI_Model
 			{
 				if($this->db->insert('student', $data))
 				{
+					$this->m_common->activity_log('insert', 'Created New Student ID-'.$std_pref_id.', Name- '.$this->input->post('name')); // inserts into activity log table
+					
 					$std_insert_id = $this->db->insert_id();
 					
-					$data_class_map = array(
-											
+					$data_class_map = array(											
 											'std_id' 				=> $std_insert_id,
 											'class_struct_id' 		=>  $this->input->post('class_struct'),
 											'status'				=> 1,
 											'created_by'			=> $this->tank_auth->get_user_id(),
-											'created_dt'			=> date("Y-m-d H:i:s")
-											
+											'created_dt'			=> date("Y-m-d H:i:s")											
 											);
 											
 					if($this->db->insert('class_struct_std_map', $data_class_map))
 					{
-						$data['id'] = $std_insert_id;
+						$this->m_common->activity_log('insert', 'Created New Class Structure for Std ID- '.$std_pref_id.', Name- '.$this->input->post('name')); // inserts into activity log table
 						
-						$data['qry_success'] = 1;
-						
+						$data['id'] = $std_insert_id;						
+						$data['qry_success'] = 1;						
 						return $data;
 					}
 				}
 				else
 				{
-					$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);
-						
-					$data['qry_success'] = 0;
-						
+					$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);						
+					$data['qry_success'] = 0;						
 					return $data;
 					
 				}
 			}
 			else 
 			{
-				$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);
-						
-				$data['qry_success'] = 0;
-						
+				$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);						
+				$data['qry_success'] = 0;						
 				return $data;
 			}		
 	}
@@ -228,6 +218,8 @@ class M_profile extends CI_Model
 		}	
 		return $str;
 	}
+	//--------------------------------------//
+	
 	
 	function update_student()
 	{		
@@ -258,8 +250,7 @@ class M_profile extends CI_Model
 						'previous_school_phone'      => $this->input->post('previous_school_phone') ,
 						'previous_school_email'  	 => $this->input->post('previous_school_email') ,
 						'previous_school_last_class' => $this->input->post('previous_school_last_class') ,
-						'previous_school_result'  	 => $this->input->post('previous_school_result') ,
-						
+						'previous_school_result'  	 => $this->input->post('previous_school_result') ,						
 						'f_name'  					 => $this->input->post('f_name') ,
 						'f_name_in_bangla' 			 => $this->input->post('f_name_in_bangla') ,
 						'f_nationality'   			 => $this->input->post('f_nationality') ,
@@ -316,18 +307,15 @@ class M_profile extends CI_Model
 						'created_by'			=> $this->tank_auth->get_user_id(),
 						'created_dt'			=> date("Y-m-d H:i:s")
 					);
+										
+			$std_pic   = $this->input->post('std_pic_old');
+			$m_pic     = $this->input->post('m_pic_old');
+	  		$f_pic     = $this->input->post('f_pic_old');
+			$g_1_pic   = $this->input->post('g_1_pic_old');
 					
-					
-			$std_pic   = '0';
-			$m_pic     = '0';
-	  		$f_pic     = '0';
-			$g_1_pic   = '0';
-		
-		
-		
 		if (!empty($_FILES['std_pic']['name'])) 
 		{	
-			//echo $_FILES['std_pic']['name'];		
+			echo $_FILES['std_pic']['name'];		
 			if($this->input->post('std_pic_old')!=0)
 			{
 				unlink('./assets/pic/'.$this->input->post('std_pic_old'));
@@ -370,108 +358,63 @@ class M_profile extends CI_Model
 		$data['std_pic']	 = $std_pic;
 		$data['m_pic']		 = $m_pic;
 		$data['f_pic']		 = $f_pic;
-		$data['g_1_pic']	 = $g_1_pic;
-		
-		/*if (empty($_FILES['m_pic']['name'])) {
-			echo 'no file selected';// No file was selected for upload, your (re)action goes here
-		}
-		else
-		{
-			if(unlink('./assets/pic/'.$this->input->post('m_pic_old')))
-			echo 'old '.$this->input->post('m_pic_old').' file deleted';
-			
-			$m_pic   = $this->pic_upload('m_pic',  $this->input->post('std_id'));
-		}
-		
-		if (empty($_FILES['f_pic']['name'])) {
-			echo 'no file selected';// No file was selected for upload, your (re)action goes here
-		}
-		else
-		{
-			if(unlink('./assets/pic/'.$this->input->post('f_pic_old')))
-			echo 'old '.$this->input->post('f_pic_old').' file deleted';
-			
-			$f_pic   = $this->pic_upload('f_pic',  $this->input->post('std_id'));
-			$data['f_pic'] = $f_pic;
-		}
-		
-		if (empty($_FILES['g_1_pic']['name'])) {
-			echo 'no file selected';// No file was selected for upload, your (re)action goes here
-		}
-		else
-		{
-			if(unlink('./assets/pic/'.$this->input->post('g_1_pic_old')))
-			echo 'old '.$this->input->post('g_1_pic_old').' file deleted';
-			
-			$g_1_pic   = $this->pic_upload('g_1_pic',  $this->input->post('std_id'));
-			$data['g_1_pic'] = $g_1_pic;
-		}*/
-		
+		$data['g_1_pic']	 = $g_1_pic;		
 		
 		$this->db->where('id', $this->input->post('id') );
 		
 		if($this->db->update('student', $data))
 		{
+			$this->m_common->activity_log('update', 'Updated Students Data, ID-'.$this->input->post('std_id').', Name- '.$this->input->post('name')); // inserts into activity log table
+			
+			$data['id'] = $this->input->post('id');
+			$data['std_id'] = $this->input->post('std_id');
+			
 			if($this->input->post('class_struct')!=NULL || $this->input->post('class_struct')!="")
 			{
 				$data_stat_dis = array('status'=>0);
 				$this->db->where('std_id', $this->input->post('id'));
 				$this->db->update('class_struct_std_map', $data_stat_dis);
 				
-				/*$qry = $this->db->get_where('class_struct_std_map', array('std_id'=>$this->input->post('id')));
-				if($qry->num_rows()>0)
+				$this->m_common->activity_log('disable', 'Disabled Class Structure for Std ID- '.$std_pref_id.', Name- '.$this->input->post('name')); // inserts into activity log table
+				
+				$data_class_map = array(  'std_id' 				=> $this->input->post('id'),
+										  'class_struct_id' 	=>  $this->input->post('class_struct'),
+										  'status'				=> 1,
+										  'created_by'			=> $this->tank_auth->get_user_id(),
+										  'created_dt'			=> date("Y-m-d H:i:s")											
+										);
+				if($this->db->insert('class_struct_std_map', $data_class_map))
+				{	
+				
+					$this->m_common->activity_log('update', 'Updated New Class Structure for Std ID- '.$std_pref_id.', Name- '.$this->input->post('name')); // inserts into activity log table
+								
+					$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($this->input->post('id'));					
+					$data['qry_success'] = 1;					
+					return $data;
+				}
+				else 
 				{
-					$data_stat_dis = array('status'=>0);
-					
-					foreach($qry->result() as $qry_res)
-					{
-						$this->db->where('std_id', $this->input->post('id'));
-					}
-				}*/
+					$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($this->input->post('id'));							
+					$data['qry_success'] = 1;							
+					return $data;
+				}	
+			}
+			else
+			{
+				$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($this->input->post('id'));						
+				$data['qry_success'] = 1;						
+				return $data;
 			}
 		}
-			/*if( $this->input->post('class_struct') && $this->input->post('class_struct')!=NULL && $this->input->post('name') && $this->input->post('name')!=NULL && $this->input->post('f_phone') && $this->input->post('f_phone')!=NULL )
-			{
-				if($this->db->insert('student', $data))
-				{
-					$std_insert_id = $this->db->insert_id();
-					
-					$data_class_map = array(
-											
-											'std_id' 				=> $std_insert_id,
-											'class_struct_id' 		=>  $this->input->post('class_struct'),
-											'status'				=> 1,
-											'created_by'			=> $this->tank_auth->get_user_id(),
-											'created_dt'			=> date("Y-m-d H:i:s")											
-											);
-											
-					if($this->db->insert('class_struct_std_map', $data_class_map))
-					{
-						$data['id'] = $std_insert_id;
+		else
+		{
+			$data['id'] = $this->input->post('id');			
+			$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);						
+			$data['qry_success'] = 0;
 						
-						$data['qry_success'] = 1;
-						
-						return $data;
-					}
-				}
-				else
-				{
-					$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);
-						
-					$data['qry_success'] = 0;
-						
-					return $data;
-					
-				}
-			}
-			else 
-			{
-				$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);
-						
-				$data['qry_success'] = 0;
-						
-				return $data;
-			}		*/
+			return $data;
+		}
+			
 	}
 	
 	
@@ -491,18 +434,12 @@ class M_profile extends CI_Model
 		
 		return $data;
 	}
+		
 	
 	
-	
-	
-	
-	
-	
-	///------------------------------------------------ End Student ----------------------------------------------------//
-	
+	///------------------------------------------------ End Student ----------------------------------------------------//	
 	
 	///------------------------------------------------ Configuration ----------------------------------------------------//
-
 	
 	function conf_side_menu() // returns menu for configuration panel
 	{
@@ -569,6 +506,8 @@ class M_profile extends CI_Model
 			
 		if($this->db->insert('edu_struct', $data))
 		{
+			$this->m_common->activity_log('insert', 'Created New Education Structure'); // inserts into activity log table
+			
 			$data = $this->edu_struct_by_id($this->db->insert_id());
 			
 			return $data;
@@ -592,6 +531,8 @@ class M_profile extends CI_Model
 		{
 			$this->db->where('id', $this->input->post('id'));
 			$this->db->update('edu_struct', $data);
+			
+			$this->m_common->activity_log('update', 'Updated Education Structure'); // inserts into activity log table
 			
 			$data = $this->edu_struct_by_id($this->input->post('id'));
 			
@@ -647,6 +588,8 @@ class M_profile extends CI_Model
 						'class_id'			=> $this->input->post('class'),
 						'dept_id'			=> $this->input->post('dept'),
 						'section_id'		=> $this->input->post('section'),
+						'start_time'		=> $this->input->post('start_time'),
+						'end_time'			=> $this->input->post('end_time'),
 						'status'			=> $this->input->post('status'),
 						'created_by'		=> $this->tank_auth->get_user_id(),
 						'created_dt'		=> date("Y-m-d H:i:s")
@@ -654,6 +597,8 @@ class M_profile extends CI_Model
 			
 		if($this->db->insert('class_struct', $data))
 		{
+			$this->m_common->activity_log('insert', 'Created New Class Structure'); // inserts into activity log table
+			
 			$data = $this->class_struct_by_id($this->db->insert_id());
 			
 			return $data;

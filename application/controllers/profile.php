@@ -256,6 +256,65 @@ class Profile extends CI_Controller
 		}
 	}
 	
+	function edit_class_struct()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			
+			$feature_id			= 3335;		
+			
+			if($this->m_priv->chk_fe_priv($feature_id, $this->tank_auth->get_user_id())==FALSE)
+			{
+				$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
+			}
+			
+			$data['user_id']		= $this->tank_auth->get_user_id();
+			$data['username']		= $this->tank_auth->get_username();
+			$data['feature_id']		= $feature_id;
+			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
+			
+			$data['side_menu']	= $this->m_profile->conf_side_menu(); // sub feature menus for feature
+			
+			if($this->input->post('add_class_struct'))
+			{
+				$new_class_struct = $this->m_profile->add_class_struct();
+				
+				if($new_class_struct['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('profile/config/new_class_struct', $new_class_struct, true);
+				}
+				else
+				{
+					$this->load->view('profile/config/add_edu_struct', '', true);
+				}
+			}
+			else
+			{								
+				$class_struct_data = $this->m_profile->class_struct_by_id($this->uri->segment(3,0));
+				
+				if($class_struct_data['qry_success']==1)
+				{									
+					$data['content']	= $this->load->view('profile/config/edit_class_struct', $class_struct_data, true);
+				}
+				else
+				{
+					
+				}
+			}
+						
+			$data['page_title']		= 'Profile: Configure';			
+			$data['content_title']	= 'Manage Class Structure';						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('module_view', $result);
+		}
+	}
+	
 
 	
 	///-------------------------------------------------End Configuration -------------------------------------------------///
@@ -332,9 +391,7 @@ class Profile extends CI_Controller
 				if($new_std_data['qry_success']==1)
 				{
 					$data['content']	= $this->load->view('profile/student/student_by_id', $new_std_data, true);		
-				}
-				
-					
+				}					
 			}
 			else
 			{
@@ -378,16 +435,15 @@ class Profile extends CI_Controller
 			{
 				$new_std_data = $this->m_profile->update_student();
 				
-				//if($new_std_data['qry_success']==1)
-				//{
-					//$data['content']	= $this->load->view('profile/student/student_by_id', $new_std_data, true);		
-				//}
-				
-					
+				if($new_std_data['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('profile/student/student_by_id', $new_std_data, true);		
+				}					
 			}
 			else
 			{
 				$std_data = $this->m_profile->student_by_id($this->uri->segment(3,0));
+				
 				if($std_data['qry_success']==1)
 				{									
 					$data['content']	= $this->load->view('profile/student/student_form_edit', $std_data['qry_row'], true);

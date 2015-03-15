@@ -20,7 +20,7 @@
       <th>Modif. by</th>
       <th>Modif. dt</th>
       <th>Status</th>
-    <!--  <th> </th>-->
+    <th> Edit</th>
     </tr>
   </thead>
   <tbody>
@@ -42,7 +42,7 @@
 						  <td>'.$this->m_common->get_username_by_id($qry_res->modified_by).'</td>
 						   <td>'.$qry_res->modified_dt.'</td>
 						  <td>'.$this->m_common->status_text($qry_res->status).'</td>
-						<!--  <td> <a href="'.base_url().'admin/edit_edu_struct/'.$qry_res->id.'">Edit</a> </td>-->
+						<td> <a href="'.base_url().'profile/edit_class_struct/'.$qry_res->id.'">Edit</a> </td>
 					</tr>';
 					  
 		}

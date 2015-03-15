@@ -11,12 +11,10 @@
       </h1>
       <div class="form-group" style="background:powderblue;">
         <label for="class_struct" class="col-sm-2 control-label">
-        <strong>
         <h4>Class Structure</h4>
-        </strong>
         </label>
         <div class="col-sm-10">
-          <?php if(isset($name)) echo  $this->m_common->get_active_class_structure_by_std_id($id);?>
+          <?php if(isset($id)) echo  $this->m_common->get_active_class_structure_by_std_id($id);?>
         </div>
       </div>
       <div class="col-sm-12">

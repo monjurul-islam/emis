@@ -15,6 +15,16 @@ class M_common extends CI_Model
 		parent::__construct();
 	}
 	
+	function activity_log($action, $desc)
+	{
+		$data = array(
+						'user_id' => $this->tank_auth->get_user_id(),
+						'action'  => $action,
+						'desc'	  => $desc
+					);
+		$this->db->insert('activity_log', $data);
+	}
+	
 	function organisation_info() // returns organisation/institute's basic information
 	{
 		$qry_org = $this->db->get_where('organisation', array('id'=>1));
@@ -228,9 +238,7 @@ class M_common extends CI_Model
 			
 			return $data;
 
-		}
-		
-		
+		}	
 	}
 	
 }

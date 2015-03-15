@@ -35,14 +35,20 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="hour" class="col-sm-2 control-label"> Working Hour</label>
+        <label for="timeFrom" class="col-sm-2 control-label"> Working Hour</label>
         <div class="col-sm-2">
-		<input type="text" id="timeFrom" class="form-control">
+		<input type="text" id="timeFrom" name="time_from" class="form-control">
         </div>
         <label class=" col-sm-1 control-label" style="width:20px !important;">To</label>
          <div class="col-sm-2">
-        <input type="text" id="timeTo" class="form-control" >
+        <input type="text" id="timeTo" name="time_from" class="form-control" >
        </div> 
+      </div>
+      <div class="form-group">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-6">
+          <input   value="<?php if(isset($name)) echo  $name; ?>"  type="name" class="form-control" id="name" name="name" placeholder="Enter Employee Name" required>
+        </div>
       </div>
       <div class="form-group">
         <label for="designation" class="col-sm-2 control-label">Designation</label>
@@ -154,8 +160,5 @@ $(function () {
 	$('#timeFrom').timeEntry();
 	$('#timeTo').timeEntry();
 });
-
-
-
 
 </script> 

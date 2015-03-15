@@ -6,7 +6,7 @@
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h2>Add New Class Structure <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/class_struct">View All</a></h2>
+<h2>Edit Class Structure <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/class_struct">View All</a></h2>
 <hr/>
 <form class="form-horizontal" method="post" action="">
   <div class="form-group">
@@ -27,7 +27,7 @@
       </select>
     </div>
     <div class="col-sm-5"><span style="color:red;">
-      <?php if(isset($year_session_err)) echo $year_session_err; ?>
+      <?php if(isset($year_session_err)) echo $year_session_err; //echo print_r($qry_row); ?>
       </span></div>
   </div>
   <div class="form-group">
@@ -42,14 +42,24 @@
     <label for="class" class="col-sm-2 control-label">Class</label>
     <div class="col-sm-5">
       <select class="form-control"  id="class" name="class"  required>
-        <option value="" selected="selected">Select Class</option>
+        <option value="" >Select Class</option>
         <?php			
-			$class = $this->m_common->all_active_tbl_data_('class');			
+			$class = $this->m_common->all_active_tbl_data_('class');
+			
+			
+						
 			if($class!=NULL)
 			{
 				foreach($class as $class)
 				{
-					echo ' <option value="'.$class->id.'">'.$class->name.'</option>';
+					if($qry_row->class_id == $class->id)
+					{
+						echo ' <option selected="selected" value="'.$class->id.'">'.$class->name.'</option>';
+					}
+					else
+					{
+						echo ' <option value="'.$class->id.'">'.$class->name.'</option>';
+					}
 				}
 			}		 
 		?>
@@ -123,7 +133,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <input class="btn btn-success" type="submit" name="add_class_struct" value="Create New Class Structure">
+      <input class="btn btn-success" type="submit" name="update_class_struct" value="Update Class Structure">
     </div>
   </div>
 </form>

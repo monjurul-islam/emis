@@ -1,6 +1,6 @@
 <?php if(isset($msg)) echo '<h3>'.$msg.'</h3>'; ?>
 
-<h2> Edit Student</h2>
+<h2> Edit Student (ID -  <strong style="color:darkblue;"><?php echo  $std_id; ?></strong>)</h2>
 <form id="student_form" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>profile/edit_student" >
   <div class="row" style="background:mediumturquoise;">
     <div class="col-md-12">
