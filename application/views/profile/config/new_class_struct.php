@@ -12,23 +12,23 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-     <th>ID</th>
+      <th>ID</th>
       <th>Year/Session</th>
       <th>Education Structure</th>
       <th>Class</th>
       <th>Dept.</th>
       <th>Section</th>
-      <th>Created by</th>
-      <th>Created dt</th>
-      <th>Modif. by</th>
-      <th>Modif. dt</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Created</th>
+      <th>Modif</th>
       <th>Status</th>
       <th> </th>
     </tr>
   </thead>
   <tbody>
     <tr>
-    <?php 
+      <?php 
 	if($qry_success == 1)
 	{
      			echo '<td>'.$qry_row->id.'</td>
@@ -37,16 +37,15 @@
 					  <td>'.$this->m_common->get_class_name_by_id($qry_row->class_id).'</td>
 					  <td>'.$this->m_common->get_dept_name_by_id($qry_row->dept_id).'</td>
 					  <td>'.$this->m_common->get_section_name_by_id($qry_row->section_id).'</td>
-					  <td>'.$this->m_common->get_username_by_id($qry_row->created_by).'</td>
-					  <td>'.$qry_row->created_dt.'</td>
-					  <td>'.$this->m_common->get_username_by_id($qry_row->modified_by).'</td>
-					   <td>'.$qry_row->modified_dt.'</td>
+					  <td>'.$qry_row->start_time.'</td>
+					  <td>'.$qry_row->end_time.'</td>
+					  <td>'.$this->m_common->get_username_by_id($qry_row->created_by).'<br />'.$qry_row->created_dt.'</td>
+					  <td>'.$this->m_common->get_username_by_id($qry_row->modified_by).'<br />'.$qry_row->modified_dt.'</td>
 					  <td>'.$this->m_common->status_text($qry_row->status).'</td>
-					  <td> <a href="'.base_url().'admin/edit_edu_struct/'.$qry_row->id.'">Edit</a> </td>';
+					  <td> <a href="'.base_url().'profile/edit_class_struct/'.$qry_row->id.'">Edit</a>  </td>';
 	}
 	?>
     </tr>
   </tbody>
 </table>
-
-<a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/add_class_struct">Add New</a>
+<a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/add_class_struct">Add New</a> 

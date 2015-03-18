@@ -434,10 +434,9 @@ class M_profile extends CI_Model
 		
 		return $data;
 	}
-		
-	
 	
 	///------------------------------------------------ End Student ----------------------------------------------------//	
+	
 	
 	///------------------------------------------------ Configuration ----------------------------------------------------//
 	
@@ -609,6 +608,37 @@ class M_profile extends CI_Model
 		}
 	}
 	
+	function update_class_struct()
+	{
+		$data = array(
+						'class_id'			=> $this->input->post('class'),
+						'dept_id'			=> $this->input->post('dept'),
+						'section_id'		=> $this->input->post('section'),
+						'start_time'		=> $this->input->post('start_time'),
+						'end_time'			=> $this->input->post('end_time'),
+						'status'			=> $this->input->post('status'),
+						'modified_by'		=> $this->tank_auth->get_user_id(),
+					);	
+		if($this->input->post('edu_struct') && $this->input->post('edu_struct')!="")
+		{
+			$data['edu_struct_id'] = $this->input->post('edu_struct');
+		}				
+		
+		$this->db->where('id', $this->input->post('id'));
+			
+		if($this->db->update('class_struct', $data))
+		{
+			$this->m_common->activity_log('update', 'Updated Class Structure, ID-'.$this->input->post('id')); // inserts into activity log table
+			
+			$data = $this->class_struct_by_id($this->input->post('id'));
+			
+			return $data;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 	
 	
 	///-------------------------------------------------End Configuration -------------------------------------------------///

@@ -142,8 +142,8 @@ function edu_struct_by_year()
 }
 	
 $(function () {
-	$('#timeFrom').timeEntry();
-	$('#timeTo').timeEntry();
+	$('#timeFrom').timeEntry({ampmPrefix: ' '});
+	$('#timeTo').timeEntry({ampmPrefix: ' '});
 });
 
 </script> 

@@ -9,10 +9,19 @@
 <h2>Edit Class Structure <a style=" font-size:medium;float:right;" href="<?php echo base_url();?>profile/class_struct">View All</a></h2>
 <hr/>
 <form class="form-horizontal" method="post" action="">
+  
+  <div class="form-group" style="background:powderblue;">
+    <label class="col-sm-2 control-label"><strong>Year <br /> & <br /> Education Structure</strong></label>
+    <div class="col-sm-10">
+    <br />
+      <?php echo $this->m_common->get_year_season_name_by_edu_struct_id($qry_row->edu_struct_id).',  <br />'.$this->m_common->get_edu_struct_by_id($qry_row->edu_struct_id); ?>
+    </div>
+  </div>
+  
   <div class="form-group">
-    <label for="year_season" class="col-sm-2 control-label">Year/Season</label>
+    <label for="year_season" class="col-sm-2 control-label">Change Year/Season</label>
     <div class="col-sm-5">
-      <select class="form-control"  id="year_season" name="year_season"  required onchange="edu_struct_by_year()">
+      <select class="form-control"  id="year_season" name="year_season" onchange="edu_struct_by_year()">
         <option value="" selected="selected">Select Year/Session</option>
         <?php			
 			$year_season = $this->m_common->all_active_tbl_data_('year_season');			
@@ -27,16 +36,19 @@
       </select>
     </div>
     <div class="col-sm-5"><span style="color:red;">
-      <?php if(isset($year_session_err)) echo $year_session_err; //echo print_r($qry_row); ?>
+     Don't Change If Not Really Needed.
       </span></div>
   </div>
   <div class="form-group">
-    <label for="edu_struct" class="col-sm-2 control-label"><strong>Education Structure</strong></label>
-    <div class="col-sm-7">
-      <select class="form-control"  id="edu_struct" name="edu_struct"  required >
+    <label for="edu_struct" class="col-sm-2 control-label"><strong>Change Education Structure</strong></label>
+    <div class="col-sm-6">
+      <select class="form-control"  id="edu_struct" name="edu_struct">
         <option value="" selected="selected">First Select Year/Season</option>
       </select>
     </div>
+    <div class="col-sm-3"><span style="color:red;">
+     Don't Change If Not Really Needed.
+      </span></div>
   </div>
   <div class="form-group">
     <label for="class" class="col-sm-2 control-label">Class</label>
@@ -44,10 +56,7 @@
       <select class="form-control"  id="class" name="class"  required>
         <option value="" >Select Class</option>
         <?php			
-			$class = $this->m_common->all_active_tbl_data_('class');
-			
-			
-						
+			$class = $this->m_common->all_active_tbl_data_('class');						
 			if($class!=NULL)
 			{
 				foreach($class as $class)
@@ -77,7 +86,14 @@
 			{
 				foreach($dept as $dept)
 				{
-					echo ' <option value="'.$dept->id.'">'.$dept->name.'</option>';
+					if($qry_row->dept_id == $dept->id)
+					{
+						echo ' <option selected="selected" value="'.$dept->id.'">'.$dept->name.'</option>';
+					}
+					else
+					{
+						echo ' <option value="'.$dept->id.'">'.$dept->name.'</option>';
+					}
 				}
 			}		 
 		?>
@@ -98,7 +114,14 @@
 			{
 				foreach($section as $section)
 				{
-					echo ' <option value="'.$section->id.'">'.$section->name.'</option>';
+					if($qry_row->section_id == $section->id)
+					{
+						echo ' <option selected="selected" value="'.$section->id.'">'.$section->name.'</option>';
+					}
+					else
+					{
+						echo ' <option value="'.$section->id.'">'.$section->name.'</option>';
+					}
 				}
 			}		 
 		?>
@@ -111,20 +134,21 @@
   <div class="form-group">
     <label for="timeFrom" class="col-sm-2 control-label"> Class Time</label>
     <div class="col-sm-2">
-      <input type="text" id="timeFrom" name="start_time" class="form-control">
+      <input type="text" id="timeFrom" name="start_time" class="form-control" value="<?php echo  $qry_row->start_time; ?>">
     </div>
     <label class=" col-sm-1 control-label" style="width:20px !important;">To</label>
     <div class="col-sm-2">
-      <input type="text" id="timeTo" name="end_time" class="form-control" >
+      <input type="text" id="timeTo" name="end_time" class="form-control" value="<?php echo  $qry_row->end_time; ?>" >
+       <input type="hidden" name="id"  value="<?php echo  $qry_row->id; ?>" >
     </div>
   </div>
   <div class="form-group">
     <label for="status" class="col-sm-2 control-label">Status</label>
     <div class="col-sm-5">
       <select class="form-control"  id="status" name="status"  required>
-        <option value="" selected="selected">Select Status</option>
-        <option value="1" style="color:green;">Enable</option>
-        <option value="0" style="color:red;">Disable</option>
+        <option value="">Select Status</option>
+        <option value="1" <?php if( $qry_row->status==1)echo 'selected="selected"'; ?>  style="color:green;">Enable</option>
+        <option value="0" <?php if( $qry_row->status==0)echo 'selected="selected"'; ?>style="color:red;">Disable</option>
       </select>
     </div>
     <div class="col-sm-5"><span style="color:red;">
@@ -152,8 +176,8 @@ function edu_struct_by_year()
 }
 	
 $(function () {
-	$('#timeFrom').timeEntry();
-	$('#timeTo').timeEntry();
+	$('#timeFrom').timeEntry({ampmPrefix: ' '});
+	$('#timeTo').timeEntry({ampmPrefix: ' '});
 });
 
 </script> 

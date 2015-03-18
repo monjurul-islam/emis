@@ -280,9 +280,9 @@ class Profile extends CI_Controller
 			
 			$data['side_menu']	= $this->m_profile->conf_side_menu(); // sub feature menus for feature
 			
-			if($this->input->post('add_class_struct'))
+			if($this->input->post('update_class_struct') && $this->input->post('id')!="" )
 			{
-				$new_class_struct = $this->m_profile->add_class_struct();
+				$new_class_struct = $this->m_profile->update_class_struct();
 				
 				if($new_class_struct['qry_success']==1)
 				{
