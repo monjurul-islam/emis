@@ -31,7 +31,7 @@
 		{
 			echo '<tr/>
 					  <td><strong>'.$qry_res->id.'</strong></td>
-					  <td>'.$qry_res->name.'</td>
+					  <td>'.$qry_res->name.'<br /><a href="'.base_url().'admin/group_privileges/'.$qry_res->id.'">Priv</a></td>
 					  <td>'.$qry_res->type.'</td>
 					  <td>'.$this->m_common->get_username_by_id($qry_res->created_by).'</td>
 					  <td>'.$qry_res->created_dt.'</td>
