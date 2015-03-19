@@ -435,6 +435,24 @@ class M_profile extends CI_Model
 		return $data;
 	}
 	
+	function all_students()
+	{
+		$this->db->order_by("std_id", "asc"); 
+		$qry = $this->db->get('student');
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_result']  = $qry->result();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
 	///------------------------------------------------ End Student ----------------------------------------------------//	
 	
 	
@@ -655,7 +673,7 @@ class M_profile extends CI_Model
 			$menu.= '
 					 <a  class="btn btn-link" href="'.base_url().'profile/add_student"><strong>Add Student</strong></a>
 					 <a  class="btn btn-link" href="'.base_url().'profile/student_by_class"><strong>Student by Class</strong></a>
-					 <a  class="btn btn-link" href="'.base_url().'profile/add_student"><strong>Reports</strong></a>
+					 <a  class="btn btn-link" href="'.base_url().'profile/all_student"><strong>All Students</strong></a>
 					';
 		}
 		else

@@ -49,6 +49,86 @@ class Admin extends CI_Controller
 		}
 	}
 	
+	
+	function load_students()
+	{
+		//redirect('/auth/login/');
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			$data['user_id']	= $this->tank_auth->get_user_id();
+			$data['username']	= $this->tank_auth->get_username();
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
+			
+			$data['side_menu']	= $this->m_menu->side_menu();
+			
+			$qry = $this->db->get("csc_student");
+			
+			$msg = '';
+			
+			foreach($qry->result() as $res)
+			{
+				$std_id      = $res->student_id;	
+						
+				$std_pic     = $std_id.'.jpg';				
+				rename('./assets/PSIF/'.$res->edusmart_id.'.jpg', './assets/pic/'.$std_pic); 
+				
+				$m_pic       = $std_id.'1.jpg';
+				rename('./assets/PSIF/'.$res->edusmart_id.'_M.jpg', './assets/pic/'.$m_pic); 
+				
+				$f_pic       = $std_id.'2.jpg';
+				rename('./assets/PSIF/'.$res->edusmart_id.'_F.jpg', './assets/pic/'.$f_pic); 
+				
+				$gur_1_pic   = $std_id.'3.jpg';
+				rename('./assets/PSIF/'.$res->edusmart_id.'_G.jpg', './assets/pic/'.$gur_1_pic); 
+				
+				$data = array(
+						
+							'std_id'  					 => $res->student_id, //
+							'name'  					 => $res->first_name,//
+							'pref_name'		  		     => $res->pref_name,//
+							'rfid_no'		  		     => $res->card_id,//
+							'dob'  						 => $res->dob,//
+							
+							'blood'  					 => $res->blood_group, //
+							'nationality'  				 => $res->nationality,//
+							'religion'  				 => $res->religion,//
+							'present_address'   		 => $res->mailing_add, //
+							
+							'std_pic'  					 => $std_pic,
+							'f_pic'  					 => $f_pic,
+							'm_pic'  					 => $m_pic ,
+							'g_1_pic'  				     => $gur_1_pic ,
+							
+							'status'				=> 1,
+							'created_by'			=> $this->tank_auth->get_user_id(),
+							'created_dt'			=> date("Y-m-d H:i:s")
+						);
+					
+					if($res->gender==0)					
+					$data['gender'] = 'Male';
+					elseif($res->gender==1)
+					$data['gender'] = 'Female';
+					
+					if($this->db->insert('student', $data))
+					{
+						$msg.= 'Std- ID'.$res->student_id.' inserted. <br />';
+					}
+			}
+			
+			$data['content']	= $msg;
+			
+			$data['page_title']		= 'Admin';			
+			$data['content_title']	= 'Welcome Admin. Please Select Menu';		
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('admin_view', $result);
+		}
+	}
+	
 	//---------------- area started for module management --------------------------//
 	
 	function module()
