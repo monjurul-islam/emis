@@ -275,16 +275,20 @@
           <input   value="<?php if(isset($quan_branch)) echo  $quan_branch; ?>"  type="name" class="form-control" id="quan_branch" placeholder="Branch Name" name="quan_branch">
         </div>
       </div>
-      <h3 align="center"><u>Other Information</u></h3>
+      
+      
+       <h3 align="center"><u>Other Information</u></h3>
       <div class="form-group">
         <label for="political_inv" class="col-sm-2 control-label">Political Involvment</label>
         <div class="col-sm-2">
           <input   value="<?php if(isset($political_inv)) echo  $political_inv; ?>"  type="name" class="form-control" id="political_inv" name="political_inv" placeholder="Political Involvment ?" >
         </div>
+        
         <label for="political_inv_detail" class="col-sm-1 control-label">Details</label>
         <div class="col-sm-7">
           <input   value="<?php if(isset($political_inv_detail)) echo  $political_inv_detail; ?>"  type="name" class="form-control" id="political_inv_detail" name="political_inv_detail" placeholder="Political Involvment Details" >
         </div>
+        
       </div>
       <div class="form-group">
         <label for="special_qual" class="col-sm-2 control-label">Special Quality</label>
@@ -304,18 +308,10 @@
           <input   value="<?php if(isset($others)) echo  $others; ?>"  type="name" class="form-control" id="others" placeholder="Other Informations" name="others">
         </div>
       </div>
-      <div class="form-group">
-        <label for="status" class="col-sm-2 control-label">Status</label>
-        <div class="col-sm-4">
-          <select class="form-control"  id="status" name="status"  required>
-            <option value="" selected="selected">Select Status</option>
-            <option value="1">Enable</option>
-            <option value="0">Disable</option>
-          </select>
-        </div>
-      </div>
+      
     </div>
   </div>
+  
   <br />
   <div class="form-group">
     <div class="col-sm-9"> </div>

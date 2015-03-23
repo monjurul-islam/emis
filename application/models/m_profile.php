@@ -304,8 +304,7 @@ class M_profile extends CI_Model
 						'g_2_email'   => $this->input->post('g_2_email') ,
 						'g_2_blood'   => $this->input->post('g_2_blood') ,
 						'status'				=> 1,
-						'created_by'			=> $this->tank_auth->get_user_id(),
-						'created_dt'			=> date("Y-m-d H:i:s")
+						'modified_by'			=> $this->tank_auth->get_user_id(),
 					);
 										
 			$std_pic   = $this->input->post('std_pic_old');
@@ -453,8 +452,294 @@ class M_profile extends CI_Model
 		return $data;
 	}
 	
+	function std_side_menu() // returns menu for student module
+	{
+		$menu = '';
+				
+		if($this->tank_auth->is_logged_in())
+		{
+			$menu.= '
+					 <a  class="btn btn-link" href="'.base_url().'profile/add_student"><strong>Add Student</strong></a>
+					 <a  class="btn btn-link" href="'.base_url().'profile/student_by_class"><strong>Student by Class</strong></a>
+					 <a  class="btn btn-link" href="'.base_url().'profile/all_student"><strong>All Students</strong></a>
+					';
+		}
+		else
+		{
+			redirect('/auth/logout/');
+		}
+		
+		return $menu;
+	}
+	
+	
+	
+	
 	///------------------------------------------------ End Student ----------------------------------------------------//	
 	
+	///------------------------------------------------ Start Staff ----------------------------------------------------//	
+	
+	
+	function add_new_staff()
+	{
+		$staff_id  = $this->generate_staff_id($this->input->post('gender'));	
+		$staff_pic   = $this->pic_upload('staff_pic',  $staff_id);
+		
+		$data = array(
+						  'staff_type'  => $this->input->post('staff_type') ,
+						  'staff_id'  => $staff_id ,
+						  'staff_pic'  => $staff_pic,
+						  'name'  => $this->input->post('name') ,
+						  'dob'  => $this->input->post('dob') ,
+						  'age'  => $this->input->post('age') ,
+						  'gender'  => $this->input->post('gender') ,
+						  'blood'  => $this->input->post('blood') ,
+						  'religion'  => $this->input->post('religion') ,
+						  'nationality'  => $this->input->post('nationality') ,
+						  'national_id'  => $this->input->post('national_id') ,
+						  'mobile'  => $this->input->post('mobile') ,
+						  'email'  => $this->input->post('email') ,
+						  'emergency_contact_name'  => $this->input->post('emergency_contact_name') ,
+						  'emergency_contact_mobile'  => $this->input->post('emergency_contact_mobile') ,
+						  'emergency_contact_relation'  => $this->input->post('emergency_contact_relation') ,
+						  'present_address'  => $this->input->post('present_address') ,
+						  'permanent_address'  => $this->input->post('permanent_address') ,
+						  'marital_status'  => $this->input->post('marital_status') ,
+						  'spouce_name'  => $this->input->post('spouce_name') ,
+						  'spouce_occupation'  => $this->input->post('spouce_occupation') ,
+						  'joinning_date'  => $this->input->post('joinning_date') ,
+						  'designation'  => $this->input->post('designation') ,
+						  'subject'  => $this->input->post('subject') ,
+						  'medium'  => $this->input->post('medium') ,
+						  'class'  => $this->input->post('class') ,
+						  'dept'  => $this->input->post('dept') ,
+						  'section'  => $this->input->post('section') ,
+						  'job_nature'  => $this->input->post('job_nature') ,
+						  
+						  'status'  => $this->input->post('status') ,
+						  'f_name'  => $this->input->post('f_name') ,
+						  'f_occu'  => $this->input->post('f_occu') ,
+						  'f_edu_quali'  => $this->input->post('f_edu_quali') ,
+						  'f_national_id'  => $this->input->post('f_national_id') ,
+						  'm_name'  => $this->input->post('m_name') ,
+						  'm_occu'  => $this->input->post('m_occu') ,
+						  'm_edu_quali'  => $this->input->post('m_edu_quali') ,
+						  'm_national_id'  => $this->input->post('m_national_id') ,
+						  'appointed_for'  => $this->input->post('appointed_for') ,
+						  'working_shift'  => $this->input->post('working_shift') ,
+						  'start_time'  => $this->input->post('start_time') ,
+						  'end_time'  => $this->input->post('end_time') ,
+						  'bank_acc'  => $this->input->post('bank_acc') ,
+						  'bank_acc_name'  => $this->input->post('bank_acc_name') ,
+						  'bank_name'  => $this->input->post('bank_name') ,
+						  'bank_branch'  => $this->input->post('bank_branch') ,
+						  'quantan_grad'  => $this->input->post('quantan_grad') ,
+						  'quantam_id'  => $this->input->post('quantam_id') ,
+						  'quan_prom_id'  => $this->input->post('quan_prom_id') ,
+						  'quan_branch'  => $this->input->post('quan_branch') ,
+						  'political_inv' => $this->input->post('political_inv') ,
+						  'political_inv_detail'  => $this->input->post('political_inv_detail') ,
+						  'special_qual'  => $this->input->post('special_qual') ,
+						  'ntrca_exam'  => $this->input->post('ntrca_exam') ,
+						  'others'  => $this->input->post('others'),
+						  'created_by'			=> $this->tank_auth->get_user_id(),
+						  'created_dt'			=> date("Y-m-d H:i:s") 
+					);
+			
+			if( $this->input->post('name') && $this->input->post('name')!=NULL && $this->input->post('mobile') && $this->input->post('mobile')!=NULL && $this->input->post('staff_type') && $this->input->post('staff_type')!=NULL )
+			{
+				if($this->db->insert('staff', $data))
+				{	
+					$staff_insert_id = $this->db->insert_id();					
+					$data['id'] = $staff_insert_id;						
+					$data['qry_success'] = 1;
+					$data['msg'] = 'New Staff Added Success';											
+					return $data;
+				}
+				else
+				{
+					$data['qry_success'] = 0;						
+					return $data;
+					
+				}
+			}
+			else 
+			{
+				$data['qry_success'] = 0;						
+				return $data;
+			}		
+	}
+	
+	// id generation functions for staff
+	private function generate_staff_id($gender)
+	{
+		$staff_id = $this->branch_no.$this->year_digit.'E';
+		
+		if($gender=="Male")	$staff_id .= '2';
+		elseif($gender=="Female") $staff_id .= '1';
+		else return NULL;		
+		
+		$query = $this->db->query("SELECT * FROM `staff` WHERE `staff_id` LIKE '$staff_id%'");		
+		if ($query->num_rows() > 0)
+		{
+			$rowcount = $query->num_rows();
+			$rowcount++;		
+			$c = $this->LPAD( $rowcount, 3, "0");			
+			$staff_id .= $c;
+		}
+		else $staff_id.="001";
+				
+		return $staff_id;		
+	}
+	
+	
+	
+	function update_staff()
+	{		
+		$data = array(
+						  'staff_type'  => $this->input->post('staff_type') ,
+						  'name'  => $this->input->post('name') ,
+						  'dob'  => $this->input->post('dob') ,
+						  'age'  => $this->input->post('age') ,
+						  'gender'  => $this->input->post('gender') ,
+						  'blood'  => $this->input->post('blood') ,
+						  'religion'  => $this->input->post('religion') ,
+						  'nationality'  => $this->input->post('nationality') ,
+						  'national_id'  => $this->input->post('national_id') ,
+						  'mobile'  => $this->input->post('mobile') ,
+						  'email'  => $this->input->post('email') ,
+						  'emergency_contact_name'  => $this->input->post('emergency_contact_name') ,
+						  'emergency_contact_mobile'  => $this->input->post('emergency_contact_mobile') ,
+						  'emergency_contact_relation'  => $this->input->post('emergency_contact_relation') ,
+						  'present_address'  => $this->input->post('present_address') ,
+						  'permanent_address'  => $this->input->post('permanent_address') ,
+						  'marital_status'  => $this->input->post('marital_status') ,
+						  'spouce_name'  => $this->input->post('spouce_name') ,
+						  'spouce_occupation'  => $this->input->post('spouce_occupation') ,
+						  'joinning_date'  => $this->input->post('joinning_date') ,
+						  'designation'  => $this->input->post('designation') ,
+						  'subject'  => $this->input->post('subject') ,
+						  'medium'  => $this->input->post('medium') ,
+						  'class'  => $this->input->post('class') ,
+						  'dept'  => $this->input->post('dept') ,
+						  'section'  => $this->input->post('section') ,
+						  'job_nature'  => $this->input->post('job_nature') ,
+						 
+						  'status'  => $this->input->post('status') ,
+						  'f_name'  => $this->input->post('f_name') ,
+						  'f_occu'  => $this->input->post('f_occu') ,
+						  'f_edu_quali'  => $this->input->post('f_edu_quali') ,
+						  'f_national_id'  => $this->input->post('f_national_id') ,
+						  'm_name'  => $this->input->post('m_name') ,
+						  'm_occu'  => $this->input->post('m_occu') ,
+						  'm_edu_quali'  => $this->input->post('m_edu_quali') ,
+						  'm_national_id'  => $this->input->post('m_national_id') ,
+						  'appointed_for'  => $this->input->post('appointed_for') ,
+						  'working_shift'  => $this->input->post('working_shift') ,
+						  'start_time'  => $this->input->post('start_time') ,
+						  'end_time'  => $this->input->post('end_time') ,
+						  'bank_acc'  => $this->input->post('bank_acc') ,
+						  'bank_acc_name'  => $this->input->post('bank_acc_name') ,
+						  'bank_name'  => $this->input->post('bank_name') ,
+						  'bank_branch'  => $this->input->post('bank_branch') ,
+						  'quantan_grad'  => $this->input->post('quantan_grad') ,
+						  'quantam_id'  => $this->input->post('quantam_id') ,
+						  'quan_prom_id'  => $this->input->post('quan_prom_id') ,
+						  'quan_branch'  => $this->input->post('quan_branch') ,
+						  'political_inv' => $this->input->post('political_inv') ,
+						  'political_inv_detail'  => $this->input->post('political_inv_detail') ,
+						  'special_qual'  => $this->input->post('special_qual') ,
+						  'ntrca_exam'  => $this->input->post('ntrca_exam') ,
+						  'others'  => $this->input->post('others'),
+						  'updated_by'			=> $this->tank_auth->get_user_id(),
+					);
+										
+		$staff_pic   = $this->input->post('staff_pic_old');
+		
+	    echo $staff_pic;
+	 			
+		if (!empty($_FILES['staff_pic']['name'])) 
+		{
+			unlink('./assets/pic/'.$this->input->post('staff_pic_old'));	
+			$staff_pic   = $this->pic_upload('staff_pic',  $this->input->post('staff_id'));
+		}
+		
+		
+		$data['staff_pic']	 = $staff_pic;
+		
+		$this->db->where('id', $this->input->post('id') );
+		
+		if($this->db->update('staff', $data))
+		{
+			$this->m_common->activity_log('update', 'Updated Staff Data, ID-'.$this->input->post('staff_id').', Name- '.$this->input->post('name')); // inserts into activity log table		
+			$data['id'] = $this->input->post('id');			
+			$data['qry_success'] = 1;
+						
+			return $data;
+		}
+			
+	}
+	
+	
+	function staff_by_id($id)
+	{
+		$qry = $this->db->get_where('staff', array('id'=>$id));
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success']	 = 1;
+			$data['qry_row'] 		 = $qry->row();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}
+	
+	function all_staff()
+	{
+		$this->db->order_by("staff_type", "asc"); 
+		$qry = $this->db->get('staff');
+		
+		if($qry->num_rows()>0)
+		{
+			$data['qry_success'] = 1;
+			$data['qry_result']  = $qry->result();
+		}
+		else
+		{
+			$data['qry_success'] = 0;
+		}
+		
+		return $data;
+	}	
+	
+	function staff_side_menu() // returns menu for student module
+	{
+		$menu = '';
+				
+		if($this->tank_auth->is_logged_in())
+		{
+			$menu.= '
+					  <a  class="btn btn-link" href="'.base_url().'profile/staff"><strong>All Employee</strong></a>
+					 <a  class="btn btn-link" href="'.base_url().'profile/add_staff"><strong>Add Employee</strong></a>
+					 <a  class="btn btn-link" href="'.base_url().'profile/staff_by_cat"><strong>Employee By Type</strong></a>
+					 <a  class="btn btn-link" href="#'.base_url().'profile/add_student"><strong>Reports</strong></a>
+					';
+		}
+		else
+		{
+			redirect('/auth/logout/');
+		}
+		
+		return $menu;
+	}
+	
+	
+	///------------------------------------------------ End Staff ----------------------------------------------------//
+		
 	
 	///------------------------------------------------ Configuration ----------------------------------------------------//
 	
@@ -663,46 +948,6 @@ class M_profile extends CI_Model
 	///-------------------------------------------------End Configuration -------------------------------------------------///
 	///-------------------------------------------------End Configuration -------------------------------------------------///
 	
-	
-	function std_side_menu() // returns menu for student module
-	{
-		$menu = '';
-				
-		if($this->tank_auth->is_logged_in())
-		{
-			$menu.= '
-					 <a  class="btn btn-link" href="'.base_url().'profile/add_student"><strong>Add Student</strong></a>
-					 <a  class="btn btn-link" href="'.base_url().'profile/student_by_class"><strong>Student by Class</strong></a>
-					 <a  class="btn btn-link" href="'.base_url().'profile/all_student"><strong>All Students</strong></a>
-					';
-		}
-		else
-		{
-			redirect('/auth/logout/');
-		}
-		
-		return $menu;
-	}
-	
-	function staff_side_menu() // returns menu for student module
-	{
-		$menu = '';
-				
-		if($this->tank_auth->is_logged_in())
-		{
-			$menu.= '
-					 <a  class="btn btn-link" href="'.base_url().'profile/add_staff"><strong>Add Employee</strong></a>
-					 <a  class="btn btn-link" href="'.base_url().'profile/Staff"><strong>View Employee</strong></a>
-					 <a  class="btn btn-link" href="#'.base_url().'profile/add_student"><strong>Reports</strong></a>
-					';
-		}
-		else
-		{
-			redirect('/auth/logout/');
-		}
-		
-		return $menu;
-	}
 	
 	
 	

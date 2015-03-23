@@ -559,10 +559,10 @@ class Profile extends CI_Controller
 			
 			$data['side_menu']	= $this->m_profile->staff_side_menu(); // sub feature menus for feature
 			
-			$data['content']	= ' Please Select Menu From Left';
+			$data['content']	= $this->load->view('profile/staff/all_staff', $this->m_profile->all_staff(), true);
 			
 			$data['page_title']		= 'Profile: Employee';			
-			$data['content_title']	= 'Welcome '.$data['username'];						
+			$data['content_title']	= 'All Staff';						
 			
 			$result = array_merge($data, $org_info);			
 			$this->load->view('module_view', $result);
@@ -593,7 +593,19 @@ class Profile extends CI_Controller
 			
 			$data['side_menu']	= $this->m_profile->staff_side_menu(); // sub feature menus for feature
 			
-			$data['content']	= $this->load->view('profile/staff/staff_form', $data, true);
+			if($this->input->post('add_employee_submit'))
+			{
+				$new_staff_data = $this->m_profile->add_new_staff();
+				
+				if($new_staff_data['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('profile/staff/staff_by_id', $new_staff_data, true);		
+				}	
+			}
+			else
+			{			
+				$data['content']	= $this->load->view('profile/staff/staff_form', $data, true);
+			}
 			
 			$data['page_title']		= 'Profile: Emmployee';			
 			$data['content_title']	= 'Add New Employee';						
@@ -602,6 +614,62 @@ class Profile extends CI_Controller
 			$this->load->view('module_view', $result);
 		}
 	}	
+	
+	function edit_staff()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			
+			$feature_id			= 3334;		
+			
+			if($this->m_priv->chk_fe_priv($feature_id, $this->tank_auth->get_user_id())==FALSE)
+			{
+				$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
+			}
+			
+			$data['user_id']		= $this->tank_auth->get_user_id();
+			$data['username']		= $this->tank_auth->get_username();
+			$data['feature_id']		= $feature_id;
+			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
+			
+			$data['side_menu']	= $this->m_profile->staff_side_menu(); // sub feature menus for feature
+						
+			if($this->input->post('update_employee_submit'))
+			{
+				$new_staff_data = $this->m_profile->update_staff();
+				
+				if($new_staff_data['qry_success']==1)
+				{
+					$data['content']	= $this->load->view('profile/staff/staff_by_id', $new_staff_data, true);		
+				}					
+			}
+			else
+			{
+				$std_data = $this->m_profile->staff_by_id($this->uri->segment(3,0));
+				
+				if($std_data['qry_success']==1)
+				{									
+					$data['content']	= $this->load->view('profile/staff/staff_form_edit', $std_data['qry_row'], true);
+				}
+				else
+				{
+					
+				}
+			}		
+			
+			$data['page_title']		= 'Profile: Employee';			
+			$data['content_title']	= 'Edit/Update Employee';						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('module_view', $result);
+		}
+	}	
+	
 	
 	
 	///-------------------------------------------------End Staff -------------------------------------------------///
@@ -622,7 +690,23 @@ class Profile extends CI_Controller
 		}
 		else
 		{
-			echo 'NOthing Found';
+			echo 'Nothing Found';
+		}
+	}
+	
+	function ajax_staff_by_id()
+	{
+		$data = $this->m_profile->staff_by_id($this->uri->segment(3, 0));
+		
+		if($data['qry_success']==1)
+		{
+			$html	= $this->load->view('profile/staff/staff_by_id', $data['qry_row'], true);	
+			
+			echo $html;
+		}
+		else
+		{
+			echo 'Nothing Found';
 		}
 	}
 	
