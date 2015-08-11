@@ -66,6 +66,14 @@
           <input   value="<?php if(isset($name_in_bangla)) echo  $name_in_bangla; ?>"  type="name" class="form-control" id="name_in_bangla" name="name_in_bangla" placeholder="Enter Students Name in Bangla">
         </div>
       </div>
+      
+      <div class="form-group">
+        <label for="rfid_no" class="col-sm-2 control-label">Card Number</label>
+        <div class="col-sm-6">
+          <input   value="<?php if(isset($rfid_no)) echo  $rfid_no; ?>"  type="name" class="form-control" id="rfid_no" name="rfid_no" placeholder="Enter RFID NO." required>
+        </div>
+      </div>
+      
       <div class="form-group">
         <label for="dob" class="col-sm-2 control-label">Date Of Birth</label>
         <div class="col-sm-3">

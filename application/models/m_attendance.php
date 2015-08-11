@@ -31,7 +31,7 @@ class M_attendance extends CI_Model
 		if($this->tank_auth->is_logged_in())
 		{
 			$menu.= '
-					 <a  class="btn btn-link" href="'.base_url().'attendance/take_std_att"><strong>Take Attendance</strong></a>
+					 <a target="_blank"  class="btn btn-link" href="'.base_url().'attendance/take_std_att"><strong>Take Attendance</strong></a>
 					 <a  class="btn btn-link" href="'.base_url().'attendance/#"><strong>Attendance By Class</strong></a>
 					 <a  class="btn btn-link" href="'.base_url().'attendance/staff_by_cat"><strong>Employee By Type</strong></a>
 					 <a  class="btn btn-link" href="#'.base_url().'attendance/add_student"><strong>Reports</strong></a>

@@ -82,10 +82,10 @@ class Attendance extends CI_Controller
 		}
 	}
 	
-	function take_std_att()
+	function take_std_att() // loads interface for tking attendance
 	{
 		if (!$this->tank_auth->is_logged_in()) {			
-			redirect('/auth/login/');
+			//redirect('/auth/login/');
 		} else {
 			
 			$feature_id			= 3336;		
@@ -104,7 +104,7 @@ class Attendance extends CI_Controller
 			
 			$data['menu']		= $this->m_menu->menu($data['user_id']);
 			
-			$data['side_menu']	= $this->m_attendance->std_att_side_menu(); // sub feature menus for feature
+			//$data['side_menu']	= $this->m_attendance->std_att_side_menu(); // sub feature menus for feature
 			
 			$data['content']	= ' Please Select Menu From Left';
 			
@@ -112,8 +112,31 @@ class Attendance extends CI_Controller
 			$data['content_title']	= 'Student Attendance Panel';						
 			
 			$result = array_merge($data, $org_info);			
-			$this->load->view('module_view', $result);
+			$this->load->view('attendance/take_std_att_view', $result);
 		}
+	}
+	
+	function save_std_att() // ajax usages for saving and shouing attendance details for students
+	{
+		$rfid_no = $this->uri->segment(3);
+      	 
+		$std_qry = $this->db->get_where('student', array('rfid_no' => $rfid_no ));
+		 
+		if($std_qry->num_rows()>0)
+		{
+			$std_qry_res = $std_qry->row_array();
+			
+			$std_qry_res['att_in'] = date("h:i:s");		
+			
+			echo $this->load->view('attendance/std_att_confirm', $std_qry_res, true);
+		}
+		else
+		{
+			echo 'No Students Found';
+		} 
+		
+		
+		 
 	}
 	
 	

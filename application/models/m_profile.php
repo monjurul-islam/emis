@@ -59,6 +59,7 @@ class M_profile extends CI_Model
 						'std_id'  					 => $std_pref_id,
 						'name'  					 => $this->input->post('name') ,
 						'name_in_bangla'		     => $this->input->post('name_in_bangla') ,
+						'rfid_no'					 => $this->input->post('rfid_no') ,
 						'dob'  						 => $this->input->post('dob') ,
 						'age'  						 => $this->input->post('age') ,
 						'gender'  					 => $this->input->post('gender') ,
@@ -121,10 +122,10 @@ class M_profile extends CI_Model
 						'm_blood' 					 => $this->input->post('m_blood') ,
 						'g_1_name'  				 => $this->input->post('g_1_name') ,
 						'g_1_pic'  					 => $gur_1_pic ,
-						'g_1_name_in_bangla'   => $this->input->post('g_1_name_in_bangla') ,
-						'g_1_relation'   => $this->input->post('g_1_relation') ,
-						'g_1_national_id'   => $this->input->post('g_1_national_id') ,
-						'g_1_profession'   => $this->input->post('g_1_profession') ,
+						'g_1_name_in_bangla'   		 => $this->input->post('g_1_name_in_bangla') ,
+						'g_1_relation'   			 => $this->input->post('g_1_relation') ,
+						'g_1_national_id'   		 => $this->input->post('g_1_national_id') ,
+						'g_1_profession'			 => $this->input->post('g_1_profession') ,
 						'g_1_address'   => $this->input->post('g_1_address') ,
 						'g_1_phone'   => $this->input->post('g_1_phone') ,
 						'g_1_mobile'   => $this->input->post('g_1_mobile') ,
@@ -226,6 +227,7 @@ class M_profile extends CI_Model
 		$data = array(
 						'name'  					 => $this->input->post('name') ,
 						'name_in_bangla'		     => $this->input->post('name_in_bangla') ,
+						'rfid_no'					 => $this->input->post('rfid_no') ,
 						'dob'  						 => $this->input->post('dob') ,
 						'age'  						 => $this->input->post('age') ,
 						'gender'  					 => $this->input->post('gender') ,
@@ -374,7 +376,7 @@ class M_profile extends CI_Model
 				$this->db->where('std_id', $this->input->post('id'));
 				$this->db->update('class_struct_std_map', $data_stat_dis);
 				
-				$this->m_common->activity_log('disable', 'Disabled Class Structure for Std ID- '.$std_pref_id.', Name- '.$this->input->post('name')); // inserts into activity log table
+				$this->m_common->activity_log('disable', 'Disabled Class Structure for Std ID- '.$this->input->post('std_id').', Name- '.$this->input->post('name')); // inserts into activity log table
 				
 				$data_class_map = array(  'std_id' 				=> $this->input->post('id'),
 										  'class_struct_id' 	=>  $this->input->post('class_struct'),
@@ -385,7 +387,7 @@ class M_profile extends CI_Model
 				if($this->db->insert('class_struct_std_map', $data_class_map))
 				{	
 				
-					$this->m_common->activity_log('update', 'Updated New Class Structure for Std ID- '.$std_pref_id.', Name- '.$this->input->post('name')); // inserts into activity log table
+					$this->m_common->activity_log('update', 'Updated New Class Structure for Std ID- '.$this->input->post('std_id').', Name- '.$this->input->post('name')); // inserts into activity log table
 								
 					$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($this->input->post('id'));					
 					$data['qry_success'] = 1;					
@@ -559,8 +561,7 @@ class M_profile extends CI_Model
 				else
 				{
 					$data['qry_success'] = 0;						
-					return $data;
-					
+					return $data;					
 				}
 			}
 			else 
