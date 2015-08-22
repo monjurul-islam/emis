@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="rasel" content="">
-<?php if(!$this->tank_auth->is_logged_in()) redirect('/auth/login/');?>
 <link rel="icon" href="<?php echo base_url();?>assets/favicon.ico">
 <title>
 <?php if(isset($page_title))echo $page_title; else echo '....'; ?>
@@ -90,8 +89,8 @@
                 <div class="btn btn-sm"> Section: ........</div>
                 <div class="btn btn-sm"> Dept: .......</div>
               </div>
-              <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time In: <span id="time_in" class="text-success">............</span></div>
-              <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time Out: <span id="time_in" class="text-danger">............</span></div>
+             <!-- <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time In: <span id="time_in" class="text-success">............</span></div>
+              <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time Out: <span id="time_in" class="text-danger">............</span></div>-->
             </div>
           </div>
           <div class="row" >
@@ -173,7 +172,7 @@ $( "#rfid_no" ).keypress(function( event ) {
 	  {			  
 		  $.ajax({
 			type: "POST",
-			url: "<?php echo site_url();?>attendance/save_std_att/"+rfid_no,
+			url: "<?php echo site_url();?>unauth/save_std_att/"+rfid_no,
 			dataType: "html",
 			success:function(data){
 			 $('#std_atd_body').html(data);

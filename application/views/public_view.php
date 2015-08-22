@@ -20,6 +20,7 @@
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="<?php echo base_url();?>assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="<?php echo base_url();?>assets/js/ie-emulation-modes-warning.js"></script>
@@ -100,5 +101,6 @@
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script> 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
 <script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="<?php echo base_url();?>assets/jquery_ui/jquery-ui.min.js"></script>
 </body>
 </html>

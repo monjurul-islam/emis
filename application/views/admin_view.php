@@ -20,6 +20,7 @@
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script> 
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 
+
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="<?php echo base_url();?>assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="<?php echo base_url();?>assets/js/ie-emulation-modes-warning.js"></script>

@@ -16,6 +16,7 @@ class Attendance extends CI_Controller
 		$this->load->model('m_priv');
 		$this->load->model('m_profile');
 		$this->load->model('m_attendance');
+		$this->load->library('html2pdf');
 		
 		if($this->m_priv->chk_mo_priv($this->module_id, $this->tank_auth->get_user_id())==FALSE)
 		{
@@ -48,6 +49,8 @@ class Attendance extends CI_Controller
 		}
 	}
 	
+	
+	// student attendance area...
 	function student()
 	{
 		if (!$this->tank_auth->is_logged_in()) {			
@@ -82,6 +85,7 @@ class Attendance extends CI_Controller
 		}
 	}
 	
+	//not working this function in this purpose...
 	function take_std_att() // loads interface for tking attendance
 	{
 		if (!$this->tank_auth->is_logged_in()) {			
@@ -133,11 +137,67 @@ class Attendance extends CI_Controller
 		else
 		{
 			echo 'No Students Found';
-		} 
-		
-		
-		 
+		} 		 
+	}
+	//not working this function
+	
+	function std_report()
+	{
+		if (!$this->tank_auth->is_logged_in()) {			
+			redirect('/auth/login/');
+		} else {
+			
+			$feature_id			= 3336;		
+			
+			if($this->m_priv->chk_fe_priv($feature_id, $this->tank_auth->get_user_id())==FALSE)
+			{
+				$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
+			}
+			
+			$data['user_id']		= $this->tank_auth->get_user_id();
+			$data['username']		= $this->tank_auth->get_username();
+			$data['feature_id']		= $feature_id;
+			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);
+			
+			$org_info			= $this->m_common->organisation_info();
+			
+			$data['menu']		= $this->m_menu->menu($data['user_id']);
+			
+			$data['side_menu']	= $this->m_attendance->std_att_side_menu(); // sub feature menus for feature 
+			
+			$data['content']	= $this->load->view('attendance/std_report/date_wise', $data, true);
+			
+			$data['page_title']		= 'Attendance: Student Report';			
+			$data['content_title']	= 'Student Attendance Panel';						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('module_view', $result);
+		}
 	}
 	
+	
+	function std_date_wise_report() // ajax useges
+	{	
+		$data = $this->m_attendance->std_date_wise_report($this->uri->segment(3), $this->uri->segment(4), $this->uri->segment(5));
+		
+		echo $data;
+		//Load the library
+		$this->load->library('html2pdf');
+		
+		//Set folder to save PDF to
+		$this->html2pdf->folder('./assets/pdfs/');
+		
+		//Set the filename to save/download as
+		$this->html2pdf->filename('att_std_'.date('Y-m-d_h-i-s').'.pdf');
+		
+		//Set the paper defaults
+		$this->html2pdf->paper('legal', 'landscape');
+		
+		//Load html view
+		$this->html2pdf->html($data);
+		
+		$this->html2pdf->create('save');
+
+	}
 	
 }

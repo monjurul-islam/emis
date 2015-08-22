@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,13 +13,16 @@
 
 <!-- Bootstrap core CSS -->
 <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/datepicker.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url();?>assets/css/sticky-footer-navbar.css" rel="stylesheet">
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url();?>assets/js/jspdf.js"></script>
 
-<script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.css"></script>
+<link href="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.css" rel="stylesheet">
 
 <script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.plugin.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.js"></script>
@@ -29,6 +31,7 @@
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="<?php echo base_url();?>assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 <script src="<?php echo base_url();?>assets/js/ie-emulation-modes-warning.js"></script>
+
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -113,6 +116,7 @@
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script> 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
 <script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="<?php echo base_url();?>assets/jquery_ui/jquery-ui.min.js"></script>
 <script type="text/javascript">
 
   var win=null;
@@ -171,6 +175,42 @@ function base64_encode (data) {
 
   return (r ? enc.slice(0, r - 3) : enc) + '==='.slice(r || 3);
 
+}
+
+function edu_struct_by_year()
+{
+	$("#edu_struct").html("loading...");	
+	var year_id = $('#year_season').val();	
+	$.ajax({		
+		 url:  "<?php echo site_url("profile/ajax_edu_struct_by_year")?>/"+year_id,		
+		 success: function(html){
+		 $("#edu_struct").html(html);
+		}
+	});
+}
+
+function class_struct_by_edu_struct_as_option()
+{
+	$("#class_struct").html("<h2>loading...</h2>");	
+	var edu_struct_id = $('#edu_struct').val();	
+	$.ajax({		
+		 url:  "<?php echo site_url("profile/ajax_class_struct_by_edu_struct_as_option")?>/"+edu_struct_id,		
+		 success: function(html){
+		 $("#class_struct").html(html);
+		}
+	});
+}
+
+function students_by_class_structure()
+{
+	$("#students_by_class").html("<h2>loading...</h2>");	
+	var class_struct_id = $('#class_struct').val();	
+	$.ajax({		
+		 url:  "<?php echo site_url("profile/ajax_students_by_class_structure")?>/"+class_struct_id,		
+		 success: function(html){
+		 $("#students_by_class").html(html);
+		}
+	});
 }
 
 </script>

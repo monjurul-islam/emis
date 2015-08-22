@@ -35,8 +35,9 @@
 	  
 	  ?>
     </div>
-    <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time In: <span id="time_in" class="text-success"><?php echo $att_in;?></span></div>
-    <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time Out: <span id="time_in" class="text-danger"><?php echo $att_out;?></span></div>
+    <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">
+      <?php if($att_status==1) echo '<h2 class="btn btn-block btn-primary" style="font-size:30px">In:</h2>at <span id="time_in" class="text-success">'.$time.'</span>'; else echo '<h2 class="btn btn-block btn-danger" style="font-size:30px">Out:</h2>at <span id="time_in" class="text-danger">'.$time.'</span>'; ?>
+    </div>
   </div>
 </div>
 <div class="row" >

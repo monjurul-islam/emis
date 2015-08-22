@@ -436,6 +436,22 @@ class M_profile extends CI_Model
 		return $data;
 	}
 	
+	function student_id_by_db_id($id)
+	{
+		$qry = $this->db->get_where('student', array('id'=>$id));
+		
+		if($qry->num_rows()>0)
+		{
+			return $qry->row()->std_id;
+		}
+		else
+		{
+			return 'Not Found';
+		}
+		
+		return $data;
+	}
+	
 	function all_students()
 	{
 		$this->db->order_by("std_id", "asc"); 

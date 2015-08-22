@@ -242,6 +242,15 @@ class M_common extends CI_Model
 		return NULL;	
 	}
 	
+	function class_struct_by_class_struct_id($id)
+	{
+		$qry_class_struct_res =  $this->db->get_where('class_struct', array('id'=>$id))->row();
+			
+		$data = 'Class: '.$this->get_class_name_by_id($qry_class_struct_res->class_id).', Section: '.$this->get_section_name_by_id($qry_class_struct_res->section_id).', Dept: '.$this->get_dept_name_by_id($qry_class_struct_res->dept_id);
+		
+		return $data;
+	}
+	
 }
 
 /* End of file m_common.php */

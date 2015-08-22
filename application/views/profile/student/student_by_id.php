@@ -44,7 +44,7 @@
             </div>
             <label for="age" class="col-sm-1 control-label">Age</label>
             <div class="col-sm-4">
-              <input  disabled value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" "Age" name="age" required>
+              <input style="visibility:hidden;"  disabled value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" "Age" name="age" required>
             </div>
           </div>
           <div class="form-group">
