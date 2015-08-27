@@ -90,26 +90,12 @@ class Unauth extends CI_Controller
 			//redirect('/auth/login/');
 		} else {
 			
-			$feature_id			= 3336;		
-			
-			/*if($this->m_priv->chk_fe_priv($feature_id, $this->tank_auth->get_user_id())==FALSE)
-			{
-				$this->m_common->ban_user($this->tank_auth->get_user_id(), $this->module_id);
-			}*/
-			
-			//$data['user_id']		= $this->tank_auth->get_user_id();
-			//$data['username']		= $this->tank_auth->get_username();
+			$feature_id			= 3336;				
 			$data['feature_id']		= $feature_id;
-			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);
-			
-			$org_info			= $this->m_common->organisation_info();
-			
-			//$data['menu']		= $this->m_menu->menu($data['user_id']);
-			
-			//$data['side_menu']	= $this->m_attendance->std_att_side_menu(); // sub feature menus for feature
-			
-			$data['content']	= ' Please Select Menu From Left';
-			
+			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);			
+			$org_info				= $this->m_common->organisation_info();
+	
+			$data['content']		= ' Please Select Menu From Left';			
 			$data['page_title']		= 'Attendance: Student';			
 			$data['content_title']	= 'Student Attendance Panel';						
 			
@@ -120,18 +106,14 @@ class Unauth extends CI_Controller
 	
 	function save_std_att() // ajax usages for saving and shouing attendance details for students
 	{
-		$rfid_no = $this->uri->segment(3);
-      	 
-		$std_qry = $this->db->get_where('student', array('rfid_no' => $rfid_no ));
-		 
+		$rfid_no = $this->uri->segment(3);      	 
+		$std_qry = $this->db->get_where('student', array('rfid_no' => $rfid_no ));		 
 		if($std_qry->num_rows()>0)
 		{
-			$std_qry_res = $std_qry->row_array();			
-			
-			$this->db->limit(10);
+			$std_qry_res = $std_qry->row_array();				
 			$this->db->order_by("time", "desc");
 			$qry_att = $this->db->get_where('std_att', array('std_id'=>$std_qry_res['id'], 'date'=>date("Y-m-d")));
-			
+						
 			if($qry_att->num_rows()>0)
 			{
 				if($qry_att->row()->status==1)
@@ -151,8 +133,7 @@ class Unauth extends CI_Controller
 										'time'   	=> date("g:i a"),
 										'status' 	=> '1',								
 									);
-				}
-				
+				}				
 			}
 			else
 			{
@@ -172,14 +153,33 @@ class Unauth extends CI_Controller
 				echo $this->load->view('attendance/std_att_confirm', $std_qry_res, true);
 			}
 			else
-			echo 'Failed';
-			
-			
+			echo 'Failed';			
 		}
 		else
 		{
 			echo '<h1>No Students Found</h1>';
 		} 		 
+	}
+	
+	
+	function take_staff_att() // loads interface for tking attendance
+	{
+		if (0) {			
+			//redirect('/auth/login/');
+		} else {
+			
+			$feature_id			= 3337;				
+			$data['feature_id']		= $feature_id;
+			$data['feature_name']	= $this->m_menu->get_feature_name_by_id($feature_id);			
+			$org_info				= $this->m_common->organisation_info();
+	
+			$data['content']		= ' Please Select Menu From Left';			
+			$data['page_title']		= 'Attendance: Student';			
+			$data['content_title']	= 'Student Attendance Panel';						
+			
+			$result = array_merge($data, $org_info);			
+			$this->load->view('attendance/take_staff_att_view', $result);
+		}
 	}
 	
 	

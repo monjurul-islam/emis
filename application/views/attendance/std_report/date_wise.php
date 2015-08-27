@@ -1,8 +1,6 @@
 
 <button style="float:right; margin:2px;" onclick="generate_excel('ajax_report')" class="btn btn-primary " >Export To Excel</button>
 
-<button class="btn btn-primary " id="cmd" onclick="javascript:demoFromHTML()">generate PDF</button>
-
 <div id="att_report" class="att_report">
   <h1 align="center">Student Attendance Report<small> Cosmo School</small></h1>
   <hr />

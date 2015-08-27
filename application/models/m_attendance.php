@@ -42,6 +42,24 @@ class M_attendance extends CI_Model
 		
 		return $menu;
 	}
+	function staff_att_side_menu() // returns menu for student module
+	{
+		$menu = '';
+				
+		if($this->tank_auth->is_logged_in())
+		{
+			$menu.= '
+					 <a target="_blank"  class="btn btn-link" href="'.base_url().'unauth/take_staff_att"><strong>Take Attendance</strong></a>
+					 <a  class="btn btn-link" href="'.base_url().'attendance/staff_report"><strong>Report</strong></a>
+					';
+		}
+		else
+		{
+			redirect('/auth/logout/');
+		}
+		
+		return $menu;
+	}
 	
 	function std_date_wise_report($from, $to, $class)
 	{		
@@ -53,22 +71,24 @@ class M_attendance extends CI_Model
 							table, td, th {
 								border: 1px solid black;
 							}
-				</style>";
-		
-		$data .= '<div class="table-responsive"><table class="table table-bordered" style="border:1px solid black;">'; //exceptionally nedded
-		
+				</style>";				
+				
+		$data.= '<h3>'.$this->m_common->class_struct_by_class_struct_id($class).'</h3><hr>';		
+		$data .= '<div class="table-responsive"><table class="table table-bordered" style="border:1px solid black; width:100%;">'; //exceptionally nedded	
 		$data.= '<tr>';
 		
-		$data.= '<caption><h3>'.$this->m_common->class_struct_by_class_struct_id($class).'</h3></caption>';
+		$col_size = 100/$this->dateDifference($from, $to)+2;
 		
-		$data.= '<th>Student ID</th>';
+		
+		
+		$data.= '<th width="'.$col_size.'%">Student ID</th>';
 		
 		$new_from = $from;
 		while(strtotime($to)>=strtotime($new_from))
 		{
 			$day = strtotime($new_from);
 			
-			$data.= '<th>'.date("d-m-Y", $day).'</th>';
+			$data.= '<th width="'.$col_size.'%">'.date("d-m-Y", $day).'</th>';
 			
 			$new_from = $this->add_one_day($new_from);
 		}
@@ -80,14 +100,15 @@ class M_attendance extends CI_Model
 		foreach($qry_std->result() as $qry_std_res)
 		{			
 			$data.= '<tr>';			
-			$data.= '<td>'.$this->m_profile->student_id_by_db_id($qry_std_res->std_id).'</td>';			
+			$data.= '<td width="'.$col_size.'%">'.$this->m_profile->student_id_by_db_id($qry_std_res->std_id).'</td>';			
 			
 			$new_from = $from;
 			
 			while(strtotime($to)>=strtotime($new_from))
 			{
-				$qry_att = $this->db->get_where('std_att', array('std_id'=>$qry_std_res->std_id, 'date'=>$new_from));
-				$data.= '<td>';
+				$qry_att = $this->db->get_where('std_att', array('std_id'=>$qry_std_res->std_id, 'date'=>$new_from));				
+				
+				$data.= '<td width="'.$col_size.'%">';
 				foreach($qry_att->result() as $qry_att_res)
 				{
 					if($qry_att_res->status==1)
@@ -110,15 +131,24 @@ class M_attendance extends CI_Model
 		
 		return $data;
 				
-	}
-	
-	
+	}	
 	
 	function add_one_day($from)// add one extra day to given date 
 	{
 		$date = new DateTime($from);
 		$date->add(new DateInterval('P1D'));
 		return $date->format('Y-m-d');
+	}
+	
+	function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
+	{
+		$datetime1 = date_create($date_1);
+		$datetime2 = date_create($date_2);
+	   
+		$interval = date_diff($datetime1, $datetime2);
+	   
+		return $interval->format($differenceFormat);
+	   
 	} 
 	
 

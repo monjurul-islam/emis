@@ -12,7 +12,8 @@
 </title>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/docs.min.css" rel="stylesheet">
 <link href="<?php echo base_url();?>assets/css/clock.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
@@ -37,24 +38,15 @@
 <nav class="navbar navbar-default navbar-fixed-top" >
   <div class="container">
     <div class="navbar-header">
-      <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;"><?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?></span>
-      <small> Student Attendance System</small> </a> </div>
-    	<input type="text" value="" name="rfid_no" id="rfid_no" autofocus onClick="take_attendance()" style=" float:right;  z-index:-175; position:inherit;">
+       <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;"><?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?></span><small> Staff Attendance System</small> </div>
+    <input type="text" value="" name="rfid_no" id="rfid_no" autofocus onClick="take_attendance()" style=" float:right;  z-index:-175; position:inherit;">
     <!--/.nav-collapse --> 
   </div>
 </nav>
 
 <!-- Begin page content -->
 <div class="container">
-  <div class="row"> 
-    <!--<div class="col-md-2">
-      <div class="panel panel-primary" style="min-height:450px;">
-        <div class="panel-heading" id="side_bar_head">Sider Bar</div>
-        <div class="panel-body">
-          <?php //if(isset($side_menu)) echo $side_menu;?>
-        </div>
-      </div>
-    </div>-->
+  <div class="row">
     <div class="col-md-12">
       <div class="panel panel-primary" style="min-height:700px;"> 
         <!-- Default panel contents -->
@@ -62,9 +54,13 @@
           <?php if(isset($content_title))echo $content_title; else echo 'Main Content'; ?>
           </u></div>
         <div class="panel-body" style="background:mintcream;" id="std_atd_body">
-          <div class="row" style="height:350px; ">
+          <div class="row" style="height:auto; ">
+            <div class="col-md-5"> <img style="height:400px;; width:100%;" src="<?php echo base_url();?>assets/img/student_.jpg" alt="..." class="img-thumbnail">
+              <h3 style="margin-top:7px;;">Staff's Full Name In English </h3>
+              <h4>Staff's Designation details</h4>
+            </div>
             <div class="col-md-4 ">
-              <div class="clock btn btn-block btn-success">
+              <div class="clock btn btn-block btn-primary">
                 <div id="Date"></div>
                 <ul>
                   <li id="hours"></li>
@@ -78,29 +74,27 @@
               </div>
               <hr>
               <div  style="animation:2s ease 0s reverse none infinite running mymove;"class="btn btn-danger btn-block btn-lg">Please Tap Your ID Card.</div>
-            </div>
-            <div class="col-md-4"><img style="height:330px; width:100%;" src="<?php echo base_url();?>assets/img/student_.jpg" alt="..." class="img-thumbnail"></div>
-            <div class="col-md-4">
-              <div class="btn btn-default btn-block" style=""> <span class="btn btn-lg btn-block" style="font-size:18px">Student's Name ..............</span>
-                <hr style="padding:0; margin:0; border:1px solid green;">
-                <div class="btn btn-sm"> Class: ........</div>
-                <div class="btn btn-sm"> Section: ........</div>
-                <div class="btn btn-sm"> Dept: .......</div>
+              <hr>
+              <div class="btn btn-lg btn-default btn-block">
+                <h1  style="font-size:60px;">Status: <strong class="text-success">___</strong></h1>
               </div>
-             <!-- <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time In: <span id="time_in" class="text-success">............</span></div>
-              <div class="btn btn-default btn-block" style="font-size:28px; font-weight:bolder;">Time Out: <span id="time_in" class="text-danger">............</span></div>-->
             </div>
-          </div>
-          <div class="row" >
-            <div class="col-xs-6 col-md-4 text-center"> <img style="height:250px; width:auto;" src="<?php echo base_url();?>assets/img/father.jpg" alt="..." class="img-thumbnail">
-              <h3 style="padding:0; margin:0;">Father's Name</h3>
+            <div class="col-md-3">
+              <div class="btn btn-default btn-block" style=""> <span class="btn btn-lg btn-block" style="font-size:18px">Todays Log</span>
+                <hr style="padding:0; margin:3px; border:1px solid green;">
+                <div class="btn btn-default btn-block "> In: 8.00 am</div>
+                <div class="btn btn-default btn-block "> Out: 8.00 pm</div>
+              </div>
             </div>
-            <div class="col-xs-6 col-md-4 text-center"> <img style="height:250px; width:auto;" src="<?php echo base_url();?>assets/img/mother.jpg" alt="..." class="img-thumbnail">
-              <h3 style="padding:0; margin:0;">Mother's Name</h3>
-            </div>
-            <div class="col-xs-6 col-md-4 text-center"> <img style="height:250px; width:auto;" src="<?php echo base_url();?>assets/img/gurdian.jpg" alt="..." class="img-thumbnail">
-              <h3 style=" padding:0; margin:0;">Gurdian's Name</h3>
-            </div>
+            <!--<div class="row" >
+              <div class="col-md-12 ">
+                <div class="highlight text-center">
+                  <h2 style="padding:0;margin:0;">Notice: </h2>
+                  <hr style="padding:0;margin:2px;">
+                  <h3 style="padding:0; margin:0;">Your application for Visa Approval Letter (VAL) was submitted to the Immigration Department of Malaysia for approval. Issuance of VAL is entirely at the discretion of the Immigration Department and EMGS does not have any influence over this process.</h3>
+                </div>
+              </div>
+            </div>-->
           </div>
         </div>
       </div>
