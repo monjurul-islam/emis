@@ -4,9 +4,9 @@
  * @author	s.m. monjurul islam (https://www.facebook.com/islam.rasel)
  */-->
 
-<h4>All Students <button style="float:right; margin:2px;" onclick="generate_excel('all_students')" class="btn btn-primary " >Export To Excel</button></h4>
+<h4>All Staff <button style="float:right; margin:2px;" onclick="generate_excel('all_students')" class="btn btn-primary " >Export To Excel</button></h4>
 
-<table class="table table-bordered table-striped" id="all_students">
+<table class="table table-bordered table-striped" id="all_staff">
   <thead>
     <tr>
      <th>SL.</th>
@@ -22,7 +22,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
     <?php 
 	if($qry_success == 1)
 	{
@@ -50,7 +49,6 @@
 		}
 	}
 	?>
-    </tr>
   </tbody>
 </table>
 
@@ -67,6 +65,12 @@ function staff_by_id_modal_view(staff_id)
 	
 	$('#lg_modal').modal();
 }
+
+$(document).ready(function() {
+    $('#all_staff').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
 
 </script>
 

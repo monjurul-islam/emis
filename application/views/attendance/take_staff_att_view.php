@@ -37,9 +37,10 @@
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top" >
   <div class="container">
-    <div class="navbar-header">
-       <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;"><?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?></span><small> Staff Attendance System</small> </div>
-    <input type="text" value="" name="rfid_no" id="rfid_no" autofocus onClick="take_attendance()" style=" float:right;  z-index:-175; position:inherit;">
+    <div class="navbar-header"> <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;">
+      <?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?>
+      </span><small> Staff Attendance System</small> </div>
+    <input type="text" value="" name="rfid_no" id="rfid_no" autofocus onClick="take_attendance()" style=" float:right;  z-index:-175; position:inherit; margin-top:-100px;">
     <!--/.nav-collapse --> 
   </div>
 </nav>
@@ -53,7 +54,7 @@
         <div class="panel-heading" id="content_head"><u>
           <?php if(isset($content_title))echo $content_title; else echo 'Main Content'; ?>
           </u></div>
-        <div class="panel-body" style="background:mintcream;" id="std_atd_body">
+        <div class="panel-body" style="background:mintcream;" id="staff_atd_body">
           <div class="row" style="height:auto; ">
             <div class="col-md-5"> <img style="height:400px;; width:100%;" src="<?php echo base_url();?>assets/img/student_.jpg" alt="..." class="img-thumbnail">
               <h3 style="margin-top:7px;;">Staff's Full Name In English </h3>
@@ -94,7 +95,7 @@
                   <h3 style="padding:0; margin:0;">Your application for Visa Approval Letter (VAL) was submitted to the Immigration Department of Malaysia for approval. Issuance of VAL is entirely at the discretion of the Immigration Department and EMGS does not have any influence over this process.</h3>
                 </div>
               </div>
-            </div>-->
+            </div>--> 
           </div>
         </div>
       </div>
@@ -164,10 +165,10 @@ $( "#rfid_no" ).keypress(function( event ) {
 	  {			  
 		  $.ajax({
 			type: "POST",
-			url: "<?php echo site_url();?>unauth/save_std_att/"+rfid_no,
+			url: "<?php echo site_url();?>unauth/save_staff_att/"+rfid_no,
 			dataType: "html",
 			success:function(data){
-			 $('#std_atd_body').html(data);
+			 $('#staff_atd_body').html(data);
 			},
 	  
 		  }); 

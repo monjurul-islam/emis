@@ -12,7 +12,7 @@
 </title>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/bootstrap.css" rel="stylesheet">
 <link href="<?php echo base_url();?>assets/css/clock.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
@@ -39,7 +39,7 @@
     <div class="navbar-header">
       <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;"><?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?></span>
       <small> Student Attendance System</small> </a> </div>
-    	<input type="text" value="" name="rfid_no" id="rfid_no" autofocus onClick="take_attendance()" style=" float:right;  z-index:-175; position:inherit;">
+    	<input type="text" value="" name="rfid_no" id="rfid_no" autofocus onClick="take_attendance()" style=" float:right;  z-index:-175; position:inherit; margin-top:-100px;">
     <!--/.nav-collapse --> 
   </div>
 </nav>

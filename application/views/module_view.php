@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +17,9 @@
 
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url();?>assets/css/sticky-footer-navbar.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/bootstrap-table.css">
+
+
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
@@ -25,6 +27,7 @@
 <link href="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.css" rel="stylesheet">
 <script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.plugin.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.js"></script>
+
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="<?php echo base_url();?>assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -113,6 +116,7 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
 <script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script> 
 <script src="<?php echo base_url();?>assets/jquery_ui/jquery-ui.min.js"></script> 
+<script src="<?php echo base_url();?>assets/bootstrap-table.js"></script>
 <script type="text/javascript">
 
   var win=null;
@@ -208,6 +212,7 @@ function students_by_class_structure()
 		}
 	});
 }
+
 
 </script>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="lg_modal">
