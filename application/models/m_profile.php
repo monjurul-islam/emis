@@ -49,7 +49,7 @@ class M_profile extends CI_Model
 	
 	function add_new_student()
 	{		
-		$std_pref_id = $this->generate_std_id($this->input->post('gender'));			
+		$std_pref_id = $this->generate_std_id($this->input->post('gender'),  date("y", mktime($this->input->post('year_season'))));			
 		$std_pic   = $this->pic_upload('std_pic',  $std_pref_id);
 		$m_pic     = $this->pic_upload('f_pic',	   $std_pref_id);
 	    $f_pic     = $this->pic_upload('m_pic',    $std_pref_id);
@@ -126,8 +126,8 @@ class M_profile extends CI_Model
 						'g_1_relation'   			 => $this->input->post('g_1_relation') ,
 						'g_1_national_id'   		 => $this->input->post('g_1_national_id') ,
 						'g_1_profession'			 => $this->input->post('g_1_profession') ,
-						'g_1_address'   => $this->input->post('g_1_address') ,
-						'g_1_phone'   => $this->input->post('g_1_phone') ,
+						'g_1_address'   			 => $this->input->post('g_1_address') ,
+						'g_1_phone'  				 => $this->input->post('g_1_phone') ,
 						'g_1_mobile'   => $this->input->post('g_1_mobile') ,
 						'g_1_email'   => $this->input->post('g_1_email') ,
 						'g_1_blood'   => $this->input->post('g_1_blood') ,
@@ -146,7 +146,7 @@ class M_profile extends CI_Model
 						'created_dt'			=> date("Y-m-d H:i:s")
 					);
 			
-			if( $this->input->post('class_struct') && $this->input->post('class_struct')!=NULL && $this->input->post('name') && $this->input->post('name')!=NULL && $this->input->post('f_phone') && $this->input->post('f_phone')!=NULL )
+			if( $this->input->post('class_struct') && $this->input->post('class_struct')!=NULL && $this->input->post('name') && $this->input->post('name')!=NULL )
 			{
 				if($this->db->insert('student', $data))
 				{
@@ -181,7 +181,7 @@ class M_profile extends CI_Model
 			}
 			else 
 			{
-				$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);						
+				//$data['class_struct'] = $this->m_common->get_active_class_structure_by_std_id($std_insert_id);						
 				$data['qry_success'] = 0;						
 				return $data;
 			}		
@@ -190,9 +190,9 @@ class M_profile extends CI_Model
 	// id generation functions
 	private $branch_no  = '01';
 	private $year_digit = '15';
-	private function generate_std_id($gender)
+	private function generate_std_id($gender, $year)
 	{
-		$std_id = $this->branch_no.$this->year_digit;
+		$std_id = $this->branch_no.$year;
 		
 		if($gender=="Male")	$std_id .= '2';
 		elseif($gender=="Female") $std_id .= '1';

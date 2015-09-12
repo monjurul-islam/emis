@@ -521,7 +521,7 @@ class Profile extends CI_Controller
 			
 			$data['side_menu']	= $this->m_profile->std_side_menu(); // sub feature menus for feature
 			
-			$data['content']	= $this->load->view('profile/student/student_by_class', $this->m_profile->class_struct(), true);;
+			$data['content']	= $this->load->view('profile/student/student_by_class', $this->m_profile->class_struct(), true);
 			
 			$data['page_title']		= 'Profile: Student';			
 			$data['content_title']	= 'Welcome '.$data['username'];						

@@ -22,6 +22,7 @@
 
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>assets/js/validate.js"></script>
 <script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url();?>assets/js/jspdf.js"></script>
 <link href="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.css" rel="stylesheet">
@@ -44,7 +45,7 @@
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
+  <div class="container" style="width:98%">
     <div class="navbar-header">
       <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;"><?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?></span>
      </div>
