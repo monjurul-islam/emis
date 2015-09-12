@@ -56,6 +56,14 @@
           <input   value="<?php if(isset($name_in_bangla)) echo  $name_in_bangla; ?>"  type="name" class="form-control" id="name_in_bangla" name="name_in_bangla" placeholder="Enter Students Name in Bangla">
         </div>
       </div>
+      
+      <div class="form-group">
+        <label for="rfid_no" class="col-sm-2 control-label">Card Number</label>
+        <div class="col-sm-6">
+          <input   value="<?php if(isset($rfid_no)) echo  $rfid_no; ?>"  type="name" class="form-control" id="rfid_no" name="rfid_no" placeholder="Enter RFID NO." required>
+        </div>
+      </div>
+      
       <div class="form-group">
         <label for="dob" class="col-sm-2 control-label">Date Of Birth</label>
         <div class="col-sm-3">
@@ -63,7 +71,7 @@
         </div>
         <label for="age" class="col-sm-1 control-label">Age</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" placeholder="Age" name="age" required>
+          <input  style="visibility:hidden;"  value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" placeholder="Age" name="age" required>
         </div>
         <label for="gender" class="col-sm-1 control-label">Gender</label>
         <div class="col-sm-3">
@@ -171,7 +179,7 @@
         </div>
         <label for="f_national_id" class="col-sm-2 control-label">National ID</label>
         <div class="col-sm-4">
-          <input   value="<?php if(isset($f_national_id)) echo  $f_national_id; ?>"  type="name" class="form-control" id="f_national_id" placeholder="Father's National Id Number" name="f_national_id" required>
+          <input   value="<?php if(isset($f_national_id)) echo  $f_national_id; ?>"  type="name" class="form-control" id="f_national_id" placeholder="Father's National Id Number" name="f_national_id" >
         </div>
       </div>
       <div class="form-group">

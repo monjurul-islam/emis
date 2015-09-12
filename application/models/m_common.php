@@ -221,24 +221,34 @@ class M_common extends CI_Model
 	}
 	
 	function get_active_class_structure_by_std_id($std_id)
-	{
+	{		
 		$data = '';
 		
 		$qry_class_std_map = $this->db->get_where('class_struct_std_map', array('std_id'=>$std_id, 'status'=>1));
 		
 		if($qry_class_std_map->num_rows()>0)
-		{
+		{			
 			$class_struct_id = $qry_class_std_map->row()->class_struct_id;
 			
 			$qry_class_struct_res =  $this->db->get_where('class_struct', array('id'=>$class_struct_id))->row();
 			
-			$data.= '<h4>Class: '.$this->get_class_name_by_id($qry_class_struct_res->class_id).', Section: '.$this->get_section_name_by_id($qry_class_struct_res->section_id).', Dept: '.$this->get_dept_name_by_id($qry_class_struct_res->dept_id).' </h4>';
+			$data.= 'Class: '.$this->get_class_name_by_id($qry_class_struct_res->class_id).', Section: '.$this->get_section_name_by_id($qry_class_struct_res->section_id).', Dept: '.$this->get_dept_name_by_id($qry_class_struct_res->dept_id).'<br /> ';
 			
-			$data.= '<h5>'.$this->get_edu_struct_by_id($qry_class_struct_res->edu_struct_id).', Year: '.$this->get_year_season_name_by_edu_struct_id($qry_class_struct_res->edu_struct_id).'</h5>';	
-			
+			//$data.= $this->get_edu_struct_by_id($qry_class_struct_res->edu_struct_id).', Year: '.$this->get_year_season_name_by_edu_struct_id($qry_class_struct_res->edu_struct_id);				
+			$data.= 'Year: '.$this->get_year_season_name_by_edu_struct_id($qry_class_struct_res->edu_struct_id);			
 			return $data;
-
-		}	
+		}
+		else
+		return NULL;	
+	}
+	
+	function class_struct_by_class_struct_id($id)
+	{
+		$qry_class_struct_res =  $this->db->get_where('class_struct', array('id'=>$id))->row();
+			
+		$data = 'Class: '.$this->get_class_name_by_id($qry_class_struct_res->class_id).', Section: '.$this->get_section_name_by_id($qry_class_struct_res->section_id).', Dept: '.$this->get_dept_name_by_id($qry_class_struct_res->dept_id);
+		
+		return $data;
 	}
 	
 }

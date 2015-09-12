@@ -13,12 +13,13 @@
 </title>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/bootstrap.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url();?>assets/css/sticky-footer-navbar.css" rel="stylesheet">
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="<?php echo base_url();?>assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -36,11 +37,9 @@
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="#">
-      <?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?>
-      </a> </div>
+   <div class="navbar-header">
+      <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;"><?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?></span>
+     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo base_url(); ?>">Home</a></li>
@@ -100,5 +99,6 @@
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script> 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
 <script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="<?php echo base_url();?>assets/jquery_ui/jquery-ui.min.js"></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,15 +12,20 @@
 </title>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url();?>assets/css/datepicker.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="<?php echo base_url();?>assets/css/sticky-footer-navbar.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/bootstrap-table.css">
+
+
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
-
-<script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.css"></script>
-
+<script src="<?php echo base_url();?>assets/js/validate.js"></script>
+<script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url();?>assets/js/jspdf.js"></script>
+<link href="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.css" rel="stylesheet">
 <script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.plugin.js"></script>
 <script src="<?php echo base_url();?>assets/js/jquery.timeentry.package-2.0.1/jquery.timeentry.js"></script>
 
@@ -41,12 +45,10 @@
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
+  <div class="container" style="width:98%">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="navbar-brand" href="#">
-      <?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?>
-      </a> </div>
+      <img src="<?php echo base_url(); ?>assets/img/logo.png " style=" height:50px;"> <span style="padding:3px; font-size:18px;"><?php if(isset($org_name))echo $org_name; else echo '___NotSET___'; ?></span>
+     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="<?php echo base_url(); ?>">Home</a></li>
@@ -72,7 +74,11 @@
   <div class="row">
     <div class="col-md-2">
       <div class="panel panel-primary" style="min-height:450px;">
-        <div class="panel-heading" id="side_bar_head"><h4><?php if(isset($feature_name)) echo $feature_name;?></h4></div>
+        <div class="panel-heading" id="side_bar_head">
+          <h4>
+            <?php if(isset($feature_name)) echo $feature_name;?>
+          </h4>
+        </div>
         <div class="panel-body" style="padding-left:0px !important;">
           <?php if(isset($side_menu)) echo $side_menu;?>
         </div>
@@ -91,13 +97,10 @@
     </div>
   </div>
   
-<!--  <a class="btn btn-info" href="#" onclick="printIt(document.getElementById('printable').innerHTML); return true">Print</a>
+  <!--  <a class="btn btn-info" href="#" onclick="printIt(document.getElementById('printable').innerHTML); return true">Print</a>
 --> 
-
+  
 </div>
-
-
-
 <footer class="footer">
   <div class="container">
     <p class="text-muted">
@@ -112,7 +115,9 @@
 
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script> 
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
-<script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script>
+<script src="<?php echo base_url();?>assets/js/ie10-viewport-bug-workaround.js"></script> 
+<script src="<?php echo base_url();?>assets/jquery_ui/jquery-ui.min.js"></script> 
+<script src="<?php echo base_url();?>assets/bootstrap-table.js"></script>
 <script type="text/javascript">
 
   var win=null;
@@ -173,18 +178,48 @@ function base64_encode (data) {
 
 }
 
+function edu_struct_by_year()
+{
+	$("#edu_struct").html("loading...");	
+	var year_id = $('#year_season').val();	
+	$.ajax({		
+		 url:  "<?php echo site_url("profile/ajax_edu_struct_by_year")?>/"+year_id,		
+		 success: function(html){
+		 $("#edu_struct").html(html);
+		}
+	});
+}
+
+function class_struct_by_edu_struct_as_option()
+{
+	$("#class_struct").html("<h2>loading...</h2>");	
+	var edu_struct_id = $('#edu_struct').val();	
+	$.ajax({		
+		 url:  "<?php echo site_url("profile/ajax_class_struct_by_edu_struct_as_option")?>/"+edu_struct_id,		
+		 success: function(html){
+		 $("#class_struct").html(html);
+		}
+	});
+}
+
+function students_by_class_structure()
+{
+	$("#students_by_class").html("<h2>loading...</h2>");	
+	var class_struct_id = $('#class_struct').val();	
+	$.ajax({		
+		 url:  "<?php echo site_url("profile/ajax_students_by_class_structure")?>/"+class_struct_id,		
+		 success: function(html){
+		 $("#students_by_class").html(html);
+		}
+	});
+}
+
+
 </script>
-
-
-
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="lg_modal">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content" id="modal_content" style="overflow-x:hidden; padding:5px;" >
-      ...
-    </div>
+    <div class="modal-content" id="modal_content" style="overflow-x:hidden; padding:5px;" > ... </div>
   </div>
 </div>
-
-
 </body>
 </html>

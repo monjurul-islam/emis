@@ -22,7 +22,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
     <?php 
 	if($qry_success == 1)
 	{
@@ -55,7 +54,6 @@
 		}
 	}
 	?>
-    </tr>
   </tbody>
 </table>
 
@@ -72,6 +70,12 @@ function students_by_id_modal_view(std_id)
 	
 	$('#lg_modal').modal();
 }
+
+$(document).ready(function() {
+    $('#std_by_cls_structure').DataTable( {
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+    } );
+} );
 
 </script>
 

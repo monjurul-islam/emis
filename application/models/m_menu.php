@@ -145,5 +145,5 @@ class M_menu extends CI_Model
 	
 }
 
-/* End of file m_common.php */
-/* Location: ./application/models/public/m_common.php */
+/* End of file m_menu.php */
+/* Location: ./application/models/public/m_menu.php */

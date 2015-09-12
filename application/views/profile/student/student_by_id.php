@@ -1,6 +1,6 @@
-
 <!--<button style="float:right; margin:2px;" id="std_by_id" class="btn btn-primary " >Print</button>
---><form id="student_form" class="form-horizontal" style=" cursor:text !important;" >
+-->
+<form id="student_form" class="form-horizontal" style=" cursor:text !important;" >
   <h2>Student ID :
     <?php if(isset($std_id)) echo  $std_id;?>
   </h2>
@@ -32,13 +32,19 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="rfid_no" class="col-sm-3 control-label">Card Number</label>
+            <div class="col-sm-9">
+              <input disabled value="<?php if(isset($rfid_no)) echo  $rfid_no; ?>"  type="name" class="form-control" id="rfid_no" name="rfid_no" placeholder="Enter RFID NO." required>
+            </div>
+          </div>
+          <div class="form-group">
             <label for="dob" class="col-sm-3 control-label">Date Of Birth</label>
             <div class="col-sm-4">
               <input  disabled value="<?php if(isset($dob)) echo  $dob; ?>"  type="date" class="form-control" id="dob" "DOB" name="dob" required>
             </div>
             <label for="age" class="col-sm-1 control-label">Age</label>
             <div class="col-sm-4">
-              <input  disabled value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" "Age" name="age" required>
+              <input style="visibility:hidden;"  disabled value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" "Age" name="age" required>
             </div>
           </div>
           <div class="form-group">
@@ -507,7 +513,6 @@
       </div>
     </div>
   </div>
-  
   <div class="row" style="background:skyblue;">
     <div class="col-md-12">
       <h1 align="center"><u>Images</u>
@@ -516,29 +521,22 @@
       <div class="form-group" style="overflow:hidden;">
         <div class="col-sm-3">
           <label for="std_pic">Student's Picture</label>
-          <img src="<?php if(isset($std_pic)) echo base_url().'assets/pic/'.$std_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px;">
-        </div>
+          <img src="<?php if(isset($std_pic)) echo base_url().'assets/pic/'.$std_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px;"> </div>
         <div class="col-sm-3">
           <label for="std_pic">Father's Picture</label>
-           <img src="<?php if(isset($f_pic)) echo base_url().'assets/pic/'.$f_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px !important;">
-        </div>
+          <img src="<?php if(isset($f_pic)) echo base_url().'assets/pic/'.$f_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px !important;"> </div>
         <div class="col-sm-3">
           <label for="std_pic">Mother's Picture</label>
-            <img src="<?php if(isset($m_pic)) echo base_url().'assets/pic/'.$m_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px;">
-        </div>
+          <img src="<?php if(isset($m_pic)) echo base_url().'assets/pic/'.$m_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px;"> </div>
         <div class="col-sm-3">
           <label for="std_pic">Guardian's Picture</label>
-            <img src="<?php if(isset($g_1_pic)) echo base_url().'assets/pic/'.$g_1_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px !important;">
-        </div>
+          <img src="<?php if(isset($g_1_pic)) echo base_url().'assets/pic/'.$g_1_pic; ?>" alt="<?php if(isset($std_id)) echo  $std_id;?>" class="img-thumbnail" style="height:170px; width:170px !important;"> </div>
       </div>
     </div>
   </div>
-  
   <br />
   <div class="form-group">
     <div class="col-sm-9"> </div>
     <div class="col-sm-3"> <a class="btn btn-primary" href="<?php echo base_url(); ?>profile/edit_student/<?php echo $id; ?>">Edit Student</a></div>
   </div>
 </form>
-
-

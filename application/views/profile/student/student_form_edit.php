@@ -66,14 +66,22 @@
           <input   value="<?php if(isset($name_in_bangla)) echo  $name_in_bangla; ?>"  type="name" class="form-control" id="name_in_bangla" name="name_in_bangla" placeholder="Enter Students Name in Bangla">
         </div>
       </div>
+      
+      <div class="form-group">
+        <label for="rfid_no" class="col-sm-2 control-label">Card Number</label>
+        <div class="col-sm-6">
+          <input value="<?php if(isset($rfid_no)) echo  $rfid_no; ?>"  type="name" class="form-control" id="rfid_no" name="rfid_no" placeholder="Enter RFID NO." required>
+        </div>
+      </div>
+      
       <div class="form-group">
         <label for="dob" class="col-sm-2 control-label">Date Of Birth</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($dob)) echo  $dob; ?>"  type="date" class="form-control" id="dob" placeholder="DOB" name="dob" required>
+          <input   value="<?php if(isset($dob)) echo  $dob; ?>"  type="date" class="form-control" id="dob" placeholder="DOB" name="dob" >
         </div>
         <label for="age" class="col-sm-1 control-label">Age</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" placeholder="Age" name="age" required>
+          <input   style="visibility:hidden;" value="<?php if(isset($age)) echo  $age; ?>"  type="name" class="form-control" id="age" placeholder="Age" name="age" >
         </div>
         <label for="gender" class="col-sm-1 control-label">Gender</label>
         <div class="col-sm-3">
@@ -87,7 +95,7 @@
       <div class="form-group">
         <label for="blood" class="col-sm-2 control-label">Blood</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($blood)) echo  $blood; ?>"  type="name" class="form-control" id="blood" placeholder="blood" name="blood" required>
+          <input   value="<?php if(isset($blood)) echo  $blood; ?>"  type="name" class="form-control" id="blood" placeholder="blood" name="blood" >
         </div>
         <label for="nationality" class="col-sm-1 control-label">Nationality</label>
         <div class="col-sm-2">
@@ -95,7 +103,7 @@
         </div>
         <label for="religion" class="col-sm-1 control-label">Religion</label>
         <div class="col-sm-3">
-          <select class="form-control"  id="religion" name="religion"  required>
+          <select class="form-control"  id="religion" name="religion"  >
             <option value="<?php if(isset($religion)) echo  $religion; ?>" selected="selected"><?php if(isset($religion)) echo  $religion; ?></option>
             <option>Islam</option>
             <option>Hindu</option>
@@ -110,7 +118,7 @@
         </div>
         <label for="permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="permanent_address" id="permanent_address" required rows="3" ><?php if(isset($permanent_address)) echo  $permanent_address; ?></textarea>
+          <textarea  class="form-control" name="permanent_address" id="permanent_address"  rows="3" ><?php if(isset($permanent_address)) echo  $permanent_address; ?></textarea>
         </div>
       </div>
     </div>
@@ -181,13 +189,13 @@
         </div>
         <label for="f_national_id" class="col-sm-2 control-label">National ID</label>
         <div class="col-sm-4">
-          <input   value="<?php if(isset($f_national_id)) echo  $f_national_id; ?>"  type="name" class="form-control" id="f_national_id" placeholder="Father's National Id Number" name="f_national_id" required>
+          <input   value="<?php if(isset($f_national_id)) echo  $f_national_id; ?>"  type="name" class="form-control" id="f_national_id" placeholder="Father's National Id Number" name="f_national_id" >
         </div>
       </div>
       <div class="form-group">
         <label for="f_religion" class="col-sm-2 control-label">Religion</label>
         <div class="col-sm-3">
-          <select class="form-control"  id="f_religion" name="f_religion"  required>
+          <select class="form-control"  id="f_religion" name="f_religion"  >
             <option value="<?php if(isset($f_religion)) echo  $f_religion; ?>" selected="selected"><?php if(isset($f_religion)) echo  $f_religion; ?></option>
             <option>Islam</option>
             <option>Hindu</option>
@@ -202,7 +210,7 @@
       <div class="form-group">
         <label for="f_profession" class="col-sm-2 control-label">Father's Profession</label>
         <div class="col-sm-6">
-          <input   value="<?php if(isset($f_profession)) echo  $f_profession; ?>"  type="name" class="form-control" id="f_profession" name="f_profession" placeholder="Enter Father's Profession" required>
+          <input   value="<?php if(isset($f_profession)) echo  $f_profession; ?>"  type="name" class="form-control" id="f_profession" name="f_profession" placeholder="Enter Father's Profession" >
         </div>
       </div>
       <div class="form-group">
@@ -218,17 +226,17 @@
         </div>
         <label for="f_income" class="col-sm-2 control-label">Father's Yearly Income(BDT)</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($f_income)) echo  $f_income; ?>"  type="name" class="form-control" id="f_income" name="f_income" placeholder="Father's Yearly Income" required>
+          <input   value="<?php if(isset($f_income)) echo  $f_income; ?>"  type="name" class="form-control" id="f_income" name="f_income" placeholder="Father's Yearly Income" >
         </div>
       </div>
     <div class="form-group">
         <label for="f_present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="f_present_address" id="f_present_address" rows="3" required><?php if(isset($f_present_address)) echo  $f_present_address; ?></textarea>
+          <textarea  class="form-control" name="f_present_address" id="f_present_address" rows="3" ><?php if(isset($f_present_address)) echo  $f_present_address; ?></textarea>
         </div>
         <label for="f_permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="f_permanent_address" id="f_permanent_address" rows="3" required><?php if(isset($f_permanent_address)) echo  $f_permanent_address; ?></textarea>
+          <textarea  class="form-control" name="f_permanent_address" id="f_permanent_address" rows="3" ><?php if(isset($f_permanent_address)) echo  $f_permanent_address; ?></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -238,7 +246,7 @@
         </div>
         <label for="f_mobile" class="col-sm-2 control-label">Mobile</label>
         <div class="col-sm-4">
-          <input   value="<?php if(isset($f_mobile)) echo  $f_mobile; ?>"  type="text" class="form-control" id="f_mobile" name="f_mobile" placeholder="Enter Mobile Number" required>
+          <input   value="<?php if(isset($f_mobile)) echo  $f_mobile; ?>"  type="text" class="form-control" id="f_mobile" name="f_mobile" placeholder="Enter Mobile Number" >
         </div>
       </div>
       <div class="form-group">
@@ -248,7 +256,7 @@
         </div>
         <label for="f_blood" class="col-sm-2 control-label">Blood</label>
         <div class="col-sm-4">
-          <input   value="<?php if(isset($f_blood)) echo  $f_blood; ?>"  type="name" class="form-control" id="f_blood" placeholder="blood" name="f_blood" required>
+          <input   value="<?php if(isset($f_blood)) echo  $f_blood; ?>"  type="name" class="form-control" id="f_blood" placeholder="blood" name="f_blood" >
         </div>
       </div>
       <h3 align="center"><u>Mother</u></h3>
@@ -277,7 +285,7 @@
       <div class="form-group">
         <label for="m_religion" class="col-sm-2 control-label">Religion</label>
         <div class="col-sm-3">
-          <select class="form-control"  id="m_religion" name="m_religion"  required>
+          <select class="form-control"  id="m_religion" name="m_religion"  >
             <option value="<?php if(isset($m_religion)) echo  $m_religion; ?>" selected="selected"><?php if(isset($m_religion)) echo  $m_religion; ?></option>
             <option>Islam</option>
             <option>Hindu</option>
@@ -292,7 +300,7 @@
       <div class="form-group">
         <label for="m_profession" class="col-sm-2 control-label">Mother's Profession</label>
         <div class="col-sm-6">
-          <input   value="<?php if(isset($m_profession)) echo  $m_profession; ?>"  type="name" class="form-control" id="m_profession" name="m_profession" placeholder="Enter Mother's Profession" required>
+          <input   value="<?php if(isset($m_profession)) echo  $m_profession; ?>"  type="name" class="form-control" id="m_profession" name="m_profession" placeholder="Enter Mother's Profession" >
         </div>
       </div>
       <div class="form-group">
@@ -308,17 +316,17 @@
         </div>
         <label for="m_income" class="col-sm-2 control-label">Mother's Yearly Income(BDT)</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($m_income)) echo  $m_income; ?>"  type="name" class="form-control" id="m_income" name="m_income" placeholder="Mother's Yearly Income" required>
+          <input   value="<?php if(isset($m_income)) echo  $m_income; ?>"  type="name" class="form-control" id="m_income" name="m_income" placeholder="Mother's Yearly Income" >
         </div>
       </div>
      <div class="form-group">
         <label for="m_present_address" class="col-sm-2 control-label">Present Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="m_present_address" id="m_present_address" rows="3" required ><?php if(isset($m_present_address)) echo  $m_present_address; ?></textarea>
+          <textarea  class="form-control" name="m_present_address" id="m_present_address" rows="3"  ><?php if(isset($m_present_address)) echo  $m_present_address; ?></textarea>
         </div>
         <label for="m_permanent_address" class="col-sm-2 control-label">Permanent Address</label>
         <div class="col-sm-4">
-          <textarea  class="form-control" name="m_permanent_address" id="m_permanent_address" rows="3" required ><?php if(isset($m_permanent_address)) echo  $m_permanent_address; ?></textarea>
+          <textarea  class="form-control" name="m_permanent_address" id="m_permanent_address" rows="3"  ><?php if(isset($m_permanent_address)) echo  $m_permanent_address; ?></textarea>
         </div>
       </div>
       <div class="form-group">
@@ -328,7 +336,7 @@
         </div>
         <label for="m_mobile" class="col-sm-2 control-label">Mobile</label>
         <div class="col-sm-4">
-          <input   value="<?php if(isset($m_mobile)) echo  $m_mobile; ?>"  type="text" class="form-control" id="m_mobile" name="m_mobile" placeholder="Enter Mobile Number" required>
+          <input   value="<?php if(isset($m_mobile)) echo  $m_mobile; ?>"  type="text" class="form-control" id="m_mobile" name="m_mobile" placeholder="Enter Mobile Number" >
         </div>
       </div>
       <div class="form-group">
@@ -338,7 +346,7 @@
         </div>
         <label for="m_blood" class="col-sm-2 control-label">Blood</label>
         <div class="col-sm-4">
-          <input   value="<?php if(isset($m_blood)) echo  $m_blood; ?>"  type="name" class="form-control" id="m_blood" placeholder="blood" name="m_blood" required>
+          <input   value="<?php if(isset($m_blood)) echo  $m_blood; ?>"  type="name" class="form-control" id="m_blood" placeholder="blood" name="m_blood" >
         </div>
       </div>
     </div>
@@ -475,47 +483,47 @@
       <div class="form-group">
         <label for="adm_written_mark" class="col-sm-1 control-label">Writen</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($adm_written_mark)) echo  $adm_written_mark; ?>"  type="number" class="form-control" id="adm_written_mark" name="adm_written_mark" placeholder="Written Marks" required>
+          <input   value="<?php if(isset($adm_written_mark)) echo  $adm_written_mark; ?>"  type="number" class="form-control" id="adm_written_mark" name="adm_written_mark" placeholder="Written Marks" >
         </div>
         <label for="adm_student_viva_mark" class="col-sm-1 control-label">Student's Viva</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($adm_student_viva_mark)) echo  $adm_student_viva_mark; ?>"  type="number" class="form-control" id="adm_student_viva_mark" placeholder="Viva Marks" name="adm_student_viva_mark" required>
+          <input   value="<?php if(isset($adm_student_viva_mark)) echo  $adm_student_viva_mark; ?>"  type="number" class="form-control" id="adm_student_viva_mark" placeholder="Viva Marks" name="adm_student_viva_mark" >
         </div>
         <label for="adm_parents_viva_mark" class="col-sm-1 control-label">Parents's Viva</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($adm_parents_viva_mark)) echo  $adm_parents_viva_mark; ?>"  type="number" class="form-control" id="adm_parents_viva_mark" placeholder="Viva Marks" name="adm_parents_viva_mark" required>
+          <input   value="<?php if(isset($adm_parents_viva_mark)) echo  $adm_parents_viva_mark; ?>"  type="number" class="form-control" id="adm_parents_viva_mark" placeholder="Viva Marks" name="adm_parents_viva_mark" >
         </div>
         <label for="adm_medical_test_mark" class="col-sm-1 control-label">Medical Test</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($adm_medical_test_mark)) echo  $adm_medical_test_mark; ?>"  type="number" class="form-control" id="adm_medical_test_mark" placeholder="Medical Test" name="adm_medical_test_mark" required>
+          <input   value="<?php if(isset($adm_medical_test_mark)) echo  $adm_medical_test_mark; ?>"  type="number" class="form-control" id="adm_medical_test_mark" placeholder="Medical Test" name="adm_medical_test_mark" >
         </div>
       </div>
       <div class="form-group">
         <label for="adm_physical_test_mark" class="col-sm-1 control-label">Physical Test</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($adm_physical_test_mark)) echo  $adm_physical_test_mark; ?>"  type="number" class="form-control" id="adm_physical_test_mark" name="adm_physical_test_mark" placeholder="Physical Test" required>
+          <input   value="<?php if(isset($adm_physical_test_mark)) echo  $adm_physical_test_mark; ?>"  type="number" class="form-control" id="adm_physical_test_mark" name="adm_physical_test_mark" placeholder="Physical Test" >
         </div>
         <label for="adm_total_mark" class="col-sm-2 control-label">Total Marks</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($adm_total_mark)) echo  $adm_total_mark; ?>"  type="number" class="form-control" id="adm_total_mark" placeholder="Total Marks" name="adm_total_mark" required>
+          <input   value="<?php if(isset($adm_total_mark)) echo  $adm_total_mark; ?>"  type="number" class="form-control" id="adm_total_mark" placeholder="Total Marks" name="adm_total_mark" >
         </div>
         <label for="adm_outof_mark" class="col-sm-1 control-label">Out Of Mark</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($adm_outof_mark)) echo  $adm_outof_mark; ?>"  type="number" class="form-control" id="adm_outof_mark" placeholder="Out Of Mark" name="adm_outof_mark" required>
+          <input   value="<?php if(isset($adm_outof_mark)) echo  $adm_outof_mark; ?>"  type="number" class="form-control" id="adm_outof_mark" placeholder="Out Of Mark" name="adm_outof_mark" >
         </div>
       </div>
       <div class="form-group">
         <label for="adm_fee" class="col-sm-1 control-label">Admission Fee(BDT)</label>
         <div class="col-sm-2">
-          <input   value="<?php if(isset($adm_fee)) echo  $adm_fee; ?>"  type="number" class="form-control" id="adm_fee" name="adm_fee" placeholder="Admission Fee" required>
+          <input   value="<?php if(isset($adm_fee)) echo  $adm_fee; ?>"  type="number" class="form-control" id="adm_fee" name="adm_fee" placeholder="Admission Fee" >
         </div>
         <label for="adm_prime_bank_branch" class="col-sm-2 control-label">Prime Bank(Branch)</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($adm_prime_bank_branch)) echo  $adm_prime_bank_branch; ?>"  type="name" class="form-control" id="adm_prime_bank_branch" placeholder="Prime Bank(Branch)" name="adm_prime_bank_branch" required>
+          <input   value="<?php if(isset($adm_prime_bank_branch)) echo  $adm_prime_bank_branch; ?>"  type="name" class="form-control" id="adm_prime_bank_branch" placeholder="Prime Bank(Branch)" name="adm_prime_bank_branch" >
         </div>
         <label for="adm_date" class="col-sm-1 control-label">Admission Date</label>
         <div class="col-sm-3">
-          <input   value="<?php if(isset($adm_date)) echo  $adm_date; ?>"  type="date" class="form-control" id="adm_date" placeholder="Admission Date" name="adm_date" required>
+          <input value="<?php if(isset($adm_date)) echo  $adm_date; ?>"  type="text" class="form-control" id="adm_date" placeholder="Admission Date" name="adm_date" >
         </div>
       </div>
     </div>
